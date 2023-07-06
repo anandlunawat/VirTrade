@@ -1,10 +1,11 @@
 import Cards from "./Cards";
+import Withdrawal from "./Withdrawal";
 
 export default function Dashboard() {
     return (
         <div className="text-white py-20 h-screen ml-[30%] flex flex-col mr-4">
             <span className="text-base">WELCOME!</span>
-            <div className="flex flex-row w-[100%] gap-4">
+            <div className="flex pt-2 flex-row w-[100%] gap-4">
                 <span className="basis-1/2">User</span>
                 <div className="flex gap-4 ml-auto">
                     <button className="px-2 py-1 bg-gray-600 rounded-lg">Send Funds</button>
@@ -26,8 +27,8 @@ export default function Dashboard() {
                 <span className="font-light basis-1/2">Recent Activity</span>
                 <button className="ml-auto font-light text-orange-500 ">See History</button>
             </div>
-            <div className="flex flex-col">
-                
+            <div className="flex flex-col pt-4">
+                <Withdrawal />
             </div>
         </div>
     )
