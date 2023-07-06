@@ -1,5 +1,5 @@
 import {RiStockLine} from 'react-icons/ri'
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 
 export default function Details() {
     const style = {

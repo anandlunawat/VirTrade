@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { status } from "../../Auth";
+import { logout } from "../../../actions/logout";
 
-export function Navbar() {
+export default function Navbar() {
   return (
-    <div className="flex flex-row items-center w-full mb-4 text-white bg-opacity-25 bg-slate-600 max-sm:justify-start\">
+    <div className="flex flex-row fixed top-0 items-center w-full mb-4 text-white bg-opacity-70 bg-[#2a2929] max-sm:justify-start\">
       <div className="text-3xl font-extrabold text-orange-500 ml-7 basis-3/4 max-sm:ml-2">
         <Link href="/">VirTrade</Link>
       </div>
@@ -14,10 +14,12 @@ export function Navbar() {
           </button>
         </Link>
         {
-          status ? (
+          ((typeof window !== 'undefined') ? localStorage.getItem("feedToken") : false)
+            ? (
             <Link
             className="p-1 bg-orange-500 rounded-md basis-1/4 max-sm:hidden w-96"
-            href="https://www.angelone.in/open-demat-account"
+            href="/"
+            onClick={logout}
           >
             Logout
           </Link>

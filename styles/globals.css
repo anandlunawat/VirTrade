@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+  /* Optional: This ensures the page doesn't shift when the scrollbar disappears */
+  ::-webkit-scrollbar {
+    width: 0em;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+  }

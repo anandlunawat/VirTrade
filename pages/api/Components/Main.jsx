@@ -1,11 +1,6 @@
 import Link from "next/link";
-import { useState } from "react";
 
-// const style = {
-//     borderImage : 'linear-gradient(to bottom, #2E2E2E 60%, #F97316 70%)',
-//     borderImageSlice : 1
-// }
-export function Main() {
+export default function Main() {
     return (
         <div className="flex flex-row flex-wrap items-center justify-center w-11/12 max-sm:flex-col max-sm:ml-2">
             <div className="items-center text-white basis-1/2">
@@ -33,7 +28,7 @@ export function Main() {
                 </div>
             </div>
             <div className="items-center justify-center pointer-events-none basis-1/2">
-                <img alt="vector" className="max-sm:w-70 max-sm:h-70" src="/Landing-page.png" />
+                <img alt="vector" className="max-sm:hidden" src="/Landing-page.png" />
             </div>
         </div>
     );

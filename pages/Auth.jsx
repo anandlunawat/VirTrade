@@ -1,9 +1,7 @@
 import Link from "next/link";
-import { useEffect, useState} from "react";
+import {useState} from "react";
+import {Login} from "../actions/login";
 import {useRouter} from 'next/router'
-import axios from "axios";
-
-export var status = false
 
 export default function Auth() {
     const [cred,setCred] = useState({
@@ -11,60 +9,17 @@ export default function Auth() {
         pass:"",
         totp:""
     })
-    const [In,SetIn] = useState(false)
     const router = useRouter()
-    const [authorised,setAuthorised] = useState(false)
-    useEffect( ()=> {
-        if(In) {
-            async function Done () {
-                var data = JSON.stringify({
-                    "clientcode": cred.cc,
-                    "password": cred.pass,
-                    "totp": cred.totp
-                });
-                var config = {
-                    method: 'post',
-                    url: 'https://apiconnect.angelbroking.com/rest/auth/angelbroking/user/v1/loginByPassword',
-                    headers : {
-                      'Content-Type': 'application/json',
-                      'Accept': 'application/json',
-                      'X-UserType': 'USER',
-                      'X-SourceID': 'WEB',
-                      'X-ClientLocalIP': "192.168.1.10",
-                      'X-ClientPublicIP': "192.168.43.134",
-                      'X-MACAddress': "14-18-C3-33-66-CA",
-                      'X-PrivateKey': "nEH9iQOS"
-                    },
-                    data : data
-                };
-                try {
-                    const {data} = await axios(config)
-                    console.log("Line 31",data)
-                    if(data.status) {
-                        setAuthorised(true)
-                        status = !authorised
-                        router.push("/Dashboard")
-                    } else {
-                        alert("Incorrect ID or password.")
-                    }
-                }
-                catch (e) {
-                    console.log(e)
-                }
-            }
-            Done()
-            SetIn(false)
-            setAuthorised(false)
-        }
-    },[In])
-    async function Login (e) {
+    async function login (e) {
         e.preventDefault();
-        SetIn(true)
+        const data = await Login(cred.cc,cred.pass,cred.totp)
+        data ? router.push("/Market") : alert("Error")
     }
     function updateChange(event) {
         const {value,name} = event.target
         setCred((preValue) => {
             if(name === "clientCode") {
+                localStorage.setItem("clientCode",value)
                 return {
                     cc : value,
                     pass : preValue.pass,
@@ -86,12 +41,12 @@ export default function Auth() {
         })
     }
     return (
-        <div className="bg-[url(/BG_IMAGE.png)] w-screen h-screen">
-            <div className="left-0 absolute top-20 flex flex-row gap-9 items-center justify-center right-0 ml-[25%] mr-[25%] p-5 border-[1px] border-slate-600 border-opacity-25 bg-slate-500 bg-opacity-25 rounded-xl max-lg:flex-col ">
+        <div className="bg-[url(/BG_IMAGE.png)] h-screen">
+            <div className="left-0 absolute top-20 flex flex-row gap-9 items-center justify-center right-0 ml-[25%] mr-[25%] p-5 border-[1px] border-slate-600 border-opacity-25 bg-[#2a2929] bg-opacity-25 rounded-xl max-lg:flex-col ">
             <div className="justify-center text-5xl font-extrabold text-orange-500 max-sm:text-3xl">
                 <Link href="/">VirTrade</Link>
             </div>
-            <form onSubmit={Login} className="flex flex-col w-full p-6 text-white bg-transparent border-l-2 gap-9 max-sm:border-l-0 max-sm:p-0 max-sm:w-full max-lg:border-l-0 max-lg:p-0 max-lg:w-full" method="post">
+            <form onSubmit={login} className="flex flex-col w-full p-6 text-white bg-transparent border-l-2 gap-9 max-sm:border-l-0 max-sm:p-0 max-sm:w-full max-lg:border-l-0 max-lg:p-0 max-lg:w-full" method="post">
                 <div className="relative">
                     <input type="text" id="cc" name="clientCode" className="bg-transparent border-b-[2px] w-full peer/cc focus:outline-none focus:border-orange-500 placeholder-transparent" placeholder="Client Code" onChange={updateChange}></input>
                     <label className="absolute left-0 text-orange-500 pointer-events-none -top-6 peer-placeholder-shown/cc:text-white peer-placeholder-shown/cc:-top-1.5 peer-focus/cc:text-orange-500 peer-focus/cc:-top-6">Client Code</label>
