@@ -1,6 +1,6 @@
 export default function SideDrawer() {
     return (
-        <div className="fixed left-0 top-[70px] h-[82vh] overflow-y-auto w-[25%]">
+        <div className="fixed max-xl:hidden left-0 top-[70px] h-[82vh] overflow-y-auto w-[25%]">
             <div className="flex flex-col gap-2 p-2">
                 <div className="flex flex-col gap-2 pb-4 border-b-2 border-[#2a2929]">
                     <span>MAIN ACCOUNT BALANCE</span>
@@ -27,9 +27,9 @@ export default function SideDrawer() {
                 </div>
                 <div className="flex flex-col p-4 text-white bg-[#2a2929] bg-opacity-80">
                     <span className="text-white">Menu</span>
-                    <button className="w-full p-1 pt-1 text-center rounded-lg hover:bg-orange-500 hover:text-black">Staking</button>
-                    <button className="w-full p-1 text-center rounded-lg hover:bg-orange-500 hover:text-black">Dashboard</button>
-                    <button className="w-full p-1 text-center rounded-lg hover:bg-orange-500 hover:text-black">Transactions</button>
+                    <button className="w-full p-1 pt-1 text-center rounded-lg hover:bg-orange-500 hover:text-black" onClick={()=>{window.location = "/Staking"}}>Staking</button>
+                    <button className="w-full p-1 text-center rounded-lg hover:bg-orange-500 hover:text-black" onClick={()=>{window.location = "/Dashboard"}}>Dashboard</button>
+                    <button className="w-full p-1 text-center rounded-lg hover:bg-orange-500 hover:text-black" >Transactions</button>
                     <button className="w-full p-1 text-center rounded-lg hover:bg-orange-500 hover:text-black">Investment</button>
                     <button className="w-full p-1 text-center rounded-lg hover:bg-orange-500 hover:text-black">Our Plans</button>
                     <button className="w-full p-1 text-center rounded-lg hover:bg-orange-500 hover:text-black">My Profile</button>
