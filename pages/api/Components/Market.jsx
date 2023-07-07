@@ -10,7 +10,7 @@ const Market = ({children}) => {
     return (        
         <div className="h-screen overflow-hidden text-white max-md:h-fit top-16">            
             <SideDrawer />
-            <div>{children}</div>                
+            <div className="bg-black">{children}</div>                
         </div>
     )
 }
