@@ -15,7 +15,7 @@ export default function Main() {
                     </p>
                 </div>
                 <div className="flex flex-row gap-3 mt-8 basis-1/3">
-                    <div className="w-full p-2 text-lg font-semibold text-center bg-green-500 rounded-md basis-1/6">
+                    <div className="w-full p-2 text-lg font-semibold text-center text-black bg-green-500 rounded-md basis-1/6">
                         <a
                             href="https://www.angelone.in/open-demat-account"
                         >
