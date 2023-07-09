@@ -1,8 +1,14 @@
 import Link from "next/link";
 import { logout } from "../../../actions/logout";
+import { useState,useEffect } from "react";
 
 export default function Navbar() {
+  const[hydrated,isHydrated] = useState(false)
+  useEffect(()=>{
+    isHydrated(true)
+  },[])
   return (
+    !hydrated ? null :
     <div className="flex flex-row fixed top-0 items-center w-full mb-4 text-white bg-opacity-40 bg-[#262424] max-sm:justify-start\">
       <div className="text-3xl font-extrabold text-green-500 ml-7 basis-3/4 max-sm:ml-2">
         <Link href="/">VirTrade</Link>

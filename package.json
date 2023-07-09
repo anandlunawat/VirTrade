@@ -20,14 +20,14 @@
     "react-icons": "^4.10.1",
     "require": "^2.4.20",
     "smartapi-angelbroking": "^1.0.2",
-    "smartapi-javascript": "^1.0.14",
+    "smartapi-javascript": "^1.0.15",
     "smartapi-javascript-next": "^1.0.1-4.6",
     "stock-nse-india": "^1.1.1",
     "superjson": "^1.11.0",
     "three": "^0.147.0",
     "us": "^2.0.0",
     "vanta": "^0.5.24",
-    "ws": "^8.11.0"
+    "ws": "^8.13.0"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
