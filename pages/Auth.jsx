@@ -13,7 +13,7 @@ export default function Auth() {
     async function login (e) {
         e.preventDefault();
         const data = await Login(cred.cc,cred.pass,cred.totp)
-        data ? router.push("/Dashboard") : alert("Error")
+        data ? router.push("/Staking") : alert("Error")
     }
     function updateChange(event) {
         const {value,name} = event.target

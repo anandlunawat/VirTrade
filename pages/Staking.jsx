@@ -3,9 +3,9 @@ import Market from "./api/Components/Market";
 export default function Staking() {
     return (
         <Market>
-            <div className="py-20 h-fit xl:ml-[30%] flex flex-col m-4 gap-2">
+            <div className="py-16 h-fit xl:ml-[22%] flex flex-col m-4 gap-2">
                 <span>STAKING</span>
-                <div className="flex max-md:flex-col flex-row gap-2">
+                <div className="flex max-md:flex-col md:h-[200px] flex-row gap-2">
                     <div className="flex flex-col gap-2">
                         <button className="flex flex-col p-2 rounded-lg bg-[#2a2929] md:w-60">
                             <span>NIFTY</span>
@@ -21,6 +21,7 @@ export default function Staking() {
                         </button>
                     </div>
                     <div className="md:basis-3/4 rounded-lg bg-[#2a2929] w-full">                        
+                        <img src="/chart.png" alt="Nifty" className="p-2 h-[199px] w-full"/>
                     </div>
                 </div>
                 <CompanyCards />

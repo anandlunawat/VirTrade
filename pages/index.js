@@ -3,7 +3,7 @@ import  Main  from "./api/Components/Main"
 
 export default function Home() {
   return (
-        <div className="ml-8 py-20 max-sm:ml-0 2xl:w-[1150px]">
+        <div className="ml-8 py-16 max-sm:ml-0 2xl:w-[1150px]">
           <Main />
           <Details />
         </div>  

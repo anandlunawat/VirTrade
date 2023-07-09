@@ -5,14 +5,15 @@ import Withdrawal from "./api/Components/Withdrawal";
 export default function Dashboard() {
     return (
         <Market>
-            <div className="text-white py-20 h-fit xl:ml-[30%] flex flex-col m-4">
+            <div className="text-white py-16 h-fit xl:ml-[22%] flex flex-col m-4">
                 <span className="text-base">WELCOME!</span>
                 <div className="flex pt-4 flex-row w-[100%] gap-4">
                     <span className="basis-1/2">User</span>
-                    <div className="flex gap-4 ml-auto">
+                    <div className="flex gap-4 ml-auto max-md:text-xs">
                         <button className="px-2 bg-gray-600 rounded-lg sm:py-1">Send Funds</button>
                         <button className="px-2 bg-orange-500 rounded-lg sm:py-1">Invest and Earn</button>
-                        <button className="px-2 text-black bg-green-300 rounded-lg sm:py-1">Deposit</button></div>
+                        <button className="px-2 text-black bg-green-300 rounded-lg sm:py-1">Deposit</button>
+                    </div>
                 </div>
                 <div className="flex flex-row gap-16 max-md:flex-col pt-9">
                     <div className="border-b-2 rounded-lg max-md:w-full w-52 border-b-orange-500">
