@@ -7,7 +7,7 @@ export function Layout({children}) {
         <div className="bg-black bg-contain h-fit">
             <Navbar />
             <main>{children}</main>
-            <Footer />
+            {/* <Footer />         */}
         </div>
     )
 }

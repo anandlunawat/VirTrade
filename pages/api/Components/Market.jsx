@@ -8,7 +8,7 @@ const Market = ({children}) => {
     // let lf = new liveFeed({})
     // lf.runScript()
     return (        
-        <div className="h-screen overflow-hidden text-white max-md:h-fit top-16">            
+        <div className="overflow-hidden text-white max-md:h-fit top-16">            
             <SideDrawer />
             <div className="bg-black">{children}</div>                
         </div>

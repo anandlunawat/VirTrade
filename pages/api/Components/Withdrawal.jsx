@@ -1,6 +1,6 @@
 export default function Withdrawal() {
     return (
-        <div className="bg-[#2a2929] text-xs rounded-lg flex flex-col">
+        <div className="bg-[#262424] bg-opacity-40 text-xs rounded-lg flex flex-col">
             <div className="border-b-[1px] p-2 flex flex-row">
                 <div className="flex flex-col gap-1">
                     <span>Withdraw via DLF</span>

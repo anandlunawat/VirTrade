@@ -4,9 +4,9 @@ export default function Transacctions() {
         <Market>
             <div className="py-16 h-fit xl:ml-[22%] flex flex-col m-4 gap-4">
                 <span>Pending Orders</span>
-                <div className="flex p-4 flex-row basis-1/2 rounded-lg bg-[#2a2929]">
+                <div className="flex p-4 flex-row basis-1/2 bg-opacity-40 rounded-lg bg-[#262424]">
                     <div className="flex flex-col gap-4 basis-1/2">
-                        <div className="flex gap-8">RELIANCE<span className="text-orange-500">NSE</span></div>
+                        <div className="flex gap-8">RELIANCE<span className="text-green-500">NSE</span></div>
                         <span>0/500</span>
                     </div>
                     <div className="flex flex-col gap-4 ml-auto text-center">
@@ -15,7 +15,7 @@ export default function Transacctions() {
                     </div>
                 </div>
                 <span>Orders Completed</span>
-                <div className="bg-[#2a2929] rounded-lg flex flex-col">
+                <div className="bg-[#262424] bg-opacity-40 rounded-lg flex flex-col">
                     <div className="border-b-[1px] p-2 flex flex-row">
                         <div className="flex flex-col gap-1">
                             <span>Withdraw via DLF</span>

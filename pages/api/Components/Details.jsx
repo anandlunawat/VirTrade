@@ -3,14 +3,14 @@ import {RiStockLine} from 'react-icons/ri'
 
 export default function Details() {
     const style = {
-        borderImage : 'linear-gradient(to bottom, #F97316 30%, #F2F2F2 80%)',
+        borderImage : 'linear-gradient(to bottom, #22c55e 30%, #ef4444 80%)',
         borderImageSlice : 1
     }
     return (
         <div className='w-full h-full mt-6'>
             <div className='flex flex-row' id='details'>
                 <div className='flex flex-col'>
-                    <div className='w-[40px] h-[40px] rounded-full ml-[15px] shadow-[0px_0px_20px_5px] shadow-orange-500'>
+                    <div className='w-[40px] h-[40px] rounded-full ml-[15px] shadow-[0px_0px_20px_5px] shadow-green-500'>
                         <RiStockLine fill='white' className='p-1 text-4xl'/>
                     </div>
                     <div className='border-l-2 h-[500px] ml-8 mt-6' style={style}></div>
