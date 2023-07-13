@@ -1,38 +1,45 @@
 import {useEffect, useState} from "react"
 import Market from "./api/Components/Market"
 import CompanyCards from "./api/Components/CompanyCards"
-import WebSocketV2 from "smartapi-javascript/lib/websocket2.0"
-
+// import Websocket from "we"
+const { Parser } = require('binary-parser');
 
 export default function Staking() {
+    const [data,setData] = useState([{}])
+    const parsers = {
+        1: parseLTP,
+        2: parseQuote,
+        3: parseSnapQuote,
+    };
     useEffect(()=>{
-        let web_socket = new WebSocketV2({
-            jwttoken: 'eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlAzMzQ0NjAiLCJyb2xlcyI6MCwidXNlcnR5cGUiOiJVU0VSIiwiaWF0IjoxNjg4OTMzMTgyLCJleHAiOjE2ODkwMTk1ODJ9.Z8K566E7gsMMmOoJogEbWSO7bLrqoQ39WqVpwmroRzqXYpucy1F-T42zglqFz0PK4BRfOQVSptEhirfiYc67dA',
-            apikey: 'AGRYNg5p',
-            clientcode: 'P334460',
-            feedtype: 'eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlAzMzQ0NjAiLCJpYXQiOjE2ODg5MzMxODIsImV4cCI6MTY4OTAxOTU4Mn0.4ye9Gc8CPOimK15ECOc-TmHgvXFlsMgix0DMkKve8kKAa3k7A3XXzLfFvSE3WhAxzHtvgS1FkGgxfIMBrQCOvQ',
-          });
-          web_socket.connect().then((res) => {
-            let json_req = {          
-              action: 1,
-              params: {
-                mode: 4,
-                tokenList: [
-                  {
-                    exchangeType: 1,
-                    tokens: ['1232'],
-                  },
-                ],
-              },
-            };
-          
-            web_socket.fetchData(json_req);
-            web_socket.on('tick', receiveTick);
-              
-            function receiveTick(data) {
-              console.log('receiveTick:::::', data);
-            }    
-          });
+        const websocket = new WebSocket("ws://localhost:4000")
+        websocket.binaryType = "arraybuffer"
+        websocket.onopen = (e) =>{
+            console.log(e);
+            // const arrayData = ["1333", "2885", "1594"];
+            const arrayData = ["1333"];
+            websocket.send(JSON.stringify(arrayData));            
+        }
+        websocket.onmessage = (e) =>{            
+            let data = e.data
+            console.log(e.data);
+            const buffer = Buffer.from(data);
+            const subscriptionMode = buffer[0];
+            const parser = parsers[subscriptionMode]; 
+            if (parser) {
+                const parsedData = parser(buffer);              
+                console.log('Parsed data:', parsedData.lastTradedPrice/100);                            
+                setData(parsedData)
+                console.log("Data",data)
+            }
+            // console.log(JSON.parse(e.data))
+        }
+        websocket.onclose = (e) =>{
+            console.log("Close",e)
+        }
+        websocket.onerror = (e) => {
+            console.log("Error",e)
+        }
     })
     return (      
         <Market>
@@ -61,4 +68,80 @@ export default function Staking() {
             </div>        
         </Market>
     )
+}
+
+function parseLTP(buffer) {
+    console.log("buffer",buffer)
+    const ltpParser = new Parser()
+        // .endianess('little')
+        .int8('subscriptionMode')
+        .int8('exchangeType')
+        .string('token', { length: 25, encoding: 'utf8', stripNull: true })
+        .int64le('sequenceNumber')
+        .int64le('exchangeTimestamp')
+        .int32le('lastTradedPrice');
+
+    return ltpParser.parse(buffer);
+}
+
+// Function to parse Quote data
+function parseQuote(buffer) {
+    const quoteParser = new Parser()
+        .endianess('little')
+        .int8('subscriptionMode')
+        .int8('exchangeType')
+        .string('token', { length: 25, encoding: 'utf8', stripNull: true })
+        .int64le('sequenceNumber')
+        .int64le('exchangeTimestamp')
+        .int64le('lastTradedPrice')
+        .int64le('lastTradedQuantity')
+        .int64le('averageTradedPrice')
+        .int64le('volumeTraded')
+        .doublele('totalBuyQuantity')
+        .doublele('totalSellQuantity')
+        .int64le('openPriceOfDay')
+        .int64le('highPriceOfDay')
+        .int64le('lowPriceOfDay')
+        .int64le('closePrice');
+
+    return quoteParser.parse(buffer);
+}
+
+// Function to parse Snap Quote data
+function parseSnapQuote(buffer) {
+    const snapQuoteParser = new Parser()
+        .endianess('little')
+        .int8('subscriptionMode')
+        .int8('exchangeType')
+        .string('token', { length: 25, encoding: 'utf8', stripNull: true })
+        .int64le('sequenceNumber')
+        .int64le('exchangeTimestamp')
+        .int64le('lastTradedPrice')
+        .int64le('lastTradedQuantity')
+        .int64le('averageTradedPrice')
+        .int64le('volumeTraded')
+        .doublele('totalBuyQuantity')
+        .doublele('totalSellQuantity')
+        .int64le('openPriceOfDay')
+        .int64le('highPriceOfDay')
+        .int64le('lowPriceOfDay')
+        .int64le('closePrice')
+        .int64le('lastTradedTimestamp')
+        .int64le('openInterest')
+        .doublele('openInterestChange')
+        .array('bestFiveData', {
+            length: 10,
+            type: new Parser()
+                .endianess('little')
+                .int16le('buySellFlag')
+                .int64le('quantity')
+                .int64le('price')
+                .int16le('numberOfOrders'),
+        })
+        .int64le('upperCircuitLimit')
+        .int64le('lowerCircuitLimit')
+        .int64le('52WeekHighPrice')
+        .int64le('52WeekLowPrice');
+
+    return snapQuoteParser.parse(buffer);
 }

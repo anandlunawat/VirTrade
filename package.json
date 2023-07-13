@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "babel-plugin-superjson-next": "^0.4.5",
+    "binary-parser": "^2.2.1",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.6",
     "fs": "^0.0.1-security",
@@ -20,7 +21,6 @@
     "react-icons": "^4.10.1",
     "require": "^2.4.20",
     "smartapi-angelbroking": "^1.0.2",
-    "smartapi-javascript": "^1.0.15",
     "smartapi-javascript-next": "^1.0.1-4.6",
     "stock-nse-india": "^1.1.1",
     "superjson": "^1.11.0",
