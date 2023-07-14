@@ -7,6 +7,17 @@ export default function Navbar() {
   useEffect(()=>{
     isHydrated(true)
   },[])
+
+  async function logOut() {
+    try{
+      const data = await logout();      
+      data.success ? router.push("/") : alert(data.message)
+    }
+    catch(e){
+      console.log(e)
+    }
+  }
+
   return (
     !hydrated ? null :
     <div className="flex flex-row fixed top-0 items-center w-full mb-4 text-white bg-opacity-40 bg-[#262424] max-sm:justify-start\">
@@ -22,13 +33,12 @@ export default function Navbar() {
         {
           ((typeof window !== 'undefined') ? localStorage.getItem("feedToken") : false)
             ? (
-            <Link
+            <button
             className="p-1 bg-green-500 rounded-md basis-1/4 max-sm:hidden w-96"
-            href="/"
-            onClick={logout}
+            onClick={logOut}
           >
             Logout
-          </Link>
+          </button>
           ) : (
             <Link
             className="p-1 bg-green-500 rounded-md basis-1/4 max-sm:hidden w-96"

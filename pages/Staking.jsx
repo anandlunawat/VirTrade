@@ -5,32 +5,33 @@ import CompanyCards from "./api/Components/CompanyCards"
 const { Parser } = require('binary-parser');
 
 export default function Staking() {
-    const [data,setData] = useState([{}])
+    const [ltp,setLtp] = useState({})
     const parsers = {
         1: parseLTP,
         2: parseQuote,
         3: parseSnapQuote,
     };
     useEffect(()=>{
-        const websocket = new WebSocket("ws://localhost:4000")
+        const websocket = new WebSocket("ws://localhost:5000")
         websocket.binaryType = "arraybuffer"
         websocket.onopen = (e) =>{
-            console.log(e);
-            // const arrayData = ["1333", "2885", "1594"];
-            const arrayData = ["1333"];
+            // console.log(e);
+            const arrayData = ["1333", "2885", "1594"];
+            // const arrayData = ["1594"];
             websocket.send(JSON.stringify(arrayData));            
+            // websocket.send("1333")
         }
         websocket.onmessage = (e) =>{            
             let data = e.data
-            console.log(e.data);
+            // console.log(e.data);
             const buffer = Buffer.from(data);
             const subscriptionMode = buffer[0];
             const parser = parsers[subscriptionMode]; 
             if (parser) {
                 const parsedData = parser(buffer);              
-                console.log('Parsed data:', parsedData.lastTradedPrice/100);                            
-                setData(parsedData)
-                console.log("Data",data)
+                // console.log('Parsed data:', parsedData.lastTradedPrice/100);                            
+                setLtp(parsedData)
+                // console.log("ltp",ltp)
             }
             // console.log(JSON.parse(e.data))
         }
@@ -64,7 +65,9 @@ export default function Staking() {
                         <img src="/chart.png" alt="Nifty" className="p-2 h-[199px] w-full"/>
                     </div>
                 </div>
-                <CompanyCards />
+                <CompanyCards 
+                ltp={ltp}
+                />
             </div>        
         </Market>
     )
