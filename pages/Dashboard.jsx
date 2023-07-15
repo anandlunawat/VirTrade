@@ -5,7 +5,7 @@ import Withdrawal from "./api/Components/Withdrawal";
 export default function Dashboard() {
     return (
         <Market>
-            <div className="text-white mt-[70px] h-fit xl:ml-[22%] flex flex-col m-4">
+            <div className="text-white mt-[20px] h-fit xl:ml-[22%] flex flex-col m-4">
                 <span className="text-base">WELCOME!</span>
                 <div className="flex pt-4 flex-row w-[100%] gap-4">
                     <span className="basis-1/2">User</span>
