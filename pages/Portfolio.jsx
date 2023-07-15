@@ -3,7 +3,7 @@ import Market from "./api/Components/Market";
 export default function Portfolio() {
     return (
         <Market>
-            <div className="py-16 overflow-hidden h-fit xl:ml-[22%] flex flex-col m-4 gap-4">
+            <div className="mt-[70px] overflow-hidden h-fit xl:ml-[22%] flex flex-col m-4 gap-4">
                 <div className="border-b-2 border-b-[#262424] pb-2">My Portfolio</div>
                 <div className="flex flex-col w-full gap-2 md:flex-row">
                     <img src="/chart.png" className="h-48 p-2 rounded-lg md:basis-3/4" />
@@ -11,9 +11,9 @@ export default function Portfolio() {
                         <span>Daily Gain</span>
                     </div>
                 </div>
-                <table className="border-2 max-md:text-xs bg-opacity-40 border-[#434242] rounded bg-[#262424]">
+                <table className="max-md:text-xs bg-opacity-40 border-[#434242] rounded bg-[#262424]">
                     <thead>
-                        <tr className="border-2 border-[#434242]">
+                        <tr className="border-b-2 border-[#434242]">
                             <th className="p-2">Sr. No.</th>
                             <th>Stock</th>
                             <th>Investment Value</th>
@@ -29,7 +29,7 @@ export default function Portfolio() {
                             <td>50000</td>
                             <td>2600</td>
                             <td className="text-green-500">+5%</td>
-                            <td className="flex justify-center gap-3 max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
+                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
                         </tr>                        
                         <tr className="border-b-2 border-b-[#434242] rounded-lg">
                         <td className="p-2">1</td>
@@ -37,7 +37,7 @@ export default function Portfolio() {
                             <td>50000</td>
                             <td>2600</td>
                             <td className="text-green-500">+5%</td>
-                            <td className="flex justify-center gap-3 max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
+                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
                         </tr>                        
                         <tr className="border-b-2 border-b-[#434242] rounded-lg">
                             <td className="p-2">1</td>
@@ -45,7 +45,7 @@ export default function Portfolio() {
                             <td>50000</td>
                             <td>2600</td>
                             <td className="text-red-500">-5%</td>
-                            <td className="flex justify-center gap-3 max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
+                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
                         </tr>                        
                         <tr className="border-b-2 border-b-[#434242] rounded-lg">
                             <td className="p-2">1</td>
@@ -53,7 +53,7 @@ export default function Portfolio() {
                             <td>50000</td>
                             <td>2600</td>
                             <td className="text-green-500">+5%</td>
-                            <td className="flex justify-center gap-3 max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
+                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
                         </tr>                        
                         <tr className="border-b-2 border-b-[#434242] rounded-lg">
                             <td className="p-2">1</td>
@@ -61,7 +61,7 @@ export default function Portfolio() {
                             <td>50000</td>
                             <td>2600</td>
                             <td className="text-red-500">-5%</td>
-                            <td className="flex justify-center gap-3 max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
+                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
                         </tr>
                     </tbody>
                 </table>

@@ -44,7 +44,7 @@ export default function Staking() {
     })
     return (      
         <Market>
-            <div className="py-16 h-fit xl:ml-[22%] flex flex-col m-4 gap-2">
+            <div className="mt-[70px] h-fit xl:ml-[22%] flex flex-col m-4 gap-2">
                 <span>STAKING</span>
                 <div className="flex max-md:flex-col md:h-[200px] flex-row gap-2">
                     <div className="flex flex-col gap-2">
