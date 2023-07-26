@@ -1,5 +1,5 @@
 import Market from "./api/Components/Market";
-export default function Transacctions() {
+export default function Transactions() {
     return (
         <Market>
             <div className="mt-[20px] h-fit xl:ml-[22%] flex flex-col m-4 gap-4">
