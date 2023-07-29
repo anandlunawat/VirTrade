@@ -19,6 +19,8 @@
     "react-axios": "^2.0.6",
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
+    "react-redux": "^8.1.1",
+    "redux": "^4.2.1",
     "require": "^2.4.20",
     "smartapi-angelbroking": "^1.0.2",
     "smartapi-javascript-next": "^1.0.1-4.6",

@@ -22,21 +22,21 @@ export default function SideDrawer() {
             <div className="flex flex-col bg-[#262424] rounded-lg bg-opacity-40 gap-2">
                 <div className="flex max-xl:hidden p-3 mr-4 ml-4 flex-col gap-2 pb-4 border-b-2 border-[#262424]">
                     <span>MAIN ACCOUNT BALANCE</span>
-                    <div className="flex gap-4 text-xl text-green-500">223030000 <span className="text-white">₹</span></div>
+                    <div className="flex gap-4 text-xl text-green-500"><span className="text-white">₹</span>223030000</div>
                 </div>
                 <div className="flex flex-col gap-2 p-3 pt-2 ml-4 max-xl:hidden 2xl:pt-4 2xl:gap-4">
                     <div className="flex flex-row gap-2">
                         <span>Profits (7D)</span>
                         <span className="text-green-500">+10%</span>
-                        <div className="ml-auto"><span className="text-green-500">2362763</span> ₹</div>
+                        <div className="ml-auto whitespace-pre">₹ <span className="text-green-500">2362763</span></div>
                     </div>                    
                     <div className="flex flex-row gap-2">
                         <span>Deposit in Orders</span>                        
-                        <div className="ml-auto"><span className="text-green-500">2362763</span> ₹</div>
+                        <div className="ml-auto whitespace-pre">₹ <span className="text-green-500">2362763</span></div>
                     </div>                    
                     <div className="flex flex-row gap-2">
                         <span>Withdraw in Progress</span>                        
-                        <div className="ml-auto"><span className="text-green-500">2362763</span> ₹</div>
+                        <div className="ml-auto whitespace-pre">₹ <span className="text-green-500">2362763</span></div>
                     </div>
                 </div>
                 <div className="flex flex-row px-2 pt-4 ml-4 max-xl:hidden">
