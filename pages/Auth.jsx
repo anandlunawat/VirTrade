@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Login } from "../actions/login";
 import { useRouter } from 'next/router'
-import { Layout } from "./api/Components/Layout";
+import { Layout } from "../Components/Layout";
 
 export default function Auth() {
     const [cred, setCred] = useState({

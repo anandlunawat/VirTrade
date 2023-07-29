@@ -1,6 +1,6 @@
-import Market from "./api/Components/Market";
-import Cards from "./api/Components/Cards";
-import Withdrawal from "./api/Components/Withdrawal";
+import Market from "../Components/Market"
+import Cards from "../Components/Cards"
+import Withdrawal from "../Components/Withdrawal"
 
 export default function Dashboard() {
     return (

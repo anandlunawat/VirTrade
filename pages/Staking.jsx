@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react"
-import Market from "./api/Components/Market"
-import CompanyCards from "./api/Components/CompanyCards"
-// import Websocket from "we"
+import Market from "../Components/Market"
+import CompanyCards from "../Components/CompanyCards"
+
 const { Parser } = require('binary-parser');
 
 export default function Staking() {
