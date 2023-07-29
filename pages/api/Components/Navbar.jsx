@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { logout } from "../../../actions/logout";
-import { useState,useEffect } from "react";
+import { useState , useEffect } from "react";
 
 export default function Navbar() {
   const[hydrated,isHydrated] = useState(false)
