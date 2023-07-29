@@ -16,7 +16,8 @@ export default function CompanyCards(props) {
     return (
         <div className="flex flex-row gap-10 pt-4 max-md:flex-col">
             <div className="flex flex-col bg-opacity-40 gap-2 bg-[#262424] items-center md:w-72 h-fit rounded-lg justify-center px-4 py-2 text-center">
-                <img src="/hdfc_bank.png" alt="reliance" className="w-20 h-20 p-2 bg-white rounded-lg" />
+                {/* <img src="/hdfc_bank.png" alt="reliance" className="w-20 h-20 p-2 bg-white rounded-lg" /> */}
+                <Image src="/hdfc_bank.png" alt="reliance" className="w-20 h-20 p-2 bg-white rounded-lg" />
                 <span>{hdfc}</span>
                 {/* <span>{props.ltp}</span> */}
                 <span className="text-green-500">+4%</span>
@@ -26,7 +27,8 @@ export default function CompanyCards(props) {
                 </div>
             </div>                
             <div className="flex flex-col bg-opacity-40 gap-2 bg-[#262424] items-center md:w-72 h-fit rounded-lg justify-center px-4 py-2 text-center">
-                <img src="/reliance.png" alt="reliance" className="w-20 h-20 p-2 bg-white rounded-lg" />
+                {/* <img src="/reliance.png" alt="reliance" className="w-20 h-20 p-2 bg-white rounded-lg" /> */}
+                <Image src="/reliance.png" alt="reliance" className="w-20 h-20 p-2 bg-white rounded-lg" />
                 <span>{ril}</span>
                 <span className="text-green-500">+4%</span>
                 <div className="flex flex-row gap-8 font-bold text-white">
@@ -35,7 +37,8 @@ export default function CompanyCards(props) {
                 </div>
             </div>             
             <div className="flex flex-col bg-opacity-40 gap-2 bg-[#262424] items-center md:w-72 h-fit rounded-lg justify-center px-4 py-2 text-center">
-                <img src="/infosys.png" alt="reliance" className="w-20 h-20 p-2 bg-white rounded-lg" />
+                {/* <img src="/infosys.png" alt="reliance" className="w-20 h-20 p-2 bg-white rounded-lg" /> */}
+                <Image src="/infosys.png" alt="reliance" className="w-20 h-20 p-2 bg-white rounded-lg" />
                 <span>{infy}</span>
                 <span className="text-green-500">+4%</span>
                 <div className="flex flex-row gap-8 font-bold text-white">

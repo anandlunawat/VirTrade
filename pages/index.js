@@ -1,12 +1,16 @@
-import Details from "./api/Components/Details"
-import  Main  from "./api/Components/Main"
+// import Details from "./api/Components/Details"
+// import  Main  from "./api/Components/Main"
+import Auth from "./Auth"
 
 export default function Home() {
   return (
-        <div className="ml-8 py-16 max-sm:ml-0 2xl:w-[1150px]">
-          <Main />
-          <Details />
-        </div>  
+        // <div className="ml-8 py-16 max-sm:ml-0 2xl:w-[1150px]">
+        //   <Main />
+        //   <Details />
+        // </div>  
+        <div>
+          <Auth />
+        </div>
   )
 }
 
