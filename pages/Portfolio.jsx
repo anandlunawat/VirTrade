@@ -1,4 +1,4 @@
-import Market from "../Components/Market";
+import Market from "../components/Market";
 
 export default function Portfolio() {
     return (
