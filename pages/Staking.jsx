@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react"
-import Market from "../components/Market"
-import CompanyCards from "../components/CompanyCards"
+import Market from "../Components/Market"
+import CompanyCards from "../Components/CompanyCards"
 
 const { Parser } = require('binary-parser');
 
