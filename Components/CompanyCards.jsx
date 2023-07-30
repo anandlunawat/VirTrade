@@ -14,7 +14,7 @@ export default function CompanyCards(props) {
         }
     },[props])
     return (
-        <div className="flex flex-row gap-10 pt-4 max-md:flex-col">
+        <div className="flex flex-row gap-10 pt-4 m-10 max-md:flex-col">
             <div className="flex flex-col bg-opacity-40 gap-2 bg-[#262424] items-center md:w-72 h-fit rounded-lg justify-center px-4 py-2 text-center">
                 {/* <img src="/hdfc_bank.png" alt="reliance" className="w-20 h-20 p-2 bg-white rounded-lg" /> */}
                 <img src="/hdfc_bank.png" alt="reliance" className="w-20 h-20 p-2 bg-white rounded-lg" />
