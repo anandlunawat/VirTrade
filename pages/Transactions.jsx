@@ -1,4 +1,4 @@
-import Market from "../components/Market";
+import Market from "../Components/Market";
 export default function Transactions() {
     return (
         <Market>
