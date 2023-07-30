@@ -11,6 +11,7 @@
   "dependencies": {
     "babel-plugin-superjson-next": "^0.4.5",
     "binary-parser": "^2.2.1",
+    "chart.js": "^4.3.2",
     "eslint": "8.28.0",
     "eslint-config-next": "13.0.6",
     "fs": "^0.0.1-security",

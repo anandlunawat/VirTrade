@@ -1,10 +1,12 @@
 import {useEffect, useState} from "react"
 import Market from "../Components/Market"
 import CompanyCards from "../Components/CompanyCards"
+import Chart from "chart.js/auto"
 
 const { Parser } = require('binary-parser');
 
 export default function Staking() {
+
     const [ltp,setLtp] = useState({})
     const parsers = {
         1: parseLTP,
@@ -46,7 +48,44 @@ export default function Staking() {
         catch(e) {
             console.log("Error")
         }
-    })
+
+        const data = [
+            { year: 2010, count: 10 },
+            { year: 2011, count: 20 },
+            { year: 2012, count: 15 },
+            { year: 2013, count: -1 },
+            { year: 2014, count: 22 },
+            { year: 2015, count: 30 },
+            { year: 2016, count: -5 },
+            { year: 2016, count: 25 },
+            { year: 2017, count: 5 },
+            { year: 2018, count: 115 },
+            { year: 2019, count: 15 },
+            { year: 2020, count: 25 },
+            { year: 2021, count: 5 },
+          ];
+        
+          let line_Chart = new Chart(
+            document.getElementById('chart_js'),
+            {
+              type: 'line',
+              data: {                
+                labels: data.map(row => row.year),
+                datasets: [
+                  {
+                    label: 'Acquisitions by year',
+                    data: data.map(row => row.count)
+                  }
+                ]
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: true
+              }
+            }
+          );
+          return () => line_Chart.destroy()
+    },[])
     return (      
         <Market>
             <div className="mt-[20px] h-fit xl:ml-[22%] flex flex-col m-4 gap-2">
@@ -66,8 +105,8 @@ export default function Staking() {
                             <span className="text-red-500">50000</span>
                         </button>
                     </div>
-                    <div className="md:basis-3/4 rounded-lg bg-opacity-40 bg-[#262424] w-full">                        
-                        <img src="/chart.png" alt="Nifty" className="p-2 h-[199px] w-full"/>
+                    <div className="md:basis-3/4 rounded-lg bg-opacity-40 bg-[#262424] w-full">                                                
+                        <canvas id="chart_js"></canvas>
                     </div>
                 </div>
                 <CompanyCards 
