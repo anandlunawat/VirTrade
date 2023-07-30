@@ -12,34 +12,39 @@ export default function Staking() {
         3: parseSnapQuote,
     };
     useEffect(()=>{
-        const websocket = new WebSocket("ws://localhost:5000")
-        websocket.binaryType = "arraybuffer"
-        websocket.onopen = (e) =>{
-            // console.log(e);
-            const arrayData = ["1333", "2885", "1594"];
-            // const arrayData = ["1594"];
-            websocket.send(JSON.stringify(arrayData));            
-            // websocket.send("1333")
-        }
-        websocket.onmessage = (e) =>{            
-            let data = e.data
-            // console.log(e.data);
-            const buffer = Buffer.from(data);
-            const subscriptionMode = buffer[0];
-            const parser = parsers[subscriptionMode]; 
-            if (parser) {
-                const parsedData = parser(buffer);              
-                // console.log('Parsed data:', parsedData.lastTradedPrice/100);                            
-                setLtp(parsedData)
-                // console.log("ltp",ltp)
+        try {
+            const websocket = new WebSocket("ws://localhost:5000")
+            websocket.binaryType = "arraybuffer"
+            websocket.onopen = (e) =>{
+                // console.log(e);
+                const arrayData = ["1333", "2885", "1594"];
+                // const arrayData = ["1594"];
+                websocket.send(JSON.stringify(arrayData));            
+                // websocket.send("1333")
             }
-            // console.log(JSON.parse(e.data))
+            websocket.onmessage = (e) =>{            
+                let data = e.data
+                // console.log(e.data);
+                const buffer = Buffer.from(data);
+                const subscriptionMode = buffer[0];
+                const parser = parsers[subscriptionMode]; 
+                if (parser) {
+                    const parsedData = parser(buffer);              
+                    // console.log('Parsed data:', parsedData.lastTradedPrice/100);                            
+                    setLtp(parsedData)
+                    // console.log("ltp",ltp)
+                }
+                // console.log(JSON.parse(e.data))
+            }
+            websocket.onclose = (e) =>{
+                console.log("Close",e)
+            }
+            websocket.onerror = (e) => {
+                console.log("Error",e)
+            }
         }
-        websocket.onclose = (e) =>{
-            console.log("Close",e)
-        }
-        websocket.onerror = (e) => {
-            console.log("Error",e)
+        catch(e) {
+            console.log("Error")
         }
     })
     return (      

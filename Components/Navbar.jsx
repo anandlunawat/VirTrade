@@ -1,3 +1,4 @@
+'use client'
 import Link from "next/link";
 import { logout } from "../actions/logout";
 import { useState , useEffect } from "react";
