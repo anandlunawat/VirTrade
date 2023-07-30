@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import Link from "next/link";
 
 export default function Main() {
@@ -30,7 +29,7 @@ export default function Main() {
             </div>
             <div className="items-center justify-center pointer-events-none basis-1/2">
                 {/* <img alt="vector" className="max-sm:hidden" src="/Landing-page.png" /> */}
-                <Image alt="vector" className="max-sm:hidden" src="/Landing-page.png" />
+                <img alt="vector" className="max-sm:hidden" src="/Landing-page.png" />
             </div>
         </div>
     );
