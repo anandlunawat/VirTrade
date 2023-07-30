@@ -90,7 +90,7 @@ export default function Staking() {
         <Market>
             <div className="mt-[20px] h-fit xl:ml-[22%] flex flex-col m-4 gap-2">
                 <span>STAKING</span>
-                <div className="flex max-md:flex-col md:h-[200px] flex-row gap-2">
+                <div className="flex max-md:flex-col md:h-[206px] flex-row gap-2">
                     <div className="flex flex-col gap-2">
                         <button className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-60">
                             <span>NIFTY</span>
