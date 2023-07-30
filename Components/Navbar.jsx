@@ -10,13 +10,14 @@ export default function Navbar() {
   },[])
 
   async function logOut() {
-    try{
-      const data = await logout();      
-      data.success ? router.push("/") : alert(data.message)
-    }
-    catch(e){
-      console.log(e)
-    }
+    // try{
+    //   const data = await logout();      
+    //   data.success ? router.push("/") : alert(data.message)
+    // }
+    // catch(e){
+    //   console.log(e)
+    // }
+    logout()
   }
 
   return (
