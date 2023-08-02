@@ -23,13 +23,13 @@ export default function SearchBar() {
             setInput(true)
             setSearchedStock(instruments.filter((instrument) => instrument.symbol.startsWith(e.target.value.toUpperCase())))
         } else {            
-            setSearchedStock([{}])
+            setSearchedStock(()=>[])
         }     
     }
 
     return (
-        <div>
-            <div className="flex text-white flex-row w-screen m-4 gap-2 xl:ml-[22%] mt-[70px] items-center border border-solid border-[#D0D5DD] rounded-lg shadow-b p-2">
+        <div className='w-screen m-4 xl:ml-[22%] mt-[70px]'>
+            <div className="flex text-white flex-row gap-2 items-center border border-solid border-[#D0D5DD] rounded-lg shadow-b p-2">
                 <CiSearch />
                 <input type={"search"} className="w-full bg-transparent peer/cc focus:outline-none" placeholder="Search" onChange={filters} />
             </div>
