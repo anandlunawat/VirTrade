@@ -22,7 +22,9 @@ export default function SearchBar() {
         if(e.target.value != '') {
             setInput(true)
             setSearchedStock(instruments.filter((instrument) => instrument.symbol.startsWith(e.target.value.toUpperCase())))
-        }        
+        } else {            
+            setSearchedStock([{}])
+        }     
     }
 
     return (
