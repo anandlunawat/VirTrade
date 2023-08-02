@@ -1,101 +1,126 @@
-// // let web_socket = require("ws");
-// let atob = require('atob');
-// let pako = require('pako');
+import { useState } from 'react';
+const { Parser } = require('binary-parser');
 
-// let triggers = {
-//      "connect": [],
-//      "tick": []
-// };
+export async function liveFeed () { 
 
-// export class liveFeed {
-//     constructor(params) {
-//         let self = this;
+    const [price,setPrice] = useState({})
 
-//         let url = params.url || "wss://wsfeeds.angelbroking.com/NestHtml5Mobile/socket/stream";
+    const parsers = {
+        1: parseLTP,
+        2: parseQuote,
+        3: parseSnapQuote,
+    };
 
-//         let ws = null, client_code = params.client_code || "P334460", feed_token = params.feed_token || "0870401390", script = params.script || null, task = params.task || null;
+    try {
+        const websocket = new WebSocket("ws://localhost:5000")
+        console
+        websocket.binaryType = "arraybuffer"
+        websocket.onopen = (e) =>{
+            // console.log(e);
+            const arrayData = ["1333", "2885", "1594"];
+            // const arrayData = ["1594"];
+            websocket.send(JSON.stringify(arrayData));            
+            // websocket.send("1333")
+        }
+        websocket.onmessage = (e) =>{            
+            let data = e.data
+            // console.log(e.data);
+            const buffer = Buffer.from(data);
+            const subscriptionMode = buffer[0];
+            const parser = parsers[subscriptionMode]; 
+            if (parser) {
+                const parsedData = parser(buffer);              
+                console.log('Parsed data:', parsedData.lastTradedPrice/100);                            
+                setPrice(parsedData)
+                // console.log("ltp",ltp)
+            }
+            // console.log(JSON.parse(e.data))
+        }
+        websocket.onclose = (e) =>{
+            console.log("Close",e)
+        }
+        websocket.onerror = (e) => {
+            console.log("Error",e)
+        }
+        return price
+    }
+    catch(e) {
+        console.log("Error",e)
+    }
+}
 
-//         // this.connect = function () {
-//             // return new Promise((resolve, reject) => {
-//                 if (client_code === null || feed_token === null)
-//                     return "client_code or feed_token or task is missing";
+function parseLTP(buffer) {
+    console.log("buffer",buffer)
+    const ltpParser = new Parser()
+        // .endianess('little')
+        .int8('subscriptionMode')
+        .int8('exchangeType')
+        .string('token', { length: 25, encoding: 'utf8', stripNull: true })
+        .int64le('sequenceNumber')
+        .int64le('exchangeTimestamp')
+        .int32le('lastTradedPrice');
 
-//                 ws = new WebSocket(url, null, { rejectUnauthorized: false });
-//                 ws.onopen = function onOpen(evt) {
-//                     var _req = '{"task":"cn","channel":"","token":"' + feed_token + '","user": "' + client_code + '","acctid":"' + client_code + '"}';
-//                     ws.send(_req);
+    return ltpParser.parse(buffer);
+}
 
-//                     setInterval(function () {
-//                         var _hb_req = '{"task":"hb","channel":"","token":"' + feed_token + '","user": "' + client_code + '","acctid":"' + client_code + '"}';
-//                         ws.send(_hb_req);
-//                     }, 60000);
-//                     resolve();
-//                 };
-//                 ws.onmessage = function (evt) {
-//                     let strData = atob(evt.data);
+// Function to parse Quote data
+function parseQuote(buffer) {
+    const quoteParser = new Parser()
+        .endianess('little')
+        .int8('subscriptionMode')
+        .int8('exchangeType')
+        .string('token', { length: 25, encoding: 'utf8', stripNull: true })
+        .int64le('sequenceNumber')
+        .int64le('exchangeTimestamp')
+        .int64le('lastTradedPrice')
+        .int64le('lastTradedQuantity')
+        .int64le('averageTradedPrice')
+        .int64le('volumeTraded')
+        .doublele('totalBuyQuantity')
+        .doublele('totalSellQuantity')
+        .int64le('openPriceOfDay')
+        .int64le('highPriceOfDay')
+        .int64le('lowPriceOfDay')
+        .int64le('closePrice');
 
-//                     // Convert binary string to character-number array
-//                     var charData = strData.split('').map(function (x) { return x.charCodeAt(0); });
+    return quoteParser.parse(buffer);
+}
 
-//                     // Turn number array into byte-array
-//                     var binData = new Uint8Array(charData);
+// Function to parse Snap Quote data
+function parseSnapQuote(buffer) {
+    const snapQuoteParser = new Parser()
+        .endianess('little')
+        .int8('subscriptionMode')
+        .int8('exchangeType')
+        .string('token', { length: 25, encoding: 'utf8', stripNull: true })
+        .int64le('sequenceNumber')
+        .int64le('exchangeTimestamp')
+        .int64le('lastTradedPrice')
+        .int64le('lastTradedQuantity')
+        .int64le('averageTradedPrice')
+        .int64le('volumeTraded')
+        .doublele('totalBuyQuantity')
+        .doublele('totalSellQuantity')
+        .int64le('openPriceOfDay')
+        .int64le('highPriceOfDay')
+        .int64le('lowPriceOfDay')
+        .int64le('closePrice')
+        .int64le('lastTradedTimestamp')
+        .int64le('openInterest')
+        .doublele('openInterestChange')
+        .array('bestFiveData', {
+            length: 10,
+            type: new Parser()
+                .endianess('little')
+                .int16le('buySellFlag')
+                .int64le('quantity')
+                .int64le('price')
+                .int16le('numberOfOrders'),
+        })
+        .int64le('upperCircuitLimit')
+        .int64le('lowerCircuitLimit')
+        .int64le('52WeekHighPrice')
+        .int64le('52WeekLowPrice');
 
-//                     // Pako magic
-//                     var result = _atos(pako.inflate(binData));
-
-//                     // console.log(result)
-//                     trigger("tick", [JSON.parse(result)]);
-//                 };
-//                 ws.onerror = function (evt) {
-//                     console.log("error::", evt);
-//                     // self.connect();
-//                     // reject(evt);
-//                 };
-//                 ws.onclose = function (evt) {
-//                     console.log("Socket closed");
-//                 };
-//             // });
-//         // };
-
-//         this.runScript = function (script, task) {
-//             if (task === null)
-//                 return "task is missing";
-//             if (task === "mw" || task === "sfi" || task === "dp") {
-//                 var strwatchlistscrips = script; //"nse_cm|2885&nse_cm|1594&nse_cm|11536";
-//                 var _req = '{"task":"' + task + '","channel":"' + strwatchlistscrips + '","token":"' + feed_token + '","user": "' + client_code + '","acctid":"' + client_code + '"}';
-//                 ws.send(_req);
-//             } else
-//                 return "Invalid task provided";
-//         };
-
-//         this.on = function (e, callback) {
-//             if (triggers.hasOwnProperty(e)) {
-//                 triggers[e].push(callback);
-//             }
-//         };
-
-
-//         this.close = function () {
-//             ws.close();
-//         };
-//     }
-// }
-
-// function _atos(array) {
-//      var newarray = [];
-//      try {
-//           for (var i = 0; i < array.length; i++) {
-//                newarray.push(String.fromCharCode(array[i]));
-//           }
-//      } catch (e) { }
-
-//      return newarray.join('');
-// }
-
-// // trigger event callbacks
-// function trigger(e, args) {
-//      if (!triggers[e]) return
-//      for (var n = 0; n < triggers[e].length; n++) {
-//           triggers[e][n].apply(triggers[e][n], args ? args : []);
-//      }
-// }
+    return snapQuoteParser.parse(buffer);
+}

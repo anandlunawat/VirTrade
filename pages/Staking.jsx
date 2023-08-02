@@ -1,92 +1,76 @@
-import {useEffect, useState} from "react"
+import { useEffect, useState } from "react"
 import Market from "../Components/Market"
 import CompanyCards from "../Components/CompanyCards"
-import Chart from "chart.js/auto"
+import LineChart from "../Components/LineChart";
 
 const { Parser } = require('binary-parser');
+const currentDate = new Date()
 
 export default function Staking() {
 
-    const [ltp,setLtp] = useState({})
+    const [ltp, setLtp] = useState({})
+    const [NiftyBank, setNiftyBank] = useState(0)
+    const [Nifty, setNifty] = useState(0)
+    const [chartN, setChartN] = useState([{ time: currentDate.getHours() - 12, price: 6670 }])
+
     const parsers = {
         1: parseLTP,
         2: parseQuote,
         3: parseSnapQuote,
     };
-    useEffect(()=>{
+    useEffect(() => {
         try {
             const websocket = new WebSocket("ws://localhost:5000")
             websocket.binaryType = "arraybuffer"
-            websocket.onopen = (e) =>{
+            websocket.onopen = (e) => {
                 // console.log(e);
-                const arrayData = ["1333", "2885", "1594"];
-                // const arrayData = ["1594"];
-                websocket.send(JSON.stringify(arrayData));            
+                // const arrayData = ["1333", "2885", "1594","99926009","99926000"];
+                const arrayData = ["253942"];
+                websocket.send(JSON.stringify(arrayData));
                 // websocket.send("1333")
             }
-            websocket.onmessage = (e) =>{            
+            websocket.onmessage = (e) => {
                 let data = e.data
                 // console.log(e.data);
                 const buffer = Buffer.from(data);
                 const subscriptionMode = buffer[0];
-                const parser = parsers[subscriptionMode]; 
+                const parser = parsers[subscriptionMode];
                 if (parser) {
-                    const parsedData = parser(buffer);              
-                    // console.log('Parsed data:', parsedData.lastTradedPrice/100);                            
+                    const parsedData = parser(buffer);                    
                     setLtp(parsedData)
-                    // console.log("ltp",ltp)
-                }
-                // console.log(JSON.parse(e.data))
+                }                
             }
-            websocket.onclose = (e) =>{
-                console.log("Close",e)
+            websocket.onclose = (e) => {
+                console.log("Close", e)
             }
             websocket.onerror = (e) => {
-                console.log("Error",e)
+                console.log("Error", e)
             }
         }
-        catch(e) {
+        catch (e) {
             console.log("Error")
-        }
+        }        
+    }, [])
 
-        const data = [
-            { year: 2010, count: 10 },
-            { year: 2011, count: 20 },
-            { year: 2012, count: 15 },
-            { year: 2013, count: -1 },
-            { year: 2014, count: 22 },
-            { year: 2015, count: 30 },
-            { year: 2016, count: -5 },
-            { year: 2016, count: 25 },
-            { year: 2017, count: 5 },
-            { year: 2018, count: 115 },
-            { year: 2019, count: 15 },
-            { year: 2020, count: 25 },
-            { year: 2021, count: 5 },
-          ];
-        
-          let line_Chart = new Chart(
-            document.getElementById('chart_js'),
-            {
-              type: 'line',
-              data: {                
-                labels: data.map(row => row.year),
-                datasets: [
-                  {
-                    label: 'Acquisitions by year',
-                    data: data.map(row => row.count)
-                  }
-                ]
-              },
-              options: {
-                responsive: true,
-                maintainAspectRatio: true
-              }
-            }
-          );
-          return () => line_Chart.destroy()
-    },[])
-    return (      
+    useEffect(() => {
+        if (ltp.token == 253942) {
+            setNiftyBank(ltp.lastTradedPrice / 100)
+        }
+        else if (ltp.token == 99926000) {            
+            setNifty(ltp.lastTradedPrice / 100)
+        }
+    })
+
+    setTimeout(() => {        
+        if (ltp.token == 253942) {            
+            setChartN((preValue) => [
+                ...preValue,
+                { time: currentDate.getHours() - 12, price: ltp.lastTradedPrice / 100 }
+            ])            
+        }            
+    }, 120000)
+
+    return (
         <Market>
             <div className="mt-[20px] max-lg:mb-[25%] h-fit xl:ml-[22%] flex flex-col m-4 gap-2">
                 <span>STAKING</span>
@@ -94,31 +78,32 @@ export default function Staking() {
                     <div className="flex flex-col gap-2">
                         <button className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-60">
                             <span>NIFTY</span>
-                            <span className="text-green-500">19590</span>
+                            <span className="text-green-500">{Nifty}</span>
                         </button>
                         <button className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-60">
                             <span>SENSEX</span>
                             <span className="text-green-500">65900</span>
                         </button>
                         <button className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-60">
-                            <span>NIFTY BANK</span>
-                            <span className="text-red-500">50000</span>
+                            <span>Crude Oil</span>
+                            <span className="text-red-500">{NiftyBank}</span>
                         </button>
                     </div>
-                    <div className="md:basis-3/4 rounded-lg bg-opacity-40 bg-[#262424] w-full">                                                
-                        <canvas id="chart_js"></canvas>
+                    <div className="md:basis-3/4 rounded-lg bg-opacity-40 bg-[#262424] w-full">
+                        <LineChart 
+                        chartN={chartN}
+                        />
                     </div>
                 </div>
-                <CompanyCards 
-                ltp={ltp}
+                <CompanyCards
+                    ltp={ltp}
                 />
-            </div>        
+            </div>
         </Market>
     )
 }
 
 function parseLTP(buffer) {
-    console.log("buffer",buffer)
     const ltpParser = new Parser()
         // .endianess('little')
         .int8('subscriptionMode')
