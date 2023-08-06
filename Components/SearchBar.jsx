@@ -21,7 +21,7 @@ export default function SearchBar() {
         console.log(e.target.value)
         if(e.target.value != '') {
             setInput(true)
-            setSearchedStock(instruments.filter((instrument) => instrument.symbol.startsWith(e.target.value.toUpperCase())))
+            setSearchedStock(instruments.filter((instrument) => instrument.symbol?.startsWith(e.target.value.toUpperCase())))
         } else {            
             setSearchedStock(()=>[])
         }     
