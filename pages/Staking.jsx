@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Market from "../Components/Market"
 import CompanyCards from "../Components/CompanyCards"
 import LineChart from "../Components/LineChart";
+import { useSelector } from "react-redux";
 
 const { Parser } = require('binary-parser');
 const currentDate = new Date()
@@ -11,7 +12,10 @@ export default function Staking() {
     const [ltp, setLtp] = useState({})
     const [NiftyBank, setNiftyBank] = useState(0)
     const [Nifty, setNifty] = useState(0)
-    const [chartN, setChartN] = useState([{ time: currentDate.getHours() - 12, price: 6670 }])
+    const [chartN, setChartN] = useState([{}])
+
+    const watchList = useSelector(state => state.watchList)
+    console.log("Watchlist",watchList)
 
     const parsers = {
         1: parseLTP,
@@ -25,7 +29,8 @@ export default function Staking() {
             websocket.onopen = (e) => {
                 // console.log(e);
                 // const arrayData = ["1333", "2885", "1594","99926009","99926000"];
-                const arrayData = ["253942"];
+                const arrayData = watchList;
+                console.log("arrayData",arrayData)
                 websocket.send(JSON.stringify(arrayData));
                 // websocket.send("1333")
             }
@@ -49,8 +54,18 @@ export default function Staking() {
         }
         catch (e) {
             console.log("Error")
-        }        
-    }, [])
+        }     
+        
+        setTimeout(() => {        
+            if (ltp.token == 253942) {            
+                setChartN((preValue) => [
+                    ...preValue,
+                    { time: currentDate.getHours() - 12, price: ltp.lastTradedPrice / 100 }
+                ])            
+            }            
+        }, 60000)
+    
+    }, [watchList])
 
     useEffect(() => {
         if (ltp.token == 253942) {
@@ -60,15 +75,6 @@ export default function Staking() {
             setNifty(ltp.lastTradedPrice / 100)
         }
     })
-
-    setTimeout(() => {        
-        if (ltp.token == 253942) {            
-            setChartN((preValue) => [
-                ...preValue,
-                { time: currentDate.getHours() - 12, price: ltp.lastTradedPrice / 100 }
-            ])            
-        }            
-    }, 120000)
 
     return (
         <Market>

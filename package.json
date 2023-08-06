@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
     "babel-plugin-superjson-next": "^0.4.5",
     "binary-parser": "^2.2.1",
     "chart.js": "^4.3.2",

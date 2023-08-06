@@ -1,13 +1,13 @@
-const initState =[]
-
-export function watchListReducer(state = initState,action) {
+export function watchListReducer(state = [],action) {
     switch(action.type) {
         case "ADD_STOCK" :
-            initState.push(action.payload)
-            return state
-        case "DELETE_STOCK" :
-            initState = initState.filter((tokens)=>tokens !== action.payload)
-            return state
+            console.log("action,",action)
+            return [
+                ...state,
+                action.payload
+            ]            
+        case "DELETE_STOCK" :            
+            return state.filter((token) => token !== action.payload);
         default :
             return state
     }
