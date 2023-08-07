@@ -12,7 +12,10 @@ export default function SearchBar() {
     useEffect(() => {
         const data = async () => {
             const responses = await stocks();
-            setInstruments(responses.filter((response) => !(response.symbol.endsWith('-BL'))))
+            console.log("Response",responses)
+            if(responses) {                
+                setInstruments(responses.filter((response) => !(response.symbol.endsWith('-BL'))))
+            }        
         }
         data()
     }, [])
@@ -21,7 +24,8 @@ export default function SearchBar() {
         console.log(e.target.value)
         if(e.target.value != '') {
             setInput(true)
-            setSearchedStock(instruments.filter((instrument) => instrument.symbol?.startsWith(e.target.value.toUpperCase())))
+            let stock = instruments.filter((instrument) => instrument.symbol?.startsWith(e.target.value.toUpperCase()))
+            setSearchedStock(stock)
         } else {            
             setSearchedStock(()=>[])
         }     

@@ -13,37 +13,48 @@ export default function Staking() {
     const [NiftyBank, setNiftyBank] = useState(0)
     const [Nifty, setNifty] = useState(0)
     const [chartN, setChartN] = useState([{}])
+    const [arrayData, setArrayData] = useState([])
 
     const watchList = useSelector(state => state.watchList)
-    console.log("Watchlist",watchList)
+    console.log("Watchlist", watchList)
 
     const parsers = {
         1: parseLTP,
         2: parseQuote,
         3: parseSnapQuote,
     };
-    useEffect(() => {
+
+    // useEffect(() => {
+    //     console.log("watchList.splice(-1)[0]?.token",watchList.splice(-1)[0]?.token)
+    //     if(watchList[0]){
+    //         let token = watchList?.splice(-1)[0]?.token
+    //         setArrayData([...arrayData,token])
+    //     }
+    // },[watchList])
+
+    useEffect(() => {        
         try {
             const websocket = new WebSocket("ws://localhost:5000")
             websocket.binaryType = "arraybuffer"
             websocket.onopen = (e) => {
-                // console.log(e);
-                // const arrayData = ["1333", "2885", "1594","99926009","99926000"];
-                const arrayData = watchList;
-                console.log("arrayData",arrayData)
-                websocket.send(JSON.stringify(arrayData));
-                // websocket.send("1333")
+                let arrayData = []
+                if(watchList[0]) {
+                    watchList.forEach(element => {
+                        arrayData.push(element.token)
+                    });                        
+                    websocket.send(JSON.stringify(arrayData));
+                }                
+                console.log("arraydata",arrayData)                
             }
             websocket.onmessage = (e) => {
                 let data = e.data
-                // console.log(e.data);
                 const buffer = Buffer.from(data);
                 const subscriptionMode = buffer[0];
                 const parser = parsers[subscriptionMode];
                 if (parser) {
-                    const parsedData = parser(buffer);                    
+                    const parsedData = parser(buffer);
                     setLtp(parsedData)
-                }                
+                }
             }
             websocket.onclose = (e) => {
                 console.log("Close", e)
@@ -54,26 +65,27 @@ export default function Staking() {
         }
         catch (e) {
             console.log("Error")
-        }     
-        
-        setTimeout(() => {        
-            if (ltp.token == 253942) {            
+        }
+
+        setTimeout(() => {
+            if (ltp.token == 253942) {
                 setChartN((preValue) => [
                     ...preValue,
                     { time: currentDate.getHours() - 12, price: ltp.lastTradedPrice / 100 }
-                ])            
-            }            
+                ])
+            }
         }, 60000)
-    
-    }, [watchList])
+
+    }, [arrayData])
 
     useEffect(() => {
         if (ltp.token == 253942) {
+            console.log("ltp", ltp)
             setNiftyBank(ltp.lastTradedPrice / 100)
         }
-        else if (ltp.token == 99926000) {            
+        else if (ltp.token == 99926000) {
             setNifty(ltp.lastTradedPrice / 100)
-        }
+        }        
     })
 
     return (
@@ -96,13 +108,14 @@ export default function Staking() {
                         </button>
                     </div>
                     <div className="md:basis-3/4 rounded-lg bg-opacity-40 bg-[#262424] w-full">
-                        <LineChart 
-                        chartN={chartN}
+                        <LineChart
+                            chartN={chartN}
                         />
                     </div>
                 </div>
                 <CompanyCards
                     ltp={ltp}
+                    watchLists={watchList}
                 />
             </div>
         </Market>

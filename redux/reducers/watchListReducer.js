@@ -1,3 +1,15 @@
+// const getLocalWatchList = () => {
+//     if (typeof window !== "undefined") {
+//       let watchList = localStorage.getItem("watchList");
+  
+//       if (watchList === null || watchList === undefined || watchList === []) {
+//         return [];
+//       } else {
+//         return watchList;
+//       }
+//     }
+//   };
+
 export function watchListReducer(state = [],action) {
     switch(action.type) {
         case "ADD_STOCK" :
