@@ -2,15 +2,18 @@ import { useDispatch } from "react-redux"
 
 export default function SearchResults(props) {
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch()    
 
-    function addStock(token) {
+    function addStock(stock) {        
         dispatch({
             type : "ADD_STOCK",
-            payload : token
-        })       
-        localStorage.setItem("watchList",token) 
-        console.log("stock",token)
+            payload : stock
+        })               
+        const existingWatchList = JSON.parse(localStorage.getItem("watchList")) || [];       
+        const updatedWatchList = [...existingWatchList, stock];
+        localStorage.setItem("watchList", JSON.stringify(updatedWatchList));
+    
+        console.log("localstorage", localStorage.getItem("watchList"));
     }    
 
     return (

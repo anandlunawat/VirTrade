@@ -13,7 +13,7 @@ export default function Staking() {
     const [NiftyBank, setNiftyBank] = useState(0)
     const [Nifty, setNifty] = useState(0)
     const [chartN, setChartN] = useState([{}])
-    const [arrayData, setArrayData] = useState([])
+    // const [arrayData, setArrayData] = useState([])
 
     const watchList = useSelector(state => state.watchList)
     console.log("Watchlist", watchList)
@@ -76,7 +76,7 @@ export default function Staking() {
             }
         }, 60000)
 
-    }, [arrayData])
+    }, [watchList])
 
     useEffect(() => {
         if (ltp.token == 253942) {

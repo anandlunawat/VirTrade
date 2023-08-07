@@ -14,7 +14,7 @@ export default function SearchBar() {
             const responses = await stocks();
             console.log("Response",responses)
             if(responses) {                
-                setInstruments(responses.filter((response) => !(response.symbol.endsWith('-BL'))))
+                setInstruments(responses.filter((response) => !(response.symbol.endsWith('-BL'))))                
             }        
         }
         data()
