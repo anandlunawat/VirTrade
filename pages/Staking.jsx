@@ -13,10 +13,9 @@ export default function Staking() {
     const [NiftyBank, setNiftyBank] = useState(0)
     const [Nifty, setNifty] = useState(0)
     const [chartN, setChartN] = useState([{}])
-    // const [arrayData, setArrayData] = useState([])
+    const [arrayData, setArrayData] = useState([])
 
     const watchList = useSelector(state => state.watchList)
-    console.log("Watchlist", watchList)
 
     const parsers = {
         1: parseLTP,
@@ -29,10 +28,11 @@ export default function Staking() {
     //     if(watchList[0]){
     //         let token = watchList?.splice(-1)[0]?.token
     //         setArrayData([...arrayData,token])
-    //     }
+    //     }        
     // },[watchList])
 
-    useEffect(() => {        
+    useEffect(() => {    
+        console.log("Watchlist", watchList)    
         try {
             const websocket = new WebSocket("ws://localhost:5000")
             websocket.binaryType = "arraybuffer"
@@ -52,7 +52,8 @@ export default function Staking() {
                 const subscriptionMode = buffer[0];
                 const parser = parsers[subscriptionMode];
                 if (parser) {
-                    const parsedData = parser(buffer);
+                    const parsedData = parser(buffer);                    
+                    console.log("parsedData",parsedData)
                     setLtp(parsedData)
                 }
             }
@@ -67,26 +68,25 @@ export default function Staking() {
             console.log("Error")
         }
 
-        setTimeout(() => {
-            if (ltp.token == 253942) {
-                setChartN((preValue) => [
-                    ...preValue,
-                    { time: currentDate.getHours() - 12, price: ltp.lastTradedPrice / 100 }
-                ])
-            }
-        }, 60000)
+        // setTimeout(() => {
+        //     if (ltp.token == 253942) {
+        //         setChartN((preValue) => [
+        //             ...preValue,
+        //             { time: currentDate.getHours() - 12, price: ltp.lastTradedPrice / 100 }
+        //         ])
+        //     }
+        // }, 60000)
 
-    }, [watchList])
+    }, [watchList.length])
 
     useEffect(() => {
-        if (ltp.token == 253942) {
-            console.log("ltp", ltp)
+        if (ltp.token == 253942) {            
             setNiftyBank(ltp.lastTradedPrice / 100)
         }
         else if (ltp.token == 99926000) {
             setNifty(ltp.lastTradedPrice / 100)
         }        
-    })
+    })    
 
     return (
         <Market>
