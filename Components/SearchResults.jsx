@@ -1,5 +1,4 @@
 import { useDispatch } from "react-redux"
-
 export default function SearchResults(props) {
 
     const dispatch = useDispatch()    

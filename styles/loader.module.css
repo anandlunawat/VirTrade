@@ -1,0 +1,21 @@
+
+@keyframes loaderAnimation {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(100%);
+    }
+    100%{
+        transform: translateX(0);
+    }
+  }
+  
+  .loader {
+    animation: loaderAnimation 2s linear infinite;
+    width: 70%;
+  }
+  
+  .loaderContainer {
+    width: 100%;
+  }
