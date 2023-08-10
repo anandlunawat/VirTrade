@@ -26,6 +26,7 @@
     "require": "^2.4.20",
     "smartapi-angelbroking": "^1.0.2",
     "smartapi-javascript-next": "^1.0.1-4.6",
+    "socket.io-client": "^4.7.2",
     "stock-nse-india": "^1.1.1",
     "superjson": "^1.11.0",
     "three": "^0.147.0",

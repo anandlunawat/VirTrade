@@ -10,41 +10,55 @@ export async function liveFeed () {
         2: parseQuote,
         3: parseSnapQuote,
     };
-
     try {
-        const websocket = new WebSocket("ws://localhost:5000")
-        console
-        websocket.binaryType = "arraybuffer"
-        websocket.onopen = (e) =>{
-            // console.log(e);
-            const arrayData = ["1333", "2885", "1594"];
-            // const arrayData = ["1594"];
-            websocket.send(JSON.stringify(arrayData));            
-            // websocket.send("1333")
-        }
-        websocket.onmessage = (e) =>{            
-            let data = e.data
-            // console.log(e.data);
+        let headers
+        if(window) {
+            console.log(localStorage.getItem("jwtToken"),)
+            headers = {
+                "Authorization": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlAzMzQ0NjAiLCJyb2xlcyI6MCwidXNlcnR5cGUiOiJVU0VSIiwiaWF0IjoxNjkxNTg4OTUyLCJleHAiOjE2OTE2NzUzNTJ9.7yKS4-0IS1o9BCTZcdsLf6xwA0mMoYcrZ2lVz-XurH_F14bbTjzbYBlj7zMU1ykHjryn9oO5Gdtr9iyFAIeEvA",
+                "APIKey": 'AGRYNg5p', 
+                "FeedToken": 'eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlAzMzQ0NjAiLCJpYXQiOjE2OTE1ODg5NTIsImV4cCI6MTY5MTY3NTM1Mn0.u5PW8YMFwt13XJj2k6nv8kgK_Pb98zdU-co-t3_twYS-3065zx7FJVdYhPH8Py5VUA2ym91IPo5PsbSjngO7Cg',
+                "ClientCode": "P334460"
+              };
+        } 
+        
+        const socket = io("ws://localhost:5000",{
+            extraHeaders : headers
+        })
+        
+        socket.on('connect', () => {
+            console.log('Connected to the server');
+            let arrayData = []
+            if(watchList[0]) {
+                watchList.forEach(element => {
+                    arrayData.push(element.token)
+                });                                                
+            }                                
+            socket.emit("sendData",JSON.stringify(arrayData))
+            console.log("arraydata",arrayData)
+          });
+            
+          socket.on('liveFeed', (data) => {
+            console.log('Received message:', data);    
             const buffer = Buffer.from(data);
             const subscriptionMode = buffer[0];
-            const parser = parsers[subscriptionMode]; 
+            const parser = parsers[subscriptionMode];
             if (parser) {
-                const parsedData = parser(buffer);              
-                console.log('Parsed data:', parsedData.lastTradedPrice/100);                            
-                setPrice(parsedData)
-                // console.log("ltp",ltp)
+                const parsedData = parser(buffer);                    
+                console.log("parsedData",parsedData)
+                setLtp(parsedData)
             }
-            // console.log(JSON.parse(e.data))
-        }
-        websocket.onclose = (e) =>{
-            console.log("Close",e)
-        }
-        websocket.onerror = (e) => {
-            console.log("Error",e)
-        }
-        return price
+          });
+          
+          socket.on('error',(error)=>{
+            console.log("Connection failed to server",error)
+          })
+          
+          socket.on("disconnect",(reason)=>{
+            console.log("reason",reason)
+          })
     }
-    catch(e) {
+    catch (e) {
         console.log("Error",e)
     }
 }

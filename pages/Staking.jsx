@@ -3,6 +3,7 @@ import Market from "../Components/Market"
 import CompanyCards from "../Components/CompanyCards"
 import LineChart from "../Components/LineChart";
 import { useSelector } from "react-redux";
+import { io } from "socket.io-client";
 
 const { Parser } = require('binary-parser');
 const currentDate = new Date()
@@ -21,72 +22,71 @@ export default function Staking() {
         1: parseLTP,
         2: parseQuote,
         3: parseSnapQuote,
-    };
+    }
 
-    // useEffect(() => {
-    //     console.log("watchList.splice(-1)[0]?.token",watchList.splice(-1)[0]?.token)
-    //     if(watchList[0]){
-    //         let token = watchList?.splice(-1)[0]?.token
-    //         setArrayData([...arrayData,token])
-    //     }        
-    // },[watchList])
-
-    useEffect(() => {    
-        console.log("Watchlist", watchList)    
+    function getConnection() {
         try {
-            const websocket = new WebSocket("ws://localhost:5000")
-            websocket.binaryType = "arraybuffer"
-            websocket.onopen = (e) => {
+            let headers
+            if(window) {
+                console.log(localStorage.getItem("jwtToken"),)
+                headers = {
+                    "Authorization": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlAzMzQ0NjAiLCJyb2xlcyI6MCwidXNlcnR5cGUiOiJVU0VSIiwiaWF0IjoxNjkxNTg4OTUyLCJleHAiOjE2OTE2NzUzNTJ9.7yKS4-0IS1o9BCTZcdsLf6xwA0mMoYcrZ2lVz-XurH_F14bbTjzbYBlj7zMU1ykHjryn9oO5Gdtr9iyFAIeEvA",
+                    "APIKey": 'AGRYNg5p', 
+                    "FeedToken": 'eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlAzMzQ0NjAiLCJpYXQiOjE2OTE1ODg5NTIsImV4cCI6MTY5MTY3NTM1Mn0.u5PW8YMFwt13XJj2k6nv8kgK_Pb98zdU-co-t3_twYS-3065zx7FJVdYhPH8Py5VUA2ym91IPo5PsbSjngO7Cg',
+                    "ClientCode": "P334460"
+                  };
+            } 
+            
+            const socket = io("ws://localhost:5000",{
+                extraHeaders : headers,
+                closeOnBeforeunload : false
+            })
+            
+            socket.on('connect', () => {
+                console.log('Connected to the server');
                 let arrayData = []
                 if(watchList[0]) {
                     watchList.forEach(element => {
                         arrayData.push(element.token)
-                    });                        
-                    websocket.send(JSON.stringify(arrayData));
-                }                
-                console.log("arraydata",arrayData)                
-            }
-            websocket.onmessage = (e) => {
-                let data = e.data
+                    });                                                
+                }                                
+                socket.emit("sendData",JSON.stringify(arrayData))
+                console.log("arraydata",arrayData)
+              });
+                
+              socket.on('userId', (userId) => {                
+                document.cookie = `userId=${userId}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
+              });
+              
+              socket.on('liveFeed', (data) => {
+                console.log('Received message:');    
                 const buffer = Buffer.from(data);
                 const subscriptionMode = buffer[0];
                 const parser = parsers[subscriptionMode];
                 if (parser) {
                     const parsedData = parser(buffer);                    
-                    console.log("parsedData",parsedData)
+                    // console.log("parsedData",parsedData)
                     setLtp(parsedData)
                 }
-            }
-            websocket.onclose = (e) => {
-                console.log("Close", e)
-            }
-            websocket.onerror = (e) => {
-                console.log("Error", e)
-            }
+              });
+              
+              socket.on('error',(error)=>{
+                console.log("Connection failed to server",error)
+              })
+              
+              socket.on("disconnect",(reason)=>{
+                console.log("reason",reason)
+              })
         }
         catch (e) {
-            console.log("Error")
+            console.log("Error",e)
         }
+    }
 
-        // setTimeout(() => {
-        //     if (ltp.token == 253942) {
-        //         setChartN((preValue) => [
-        //             ...preValue,
-        //             { time: currentDate.getHours() - 12, price: ltp.lastTradedPrice / 100 }
-        //         ])
-        //     }
-        // }, 60000)
-
-    }, [watchList.length])
-
-    useEffect(() => {
-        if (ltp.token == 253942) {            
-            setNiftyBank(ltp.lastTradedPrice / 100)
-        }
-        else if (ltp.token == 99926000) {
-            setNifty(ltp.lastTradedPrice / 100)
-        }        
-    })    
+    useEffect(() => {    
+        console.log("Watchlist", watchList)                    
+        getConnection()
+    }, [watchList])    
 
     return (
         <Market>
@@ -135,7 +135,6 @@ function parseLTP(buffer) {
     return ltpParser.parse(buffer);
 }
 
-// Function to parse Quote data
 function parseQuote(buffer) {
     const quoteParser = new Parser()
         .endianess('little')
@@ -158,7 +157,6 @@ function parseQuote(buffer) {
     return quoteParser.parse(buffer);
 }
 
-// Function to parse Snap Quote data
 function parseSnapQuote(buffer) {
     const snapQuoteParser = new Parser()
         .endianess('little')
