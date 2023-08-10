@@ -16,10 +16,12 @@ Welcome to VirTrade, a powerful virtual trading platform designed to provide sto
 ## Usage
 
 Visit ([https://virtrade.netlify.app/](https://virtrade.netlify.app/)) during market hours to practice virtual trading with real-time stock prices. Explore a wide range of stocks and futures, analyze their performance using the interactive charts, and track your progress in honing your trading strategies.
-
-## Contributions
-
-This project demonstrates my expertise in frontend development, real-time data integration, data visualization, and responsive UI design. I'm thrilled to be part of a team that is revolutionizing how traders learn and practice, ultimately enhancing trading skills and financial literacy.
+![VirTrade UI](./Login_Page.jpg)
+![VirTrade UI](./Staking_Page.jpg)
+![VirTrade UI](./Dashboard.jpg)
+![VirTrade UI](./Filter.jpg)
+![VirTrade UI](./Transactions.jpg)
+![VirTrade UI](./Portfolio.jpg)
 
 ## Technology Stack
 
