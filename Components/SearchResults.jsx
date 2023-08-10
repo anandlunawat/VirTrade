@@ -1,4 +1,5 @@
 import { useDispatch } from "react-redux"
+import {BsSearch} from "react-icons/bs"
 export default function SearchResults(props) {
 
     const dispatch = useDispatch()    
@@ -15,9 +16,16 @@ export default function SearchResults(props) {
         console.log("localstorage", localStorage.getItem("watchList"));
     }    
 
+    console.log("props.searchedStock.length",props.searchedStock.length)
+
     return (
         <div className="h-screen m-4 overflow-y-auto">
             {
+                props.searchedStock.length ==0 ? 
+                <div className="flex">
+                    <BsSearch />
+                    No stocks filtered
+                </div> :
                 props.searchedStock.map((stock)=>(
                     <div className="flex flex-row gap-12 border-[1px] p-2 rounded-lg border-gray-800 m-2" key={stock.token}>
                         <span className={`text-lg font-semibold ${stock.exch_seg === "NSE" ? "text-green-500" : stock.exch_seg === "BSE" ? "text-red-500" : "text-gray-600"} uppercase`}>{stock.exch_seg}</span>                        
