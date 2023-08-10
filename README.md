@@ -23,11 +23,6 @@ Visit ([https://virtrade.netlify.app/](https://virtrade.netlify.app/)) during ma
 ![VirTrade UI](./Transactions.jpg)
 ![VirTrade UI](./Portfolio.jpg)
 
-
-## Contributions
-
-This project demonstrates my expertise in frontend development, real-time data integration, data visualization, and responsive UI design. I'm thrilled to be part of a team that is revolutionizing how traders learn and practice, ultimately enhancing trading skills and financial literacy.
-
 ## Technology Stack
 
 - Frontend: Next.js, Chart.js, Tailwind CSS
