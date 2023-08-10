@@ -14,16 +14,14 @@ export default function SearchResults(props) {
         localStorage.setItem("watchList", JSON.stringify(updatedWatchList));
     
         console.log("localstorage", localStorage.getItem("watchList"));
-    }    
-
-    console.log("props.searchedStock.length",props.searchedStock.length)
+    }        
 
     return (
         <div className="h-screen m-4 overflow-y-auto">
             {
                 props.searchedStock.length ==0 ? 
-                <div className="flex">
-                    <BsSearch />
+                <div className="ml-[30%] mt-[25%] flex gap-4 items-center text-xl font-normal">
+                    <BsSearch style={{color: "#22c55e"}}/>
                     No stocks filtered
                 </div> :
                 props.searchedStock.map((stock)=>(

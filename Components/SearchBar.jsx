@@ -16,6 +16,7 @@ export default function SearchBar(props) {
             setSearchedStock(stock)
         } else {            
             setSearchedStock(()=>[])
+            setInput(false)
         }     
     }
 
