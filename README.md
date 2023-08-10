@@ -1,34 +1,29 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# VirTrade - Virtual Trading Platform
 
-## Getting Started
+Welcome to VirTrade, a powerful virtual trading platform designed to provide stock market traders with a risk-free environment for practicing their trading strategies. This platform leverages real-time stock price data from Angel One's smartapi, available during market hours, giving users access to up-to-date information for informed virtual trading activities.
 
-First, run the development server:
+## Key Features
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+- **Next.js:** VirTrade's frontend is built using Next.js, a leading React framework known for its performance and server-side rendering capabilities, ensuring a fast and efficient user interface.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Real-time Stock Price Streaming:** Utilizing `socket.io`, we provide a live stream of stock prices from Angel One's smartapi during market hours, giving users real-time access to stock price updates, essential for informed virtual trading activities.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- **Data Visualization:** We employ Chart.js to empower traders on VirTrade to interact with and visualize stock market data through dynamic and informative charts.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- **Tailwind CSS:** Our responsive design, powered by Tailwind CSS, guarantees a consistent user experience across devices of all sizes.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
-## Learn More
+## Usage
 
-To learn more about Next.js, take a look at the following resources:
+Visit ([https://virtrade.netlify.app/](https://virtrade.netlify.app/)) during market hours to practice virtual trading with real-time stock prices. Explore a wide range of stocks and futures, analyze their performance using the interactive charts, and track your progress in honing your trading strategies.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+This project demonstrates my expertise in frontend development, real-time data integration, data visualization, and responsive UI design. I'm thrilled to be part of a team that is revolutionizing how traders learn and practice, ultimately enhancing trading skills and financial literacy.
 
-## Deploy on Vercel
+## Technology Stack
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Frontend: Next.js, Chart.js, Tailwind CSS
+- API: Angel One's smartapi
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Feel free to reach out if you have any questions or if you'd like to discuss the project further. Happy virtual trading!
