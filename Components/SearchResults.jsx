@@ -1,5 +1,7 @@
 import { useDispatch } from "react-redux"
 import {BsSearch} from "react-icons/bs"
+import {toast} from 'react-toastify'
+
 export default function SearchResults(props) {
 
     const dispatch = useDispatch()    
@@ -9,11 +11,11 @@ export default function SearchResults(props) {
             type : "ADD_STOCK",
             payload : stock
         })               
-        const existingWatchList = JSON.parse(localStorage.getItem("watchList")) || [];       
-        const updatedWatchList = [...existingWatchList, stock];
-        localStorage.setItem("watchList", JSON.stringify(updatedWatchList));
-    
-        console.log("localstorage", localStorage.getItem("watchList"));
+        // const existingWatchList = JSON.parse(localStorage.getItem("watchList")) || [];       
+        // const updatedWatchList = [...existingWatchList, stock];
+        // localStorage.setItem("watchList", JSON.stringify(updatedWatchList));
+        // toast.success("Stock Added Successfully")
+        // console.log("localstorage", localStorage.getItem("watchList"));
     }        
 
     return (

@@ -1,9 +1,13 @@
 import { useState , useEffect } from "react";
+import {RiDeleteBin6Line} from "react-icons/ri"
+import { useDispatch } from "react-redux";
 
 export default function CompanyCards(props) {  
     
     const[hydrated,isHydrated] = useState(false)
-    const[stockPrices,setStockPrices] = useState([{token:Number,price:Number}])
+    const[stockPrices,setStockPrices] = useState([{token:Number,price:Number}])    
+    const[hover,setHover] = useState(null)
+    const dispatch = useDispatch()
 
     useEffect(()=>{
       isHydrated(true)
@@ -27,16 +31,23 @@ export default function CompanyCards(props) {
                 setStockPrices(arr)
             }
         // }
-    },[props])    
+    },[props])  
+    
+    function deleteStock(watchList) {
+        dispatch({
+            type : "DELETE_STOCK",
+            payload : watchList.token
+        })
+    }
 
-    // console.log("ltp",props.ltp)
     
     return (
         !hydrated ? null :
         <div className="flex flex-row gap-10 pt-4 md:flex-wrap max-md:flex-col">
             {   
-                props.watchLists.map((watchList) => (                    
-                    <div key={watchList.token} className="flex flex-col bg-opacity-40 gap-2 bg-[#262424] items-center md:w-72 h-fit rounded-lg justify-center px-4 py-2 text-center">                        
+                props.watchLists.map((watchList,key) => (                    
+                    <div onMouseOver={()=>setHover(key)} onMouseOut={()=>setHover(null)} key={key} className="flex relative flex-col bg-opacity-40 gap-2 bg-[#262424] items-center md:w-72 h-fit rounded-lg justify-center px-4 py-2 text-center">                        
+                        {hover===key && <button onClick={()=> deleteStock(watchList)} className="absolute text-red-500 right-2 top-2"><RiDeleteBin6Line /></button>}
                         <span>{(stockPrices.find((item)=>item.token === watchList.token)?.price)}</span>
                         <span className="text-green-500">{watchList.symbol}</span>
                         <div className="flex flex-row gap-8 font-bold text-white">

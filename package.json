@@ -22,6 +22,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.10.1",
     "react-redux": "^8.1.1",
+    "react-toastify": "^9.1.3",
     "redux": "^4.2.1",
     "require": "^2.4.20",
     "smartapi-angelbroking": "^1.0.2",
