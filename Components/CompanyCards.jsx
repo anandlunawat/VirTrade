@@ -1,12 +1,15 @@
 import { useState , useEffect } from "react";
 import {RiDeleteBin6Line} from "react-icons/ri"
 import { useDispatch } from "react-redux";
+import OrderModal from "./OrderModal";
 
 export default function CompanyCards(props) {  
     
     const[hydrated,isHydrated] = useState(false)
     const[stockPrices,setStockPrices] = useState([{token:Number,price:Number}])    
     const[hover,setHover] = useState(null)
+    const[modal,setModal] = useState(false)
+    const[type,setType] = useState("")
     const dispatch = useDispatch()
 
     useEffect(()=>{
@@ -40,21 +43,29 @@ export default function CompanyCards(props) {
         })
     }
 
+    function removeModal() {
+        setModal(false)
+    }
+
+    console.log("props.watchlist",props.watchLists)
     
     return (
         !hydrated ? null :
         <div className="flex flex-row gap-10 pt-4 md:flex-wrap max-md:flex-col">
             {   
-                props.watchLists.map((watchList,key) => (                    
-                    <div onMouseOver={()=>setHover(key)} onMouseOut={()=>setHover(null)} key={key} className="flex relative flex-col bg-opacity-40 gap-2 bg-[#262424] items-center md:w-72 h-fit rounded-lg justify-center px-4 py-2 text-center">                        
+            props.watchLists.map((watchList,key) => (                    
+                <div key={key} className="">
+                    <div onMouseOver={()=>setHover(key)} onMouseOut={()=>setHover(null)} className="flex relative flex-col bg-opacity-40 gap-2 bg-[#262424] items-center md:w-72 h-fit rounded-lg justify-center px-4 py-2 text-center">                        
                         {hover===key && <button onClick={()=> deleteStock(watchList)} className="absolute text-red-500 right-2 top-2"><RiDeleteBin6Line /></button>}
                         <span>{(stockPrices.find((item)=>item.token === watchList.token)?.price)}</span>
-                        <span className="text-green-500">{watchList.symbol}</span>
+                        <span className="text-green-500">{watchList.exch_seg} {watchList.symbol}</span>
                         <div className="flex flex-row gap-8 font-bold text-white">
-                            <button className="px-3 py-1 border-2 border-green-500 rounded-lg shadow-sm hover:bg-green-500 hover:text-black 2xl:py-3 shadow-green-500 2xl:px-7">BUY</button>
-                            <button className="px-3 py-1 ml-auto border-2 border-red-500 rounded-lg shadow-sm hover:bg-red-500 hover:text-black 2xl:py-3 shadow-red-500 2xl:px-7">SELL</button>
-                        </div>
-                    </div>
+                            <button onClick={()=> {setModal(true);setType("BUY")}} className="px-3 py-1 border-2 border-green-500 rounded-lg shadow-sm hover:bg-green-500 hover:text-black 2xl:py-3 shadow-green-500 2xl:px-7">BUY</button>
+                            <button onClick={()=>{setModal(true);setType("SELL")}} className="px-3 py-1 ml-auto border-2 border-red-500 rounded-lg shadow-sm hover:bg-red-500 hover:text-black 2xl:py-3 shadow-red-500 2xl:px-7">SELL</button>
+                        </div>                    
+                    </div>                    
+                    {modal && <OrderModal type={type} removeModal={removeModal}/>}
+                </div>                
                 ))
             }
         </div>

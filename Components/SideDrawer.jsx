@@ -18,7 +18,7 @@ export default function SideDrawer() {
     },[])
 
     return (
-        <div className="fixed rounded-lg bg-opacity-70 left-0 top-[61px] h-[82vh] overflow-y-auto w-[20%]">
+        <div className="fixed rounded-lg left-0 top-[61px] h-[82vh] overflow-y-auto w-[20%]">
             <div className="flex flex-col bg-[#262424] rounded-lg bg-opacity-40 gap-2">
                 <div className="flex max-xl:hidden p-3 mr-4 ml-4 flex-col gap-2 pb-4 border-b-2 border-[#262424]">
                     <span>MAIN ACCOUNT BALANCE</span>

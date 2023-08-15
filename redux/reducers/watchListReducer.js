@@ -31,8 +31,7 @@ export function watchListReducer(state = getLocalWatchList(), action) {
       }
       toast.error("Stock Added Already")
       return state
-    case "DELETE_STOCK":
-      // console.log("state.filter((item) => item !== action.payload)",state.filter((item) => item !== action.payload))
+    case "DELETE_STOCK":      
       console.log("state",state.filter(item => item.token != action.payload))
       const updatedWatchList = state.filter(item => item.token !== action.payload)
       localStorage.setItem("watchList",JSON.stringify(updatedWatchList))
