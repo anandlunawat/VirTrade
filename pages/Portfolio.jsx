@@ -29,7 +29,7 @@ export default function Portfolio() {
                             <td>50000</td>
                             <td>2600</td>
                             <td className="text-green-500">+5%</td>
-                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
+                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-red-500">EXIT</button></td>
                         </tr>                        
                         <tr className="border-b-2 border-b-[#434242] rounded-lg">
                         <td className="p-2">1</td>
@@ -37,7 +37,7 @@ export default function Portfolio() {
                             <td>50000</td>
                             <td>2600</td>
                             <td className="text-green-500">+5%</td>
-                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
+                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-red-500">EXIT</button></td>
                         </tr>                        
                         <tr className="border-b-2 border-b-[#434242] rounded-lg">
                             <td className="p-2">1</td>
@@ -45,7 +45,7 @@ export default function Portfolio() {
                             <td>50000</td>
                             <td>2600</td>
                             <td className="text-red-500">-5%</td>
-                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
+                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-red-500">EXIT</button></td>
                         </tr>                        
                         <tr className="border-b-2 border-b-[#434242] rounded-lg">
                             <td className="p-2">1</td>
@@ -53,7 +53,7 @@ export default function Portfolio() {
                             <td>50000</td>
                             <td>2600</td>
                             <td className="text-green-500">+5%</td>
-                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
+                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-red-500">EXIT</button></td>
                         </tr>                        
                         <tr className="border-b-2 border-b-[#434242] rounded-lg">
                             <td className="p-2">1</td>
@@ -61,7 +61,7 @@ export default function Portfolio() {
                             <td>50000</td>
                             <td>2600</td>
                             <td className="text-red-500">-5%</td>
-                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-green-500">EXIT</button></td>
+                            <td className="flex justify-center gap-3 p-2 font-semibold text-black max-md:hidden"><button className="p-1 bg-green-500">ADD</button><button className="p-1 bg-red-500">EXIT</button></td>
                         </tr>
                     </tbody>
                 </table>

@@ -45,6 +45,7 @@ export default function CompanyCards(props) {
 
     function removeModal() {
         setModal(false)
+        document.querySelector("body").style.overflowY = "auto"
     }
 
     console.log("props.watchlist",props.watchLists)
@@ -60,8 +61,8 @@ export default function CompanyCards(props) {
                         <span>{(stockPrices.find((item)=>item.token === watchList.token)?.price)}</span>
                         <span className="text-green-500">{watchList.exch_seg} {watchList.symbol}</span>
                         <div className="flex flex-row gap-8 font-bold text-white">
-                            <button onClick={()=> {setModal(true);setType("BUY")}} className="px-3 py-1 border-2 border-green-500 rounded-lg shadow-sm hover:bg-green-500 hover:text-black 2xl:py-3 shadow-green-500 2xl:px-7">BUY</button>
-                            <button onClick={()=>{setModal(true);setType("SELL")}} className="px-3 py-1 ml-auto border-2 border-red-500 rounded-lg shadow-sm hover:bg-red-500 hover:text-black 2xl:py-3 shadow-red-500 2xl:px-7">SELL</button>
+                            <button onClick={()=> {setModal(true); document.querySelector("body").style.overflowY = "hidden";setType("BUY")}} className="px-3 py-1 border-2 border-green-500 rounded-lg shadow-sm hover:bg-green-500 hover:text-black 2xl:py-3 shadow-green-500 2xl:px-7">BUY</button>
+                            <button onClick={()=>{setModal(true);setType("SELL");document.querySelector("body").style.overflowY = "hidden"}} className="px-3 py-1 ml-auto border-2 border-red-500 rounded-lg shadow-sm hover:bg-red-500 hover:text-black 2xl:py-3 shadow-red-500 2xl:px-7">SELL</button>
                         </div>                    
                     </div>                    
                     {modal && <OrderModal type={type} removeModal={removeModal}/>}
