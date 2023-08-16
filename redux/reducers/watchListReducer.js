@@ -37,6 +37,12 @@ export function watchListReducer(state = getLocalWatchList(), action) {
       localStorage.setItem("watchList",JSON.stringify(updatedWatchList))
       toast.success("Stock Deleted Successfully")
       return updatedWatchList
+    case "DROP_STOCK":
+      const watchList = [...state]
+      const [movedStock] = watchList.splice(action.sourceIndex,1)
+      watchList.splice(action.targetIndex,0,movedStock);
+      localStorage.setItem("watchList",JSON.stringify(watchList))
+      return watchList
     default:
       return state
   }
