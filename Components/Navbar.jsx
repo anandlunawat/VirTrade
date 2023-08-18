@@ -9,15 +9,9 @@ export default function Navbar() {
     isHydrated(true)
   },[])
 
-  async function logOut() {
-    // try{
-    //   const data = await logout();      
-    //   data.success ? router.push("/") : alert(data.message)
-    // }
-    // catch(e){
-    //   console.log(e)
-    // }
+  function logOut() {
     logout()
+    window.location.href="/"
   }
 
   return (

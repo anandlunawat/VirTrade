@@ -13,6 +13,7 @@ export default function Staking() {
     const [ltp, setLtp] = useState({})
     const [NiftyBank, setNiftyBank] = useState(0)
     const [Nifty, setNifty] = useState(0)
+    const [authentication,setAuthentication] = useState({jwtToken:"",feedToken:""})
     const [chartN, setChartN] = useState([{}])
     const [arrayData, setArrayData] = useState([])
 
@@ -22,21 +23,27 @@ export default function Staking() {
         1: parseLTP,
         2: parseQuote,
         3: parseSnapQuote,
-    }
+    }    
 
-    function getConnection() {
-        try {
-            let headers
-            if(window) {
-                console.log(localStorage.getItem("jwtToken"),)
-                headers = {
-                    "Authorization": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlAzMzQ0NjAiLCJyb2xlcyI6MCwidXNlcnR5cGUiOiJVU0VSIiwiaWF0IjoxNjkxNTg4OTUyLCJleHAiOjE2OTE2NzUzNTJ9.7yKS4-0IS1o9BCTZcdsLf6xwA0mMoYcrZ2lVz-XurH_F14bbTjzbYBlj7zMU1ykHjryn9oO5Gdtr9iyFAIeEvA",
-                    "APIKey": 'AGRYNg5p', 
-                    "FeedToken": 'eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlAzMzQ0NjAiLCJpYXQiOjE2OTE1ODg5NTIsImV4cCI6MTY5MTY3NTM1Mn0.u5PW8YMFwt13XJj2k6nv8kgK_Pb98zdU-co-t3_twYS-3065zx7FJVdYhPH8Py5VUA2ym91IPo5PsbSjngO7Cg',
-                    "ClientCode": "P334460"
-                  };
-            } 
-            
+    useEffect(()=>{
+        const jwtToken = localStorage.getItem("jwtToken")
+        const feedToken = localStorage.getItem("feedToken")
+        setAuthentication({
+            jwtToken : jwtToken,
+            feedToken : feedToken
+        })
+    },)
+
+    useEffect(() => {        
+        console.log("Watchlist", watchList)  
+        console.log("headers",authentication)
+        try {                    
+            let headers = {
+                "Authorization": authentication.jwtToken,
+                "APIKey": 'AGRYNg5p', 
+                "FeedToken": authentication.feedToken,
+                "ClientCode": "P334460"
+            };
             const socket = io("ws://localhost:5000",{
                 extraHeaders : headers,
                 closeOnBeforeunload : false
@@ -80,12 +87,7 @@ export default function Staking() {
         }
         catch (e) {
             console.log("Error",e)
-        }
-    }
-
-    useEffect(() => {    
-        console.log("Watchlist", watchList)                    
-        getConnection()
+        }                          
     }, [watchList])    
 
     return (
