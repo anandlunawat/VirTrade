@@ -1,32 +1,27 @@
 import { useDispatch } from "react-redux"
 import {BsSearch} from "react-icons/bs"
-import {toast} from 'react-toastify'
 
-export default function SearchResults(props) {
+export default function SearchResults({searchedStock,children}) {
 
-    const dispatch = useDispatch()    
+    const dispatch = useDispatch()         
 
     function addStock(stock) {        
         dispatch({
             type : "ADD_STOCK",
             payload : stock
         })               
-        // const existingWatchList = JSON.parse(localStorage.getItem("watchList")) || [];       
-        // const updatedWatchList = [...existingWatchList, stock];
-        // localStorage.setItem("watchList", JSON.stringify(updatedWatchList));
-        // toast.success("Stock Added Successfully")
-        // console.log("localstorage", localStorage.getItem("watchList"));
     }        
 
     return (
         <div className="h-screen m-4 overflow-y-auto">
+            {children}
             {
-                props.searchedStock.length ==0 ? 
+                searchedStock.length ==0 ? 
                 <div className="ml-[30%] mt-[25%] flex gap-4 items-center text-xl font-normal">
                     <BsSearch style={{color: "#22c55e"}}/>
                     No stocks filtered
                 </div> :
-                props.searchedStock.map((stock)=>(
+                searchedStock.map((stock)=>(
                     <div className="flex flex-row gap-12 border-[1px] p-2 rounded-lg border-gray-800 m-2" key={stock.token}>
                         <span className={`text-lg font-semibold ${stock.exch_seg === "NSE" ? "text-green-500" : stock.exch_seg === "BSE" ? "text-red-500" : "text-gray-600"} uppercase`}>{stock.exch_seg}</span>                        
                         <span className="text-lg font-semibold text-white uppercase basis-1/2">{stock.symbol?.match(/[a-zA-Z]+|[0-9]+/g)?.join(' ')}</span>                        

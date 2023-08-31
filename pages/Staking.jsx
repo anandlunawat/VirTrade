@@ -32,7 +32,7 @@ export default function Staking() {
             jwtToken : jwtToken,
             feedToken : feedToken
         })
-    },)
+    },[])
 
     useEffect(() => {        
         console.log("Watchlist", watchList)  

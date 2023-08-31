@@ -66,9 +66,7 @@ export default function CompanyCards(props) {
             targetIndex : key
         })
         console.log("handleDrop",e,key)
-    }
-
-    console.log("props.watchlist",props.watchLists)
+    }    
     
     return (
         !hydrated ? null :
