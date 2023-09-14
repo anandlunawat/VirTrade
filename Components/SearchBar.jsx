@@ -36,9 +36,9 @@ export default function SearchBar(props) {
 
     return (
         <div className='w-screen m-4 xl:ml-[22%] mt-[70px]'>
-            <div className="flex text-white flex-row gap-2 items-center border border-solid border-[#D0D5DD] rounded-lg shadow-b p-2">
+            <div className="flex text-white w-full flex-row gap-2 items-center border border-solid border-[#D0D5DD] rounded-lg shadow-b p-2">
                 <CiSearch />
-                <input id='searchInput' type={"search"} className="w-full bg-transparent peer/cc focus:outline-none" placeholder="Start Typing..." onChange={filters} />
+                <input id='searchInput' type={"search"} className="w-full bg-transparent peer/cc focus:outline-none" placeholder="Start Searching" onChange={filters} />
             </div>
             {
                 keyword!== "" && 

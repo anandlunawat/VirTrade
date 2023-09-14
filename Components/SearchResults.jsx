@@ -13,7 +13,7 @@ export default function SearchResults({searchedStock,children}) {
     }        
 
     return (
-        <div className="h-screen m-4 overflow-y-auto">
+        <div className="h-screen overflow-y-auto">
             {children}
             {
                 searchedStock.length ==0 ? 
