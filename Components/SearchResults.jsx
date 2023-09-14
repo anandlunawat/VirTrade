@@ -17,7 +17,7 @@ export default function SearchResults({searchedStock,children}) {
             {children}
             {
                 searchedStock.length ==0 ? 
-                <div className="ml-[30%] mt-[25%] flex gap-4 items-center text-xl font-normal">
+                <div className="sm:ml-[30%] max-sm:ml-[20%] mt-[25%] flex gap-4 items-center text-xl font-normal">
                     <BsSearch style={{color: "#22c55e"}}/>
                     No stocks filtered
                 </div> :
