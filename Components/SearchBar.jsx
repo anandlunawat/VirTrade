@@ -7,7 +7,7 @@ import { useEffect } from 'react'
 export default function SearchBar(props) {
 
     const [searchedStock, setSearchedStock] = useState([{}])    
-    const [filter, setFilter] = useState("")
+    const [filter, setFilter] = useState("ALL")
     const [keyword,setKeyword] = useState("")
 
     const filters = (e) => {

@@ -21,8 +21,8 @@ export default function SearchResults({searchedStock,children}) {
                     <BsSearch style={{color: "#22c55e"}}/>
                     No stocks filtered
                 </div> :
-                searchedStock.map((stock)=>(
-                    <div className="flex flex-row gap-12 border-[1px] p-2 rounded-lg border-gray-800 m-2" key={stock.token}>
+                searchedStock.map((stock,key)=>(
+                    <div className="flex flex-row gap-12 border-[1px] p-2 rounded-lg border-gray-800 m-2" key={key}>
                         <span className={`text-lg font-semibold ${stock.exch_seg === "NSE" ? "text-green-500" : stock.exch_seg === "BSE" ? "text-red-500" : "text-gray-600"} uppercase`}>{stock.exch_seg}</span>                        
                         <span className="text-lg font-semibold text-white uppercase basis-1/2">{stock.symbol?.match(/[a-zA-Z]+|[0-9]+/g)?.join(' ')}</span>                        
                         <button onClick={()=>{addStock(stock)}} className="w-10 h-10 ml-auto text-2xl text-green-500 border-2 border-green-500">+</button>

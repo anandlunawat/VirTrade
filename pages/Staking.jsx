@@ -4,6 +4,7 @@ import CompanyCards from "../Components/CompanyCards"
 import LineChart from "../Components/LineChart";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
+import { historicalData } from "../actions/historicalData";
 
 const { Parser } = require('binary-parser');
 const currentDate = new Date()
@@ -26,6 +27,13 @@ export default function Staking() {
     }    
 
     useEffect(()=>{
+        async function data () {
+            const data = await historicalData()            
+        }
+        data()
+    },[])
+
+    useEffect(()=>{
         const jwtToken = localStorage.getItem("jwtToken")
         const feedToken = localStorage.getItem("feedToken")
         setAuthentication({
@@ -39,14 +47,14 @@ export default function Staking() {
         console.log("headers",authentication)
         try {                    
             let headers = {
-                "Authorization": authentication.jwtToken,
-                "APIKey": 'AGRYNg5p', 
-                "FeedToken": authentication.feedToken,
+                "Authorization": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlAzMzQ0NjAiLCJyb2xlcyI6MCwidXNlcnR5cGUiOiJVU0VSIiwidG9rZW4iOiJleUpoYkdjaU9pSklVelV4TWlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKemRXSWlPaUpRTXpNME5EWXdJaXdpWlhod0lqb3hOamsxTXpnd09EQXdMQ0pwWVhRaU9qRTJPVFV5T0Rrd056Z3NJbXAwYVNJNklqSm1aalEwTXpZMkxUUXhaakV0TkRCa1ppMWlNRGt4TFdWbU1ERXhOR0ptTW1VeE1DSXNJbTl0Ym1WdFlXNWhaMlZ5YVdRaU9qTXNJbk52ZFhKalpXbGtJam9pTXlJc0luVnpaWEpmZEhsd1pTSTZJbU5zYVdWdWRDSXNJblJ2YTJWdVgzUjVjR1VpT2lKMGNtRmtaVjloWTJObGMzTmZkRzlyWlc0aUxDSm5iVjlwWkNJNk15d2ljMjkxY21ObElqb2lNeUo5LmltY0xZd2l5UmN4WHdURkZmT0p2XzF2eDVTbHRNd3hxYjZ6TTZYQmhWVmlPSnRaSWlWWXl1Wm85ZGNqcFJMMXBJOElZLWlqMDZQSnUxd01SUXZQSWdBIiwiaWF0IjoxNjk1Mjg5MTM4LCJleHAiOjE2OTUzNzU1Mzh9.ez31GY1M0KCHEe9WSPbUvU6btKbXrmRuoWFyXehVJgtaTqfbh7YD84-FfbbdFhGbITDNUVubbCT3szi5PqUiRQ",
+                "APIKey": 'FOJ1QasU', 
+                "FeedToken": "eyJhbGciOiJIUzUxMiJ9.eyJ1c2VybmFtZSI6IlAzMzQ0NjAiLCJpYXQiOjE2OTUyODkxMzgsImV4cCI6MTY5NTM3NTUzOH0.ZIGP-o3QzgKA33TNSUpxdUMJLJ61NjJmKNFVcBxz8T09yeCYxMUpIdVbbw23zmOG3jfctoQE84kjS5IMeK9wbQ",
                 "ClientCode": "P334460"
             };
             const socket = io("ws://localhost:5000",{
                 extraHeaders : headers,
-                closeOnBeforeunload : false
+                // closeOnBeforeunload : false
             })
             
             socket.on('connect', () => {
