@@ -20,20 +20,20 @@ const Market = ({ children }) => {
             if (responses) {
               setLoader(false)
               setInstruments(responses.filter((response) => !(response.symbol.endsWith('-BL'))))
+              const response = new Response(JSON.stringify(instruments), {
+                headers: { 'Content-Type': 'text/plain' },
+              });
+              caches.open("instruments").then((cache) => {
+                cache.put("https://virtrade.netlify.app/", response);      
+              })
             }
           }
           data()
-          const response = new Response(JSON.stringify(instruments), {
-            headers: { 'Content-Type': 'text/plain' },
-          });
-          caches.open("instruments").then((cache) => {
-            cache.put("https://virtrade.netlify.app/", response);      
-          })
         }
         else {
           setLoader(false) 
           let responseStocks = await cachedResponse.json()                 
-          setInstruments(responseStocks.filter((response) => !(response.symbol.endsWith('-BL'))))
+          setInstruments(responseStocks.filter((responseStock) => !(responseStock.symbol.endsWith('-BL'))))
         }
       }
       getCachedStocks();      
