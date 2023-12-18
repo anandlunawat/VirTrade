@@ -45,7 +45,7 @@ export default function SearchBar(props) {
                 <SearchResults searchedStock={searchedStock}>            
                     <div className="flex flex-row gap-2 m-5 justify-evenly">
                         <button onClick={() => setFilter("ALL")} className={`${filter === "ALL" ? "bg-[#262424] text-green-500" : "bg-black border-[1px] border-[262424] text-white"} sm:px-8 sm:py-1 px-4 py-1 font-semibold text-lg rounded-full`}>All</button>
-                        <button onClick={() => {console.log("props.instruments",props.instrument); setFilter("STOCKS") }} className={`${filter === "STOCKS" ? "bg-[#262424] text-green-500" : "bg-black border-[1px] border-[262424] text-white"} sm:px-8 sm:py-1 px-4 py-1 font-semibold text-lg rounded-full`}>Stocks</button>
+                        <button onClick={() => { setFilter("STOCKS") }} className={`${filter === "STOCKS" ? "bg-[#262424] text-green-500" : "bg-black border-[1px] border-[262424] text-white"} sm:px-8 sm:py-1 px-4 py-1 font-semibold text-lg rounded-full`}>Stocks</button>
                         <button onClick={() => { setFilter("INDICES") }} className={`${filter === "INDICES" ? "bg-[#262424] text-green-500" : "bg-black border-[1px] border-[262424] text-white"} sm:px-8 sm:py-1 px-4 py-1 font-semibold text-lg rounded-full`}>Indices</button>
                         <button onClick={() => { setFilter("F&O") }} className={`${filter === "F&O" ? "bg-[#262424] text-green-500" : "bg-black border-[1px] border-[262424] text-white"} sm:px-8 sm:py-1 px-4 py-1 font-semibold text-lg rounded-full`}>F&O</button>
                     </div>
