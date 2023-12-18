@@ -20,7 +20,7 @@ export const Login = async (client,pass,totp,apiKey) => {
             'X-ClientLocalIP': "192.168.1.10",
             'X-ClientPublicIP': "192.168.43.134",
             'X-MACAddress': "14-18-C3-33-66-CA",
-            'X-PrivateKey': "nEH9iQOS"
+            'X-PrivateKey': process.env.NEXT_PUBLIC_API_KEY
         },
         data : data
     };
