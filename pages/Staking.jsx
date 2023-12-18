@@ -106,12 +106,11 @@ export default function Staking() {
                             <span className="text-red-500">{NiftyBank}</span>
                         </button>
                     </div>
-                    {/* <div className="md:basis-3/4 rounded-lg bg-opacity-40 bg-[#262424] w-full"> */}
-                        {/* <LineChart
-                            chartN={chartN}
-                        /> */}
-                        <img src="/chart.png" className="p-2 rounded-lg h-52 md:basis-3/4" />
-                    {/* </div> */}
+                    <div className="md:basis-3/4 rounded-lg bg-opacity-40 bg-[#262424] w-full">
+                        <LineChart                            
+                        />
+                        {/* <img src="/chart.png" className="p-2 rounded-lg h-52 md:basis-3/4" /> */}
+                    </div>
                 </div>
                 <CompanyCards
                     ltp={ltp}
