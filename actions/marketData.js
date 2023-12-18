@@ -7,7 +7,9 @@ export const marketData = async (stock) => {
         updatedTokens = [...existingTokens,stock.token]
     } else {        
         updatedTokens = [stock.token]
-    }    
+    }   
+    
+    var authorization = (localStorage.getItem("jwtToken"))
 
     var data = JSON.stringify({
         "mode": "LTP",
@@ -27,7 +29,7 @@ export const marketData = async (stock) => {
             'X-ClientPublicIP': '192.168.43.134',
             'X-MACAddress': '14-18-C3-33-66-CA',
             'X-UserType': 'USER',
-            'Authorization': process.env.NEXT_PUBLIC_JWT_TOKEN,
+            'Authorization': `Bearer ${authorization}`,
             'Content-Type': 'application/json'
         },
         data: data
