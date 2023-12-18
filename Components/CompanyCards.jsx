@@ -75,10 +75,8 @@ export default function CompanyCards(props) {
                         <div key={key} draggable={!modal} onDragStart={(e) => handleDragStart(e, key)} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, key)}>
                             <div onMouseOver={() => setHover(key)} onMouseOut={() => setHover(null)} className="flex relative flex-col bg-opacity-40 gap-2 bg-[#262424] items-center md:w-72 h-fit rounded-lg justify-center px-4 py-2 text-center">
                                 {hover === key && <button onClick={() => deleteStock(watchList)} className="absolute text-red-500 right-2 top-2"><RiDeleteBin6Line /></button>}
-                                <span>{(stockPrices.find((item) => item.token === watchList.token)?.price)}</span>
-                                { watchList.ltp && watchList.ltp.map((instrumentValue, key) => (
-                                    <span key={key}>{instrumentValue?.symbolToken === watchList.token ? instrumentValue.ltp : ""}</span>
-                                ))}
+                                <span>{(stockPrices.find((item) => item.token === watchList.token)?.price)}</span>                                
+                                <span>{watchList.ltp}</span>
                                 <span className="text-green-500">{watchList.exch_seg} {watchList.symbol}</span>
                                 <div className="flex flex-row gap-8 font-bold text-white">
                                     <button onClick={() => { setModal(true); document.querySelector("body").style.overflowY = "hidden"; setOrderType("BUY") }} className="px-3 py-1 border-2 border-green-500 rounded-lg shadow-sm hover:bg-green-500 hover:text-black 2xl:py-3 shadow-green-500 2xl:px-7">BUY</button>

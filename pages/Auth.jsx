@@ -8,12 +8,14 @@ export default function Auth() {
     const [cred, setCred] = useState({
         cc: "",
         pass: "",
-        totp: ""
+        totp: "",
     })
     const router = useRouter()
     async function login(e) {
         e.preventDefault();
-        const data = await Login(cred.cc, cred.pass, cred.totp)
+        const apiKey = process.env.NEXT_PUBLIC_API_KEY
+        console.log("apiKey",apiKey)
+        const data = await Login(cred.cc, cred.pass, cred.totp,apiKey)
         data ? router.push("/Staking") : alert("Error")
     }
     function updateChange(event) {
