@@ -18,10 +18,11 @@ export function watchListReducer(state = getLocalWatchList(), action) {
   }
   switch (action.type) {
     case "ADD_STOCK":
-      console.log("action,", action)      
       if(state.findIndex(item => item.token===action.payload.token) === -1) {
-        const existingWatchList = JSON.parse(localStorage.getItem("watchList")) || [];       
+        const existingWatchList = JSON.parse(localStorage.getItem("watchList")) || [];  
         const updatedWatchList = [...existingWatchList, action.payload];
+        // console.log("action.payload.ltp",action.payload.ltp)
+        // action.payload.ltp = JSON.parse(localStorage.getItem("payload Ltp"))
         localStorage.setItem("watchList", JSON.stringify(updatedWatchList));
         toast.success("Stock Added Successfully")
         return [

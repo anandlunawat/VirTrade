@@ -33,7 +33,7 @@ const Market = ({ children }) => {
         else {
           setLoader(false) 
           let responseStocks = await cachedResponse.json()                 
-          setInstruments(responseStocks.filter((responseStock) => !(responseStock.symbol.endsWith('-BL'))))
+          setInstruments(responseStocks.filter((responseStock) => !(responseStock.symbol?.endsWith('-BL'))))
         }
       }
       getCachedStocks();      

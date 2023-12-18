@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import Chart from "chart.js/auto"
-import { historicalData } from "../actions/historicalData"
+import { historicalData } from "../actions/marketData"
 
 export default function LineChart(props) {
 

@@ -2,6 +2,7 @@ import { useState } from "react"
 import Market from "../Components/Market"
 import { BsBarChart } from "react-icons/bs"
 import Filter from "../Components/Filter"
+import { CgProfile } from "react-icons/cg";
 
 export default function Profile() {
 
@@ -20,7 +21,7 @@ export default function Profile() {
             <div className="mt-[20px] max-lg:mb-[25%] overflow-hidd en h-fit xl:ml-[22%] flex flex-col m-4 gap-4">
                 <div className="border-b-2 border-b-[#262424] pb-2">Profile</div>
                 <div className="flex items-center gap-4">
-                    <div className="w-20 h-20 bg-[#262424] rounded-full"></div>
+                    <div className="w-20 h-20 bg-[#262424] flex items-center justify-center text-4xl rounded-full"><CgProfile /></div>
                     <span>User</span>
                 </div>
                 <div className="border-b-[#262424] items-center flex gap-2 border-b-2 pb-2">
