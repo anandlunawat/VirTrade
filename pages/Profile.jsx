@@ -3,8 +3,9 @@ import Market from "../Components/Market"
 import { BsBarChart } from "react-icons/bs"
 import Filter from "../Components/Filter"
 import { CgProfile } from "react-icons/cg";
+import privateRoute from "../routes/privateRoute";
 
-export default function Profile() {
+const Profile = () => {
 
     const list = [
         { "name":"Segment","value": ["Equity", "Future & Options"] },
@@ -35,3 +36,5 @@ export default function Profile() {
         </Market>
     )
 }
+
+export default privateRoute(Profile)

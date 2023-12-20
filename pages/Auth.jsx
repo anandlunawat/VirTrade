@@ -56,7 +56,7 @@ export default function Auth() {
                     </div>
                     <div className="relative">
                         <input type="password" id="pass" name="password" className="bg-transparent border-b-[2px] w-full peer/pass focus:outline-none focus:border-green-500 placeholder-transparent" placeholder="Password" onChange={updateChange}></input>
-                        <label className="absolute left-0 text-green-500 pointer-events-none -top-6 peer-placeholder-shown/pass:text-base peer-placeholder-shown/pass:text-white peer-placeholder-shown/pass:-top-1.5 peer-focus/pass:-top-6 peer-focus/pass:text-green-500">Password</label>
+                        <label className="absolute left-0 text-green-500 pointer-events-none -top-6 peer-placeholder-shown/pass:text-base peer-placeholder-shown/pass:text-white peer-placeholder-shown/pass:-top-1.5 peer-focus/pass:-top-6 peer-focus/pass:text-green-500">Pin</label>
                     </div>
                     <div className="relative">
                         <input type="number" id="otp" name="otp" className="bg-transparent border-b-[2px] w-full peer/otp focus:outline-none focus:border-green-500 placeholder-transparent" placeholder="TOTP" onChange={updateChange}></input>

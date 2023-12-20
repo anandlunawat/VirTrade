@@ -1,8 +1,9 @@
 import Market from "../Components/Market"
 import Cards from "../Components/Cards"
 import Withdrawal from "../Components/Withdrawal"
+import privateRoute from "../routes/privateRoute";
 
-export default function Dashboard() {
+const Dashboard = () => {
     return (
         <Market>
             <div className="text-white mt-[20px] max-lg:mb-[25%] h-fit xl:ml-[22%] flex flex-col m-4">            
@@ -37,3 +38,5 @@ export default function Dashboard() {
         </Market>
     )
 }
+
+export default privateRoute(Dashboard)

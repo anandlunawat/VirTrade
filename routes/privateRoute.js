@@ -1,32 +1,25 @@
-import {useRouter} from 'next/router'
-import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router';
+import { toast } from 'react-toastify';
 
-const privateRoute = Component => {
-    const Auth = (props) => {
-        const router = useRouter()
-        // const [auth,setAuth] = useState(false)
-        // useEffect (() => {
-        //     if(localStorage.getItem("feedToken")) {
-        //         setAuth(!auth)
-        //     }
-        // },[auth,setAuth])
-        // if(!auth) {
-        //     router.push("/")
-        //     return
-        // } else {
-        //     return <Component {...props}/>
-        // }
-        if(typeof window !== "undefined") {
-            if(localStorage.getItem("feedToken")) {
-                return <Component {...props}/>
-            }
-        }
-        router.push("/")
-    }
-    if (Component.getInitialProps) {
-        Auth.getInitialProps = Component.getInitialProps;
-    }
-    return Auth;
-}
+const privateRoute = (Component) => {
+  const Auth = (props) => {
+    const router = useRouter();
+    if (typeof window !== 'undefined') {
+      if (localStorage.getItem('feedToken')) {        
+        return <Component {...props} />;
+      } else { 
+        toast.error("PLease Login to access.")       
+        router.push('/');
+      }
+    }    
+    return null;
+  };
+
+  if (Component.getInitialProps) {
+    Auth.getInitialProps = Component.getInitialProps;
+  }
+
+  return Auth;
+};
 
 export default privateRoute;

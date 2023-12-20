@@ -6,20 +6,29 @@ export default function LineChart() {
 
     const [data,setData] = useState()
 
-    useEffect(()=>{
-        const fetchData = async () =>{
-            try{
-                const response = await historicalData()
-                setData(response)
-            }
-            catch(e) {
-                console.log("Error fetching historical Data",e)
-            }
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await historicalData();
+          setData(response);
+        } catch (e) {
+          console.log("Error fetching historical Data", e);
         }
-        fetchData()
-        const intervalId = setInterval(fetchData, 300000);
-        return () => clearInterval(intervalId);
-    },[])
+      };
+        
+      const calculateNextInterval = () => {
+        const now = new Date();
+        const nextInterval = new Date(now);
+        nextInterval.setMinutes((Math.floor(now.getMinutes() / 15) + 1) * 15, 0, 0);
+        return nextInterval - now;
+      };
+  
+      fetchData();
+      const intervalId = setInterval(fetchData, calculateNextInterval());
+  
+      return () => clearInterval(intervalId);
+    }, []);
 
     useEffect(() => {
         const line_Chart = new Chart(

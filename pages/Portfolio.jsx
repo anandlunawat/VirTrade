@@ -1,6 +1,7 @@
 import Market from "../Components/Market";
+import privateRoute from "../routes/privateRoute";
 
-export default function Portfolio() {
+const Portfolio = () => {
     return (
         <Market>
             <div className="mt-[20px] max-lg:mb-[25%] overflow-hidden h-fit xl:ml-[22%] flex flex-col m-4 gap-4">
@@ -53,3 +54,5 @@ export default function Portfolio() {
         </Market>
     )
 }
+
+export default privateRoute(Portfolio)

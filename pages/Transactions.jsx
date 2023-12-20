@@ -1,5 +1,7 @@
 import Market from "../Components/Market";
-export default function Transactions() {
+import privateRoute from "../routes/privateRoute";
+
+const Transactions = () => {
     return (
         <Market>
             <div className="mt-[20px] max-lg:mb-[25%] h-fit xl:ml-[22%] flex flex-col m-4 gap-4">
@@ -57,3 +59,5 @@ export default function Transactions() {
         </Market>
     )
 }
+
+export default privateRoute(Transactions)

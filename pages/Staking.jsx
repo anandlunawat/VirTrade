@@ -4,11 +4,12 @@ import CompanyCards from "../Components/CompanyCards"
 import LineChart from "../Components/LineChart";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
+import privateRoute from "../routes/privateRoute";
 
 const { Parser } = require('binary-parser');
 const currentDate = new Date()
 
-export default function Staking() {
+    const Staking = () => {
 
     const [ltp, setLtp] = useState({})
     const [NiftyBank, setNiftyBank] = useState(0)
@@ -107,9 +108,7 @@ export default function Staking() {
                         </button>
                     </div>
                     <div className="md:basis-3/4 rounded-lg bg-opacity-40 bg-[#262424] w-full">
-                        <LineChart                            
-                        />
-                        {/* <img src="/chart.png" className="p-2 rounded-lg h-52 md:basis-3/4" /> */}
+                        <LineChart />                        
                     </div>
                 </div>
                 <CompanyCards
@@ -193,3 +192,5 @@ function parseSnapQuote(buffer) {
 
     return snapQuoteParser.parse(buffer);
 }
+
+export default privateRoute(Staking)

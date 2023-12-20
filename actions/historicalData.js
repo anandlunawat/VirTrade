@@ -3,25 +3,16 @@ import { toast } from 'react-toastify';
 export const historicalData = async () =>{
     var axios = require ('axios')
     var authorization = (localStorage.getItem("jwtToken"))
-
-    const formatDate = (date) => {
-        const year = date.getFullYear();
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const day = String(date.getDate()).padStart(2, '0');
-        const hours = String(date.getHours()).padStart(2, '0');
-        const minutes = String(date.getMinutes()).padStart(2, '0');
-      
-        return `${year}-${month}-${day}`;
-      };
-      
-      // Generate a date and format it
-      const currentDate = new Date();
-      const formattedDate = formatDate(currentDate);
-    //   console.log("formattedDate",formattedDate)
+    const currentDate = new Date();      
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const hours = String(currentDate.getHours()).padStart(2, '0');
+    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
 
     var data = JSON.stringify({"exchange":"NSE","symboltoken":"3045",
-    "interval":"FIFTEEN_MINUTE","fromdate":`2023-${String(currentDate.getMonth()+1).padStart(2,'0')}-18 09:15`,
-    "todate":`${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-18 15:30`});
+    "interval":"FIFTEEN_MINUTE","fromdate":`${year}-${day-1 == 0 ? month-1 : month}-${hours > 0 && hours < 9 ? day-1 : day} 09:15`,
+    "todate":`${year}-${month}-${day} ${hours > 15 && minutes > 30 ? "15:15" : `${hours}:${minutes}`}`});
 
     var config = {
         method: 'post',

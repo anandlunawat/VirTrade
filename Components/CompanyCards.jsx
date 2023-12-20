@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { RiDeleteBin6Line } from "react-icons/ri"
+import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import OrderModal from "./OrderModal";
 
@@ -74,7 +75,7 @@ export default function CompanyCards(props) {
                     props.watchLists.map((watchList, key) => (
                         <div key={key} draggable={!modal} onDragStart={(e) => handleDragStart(e, key)} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, key)}>
                             <div onMouseOver={() => setHover(key)} onMouseOut={() => setHover(null)} className="flex relative flex-col bg-opacity-40 gap-2 bg-[#262424] items-center md:w-72 h-fit rounded-lg justify-center px-4 py-2 text-center">
-                                {hover === key && <button onClick={() => deleteStock(watchList)} className="absolute text-red-500 right-2 top-2"><RiDeleteBin6Line /></button>}
+                                {hover === key && <button onClick={() => deleteStock(watchList)} className="absolute text-red-500 right-2 top-2"><BsThreeDotsVertical /></button>}
                                 <span>{(stockPrices.find((item) => item.token === watchList.token)?.price)}</span>                                
                                 <span>{watchList.ltp}</span>
                                 <span className="text-green-500">{watchList.exch_seg} {watchList.symbol}</span>
