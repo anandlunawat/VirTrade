@@ -47,7 +47,7 @@ export default function LineChart() {
             options: {
               responsive: true,
               maintainAspectRatio: false,
-              pointRadius: 0
+              pointRadius: 2
             }
           }
         );
