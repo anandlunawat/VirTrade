@@ -1,20 +1,61 @@
 export const marketData = async (stock) => {
-
     var axios = require('axios');
-    var existingTokens = localStorage.getItem("watchList") ? (JSON.parse(localStorage.getItem("watchList")).map((stak) => stak.token)) : undefined    
-    var updatedTokens    
-    if(existingTokens) {        
-        updatedTokens = [...existingTokens,stock.token]
-    } else {        
+    var existingTokens = localStorage.getItem("watchList") ? (JSON.parse(localStorage.getItem("watchList")).map((stak) => stak)) : undefined
+    var updatedTokens
+    if (existingTokens) {
+        updatedTokens = [...existingTokens, stock]
+    } else {
         updatedTokens = [stock.token]
-    }   
-    
+    }
+
+    var updatedNseTokens = updatedTokens.reduce((acc, item) => {
+        if (item.exch_seg === 'NSE') {
+            acc.push(item.token);
+        }
+        return acc;
+    }, []);
+    var updatedNfoTokens = updatedTokens.reduce((acc, item) => {
+        if (item.exch_seg === 'NFO') {
+            acc.push(item.token);
+        }
+        return acc;
+    }, []);
+    var updatedBseTokens = updatedTokens.reduce((acc, item) => {
+        if (item.exch_seg === 'BSE') {
+            acc.push(item.token);
+        }
+        return acc;
+    }, []);
+    var updatedBfoTokens = updatedTokens.reduce((acc, item) => {
+        if (item.exch_seg === 'BFO') {
+            acc.push(item.token);
+        }
+        return acc;
+    }, []);
+    var updatedCdsTokens = updatedTokens.reduce((acc, item) => {
+        if (item.exch_seg === 'CDS') {
+            acc.push(item.token);
+        }
+        return acc;
+    }, []);
+    var updatedMcxTokens = updatedTokens.reduce((acc, item) => {
+        if (item.exch_seg === 'MCX') {
+            acc.push(item.token);
+        }
+        return acc;
+    }, []);
+
     var authorization = (localStorage.getItem("jwtToken"))
 
     var data = JSON.stringify({
         "mode": "LTP",
         "exchangeTokens": {
-            "NSE": updatedTokens
+            "NSE": updatedNseTokens,
+            "NFO": updatedNfoTokens,
+            "BSE": updatedBseTokens,
+            "BFO": updatedBfoTokens,
+            "CDS": updatedCdsTokens,
+            "MCX": updatedMcxTokens
         }
     });
 
@@ -35,9 +76,9 @@ export const marketData = async (stock) => {
         data: data
     };
     try {
-        const { data } = await axios(config)  
-        console.log("market data",data)  
-        return data.data.fetched        
+        const { data } = await axios(config)
+        console.log("market data", data)
+        return data.data.fetched
     }
     catch (e) {
         console.log("Error", e)

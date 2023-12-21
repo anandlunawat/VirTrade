@@ -1,7 +1,7 @@
 import Market from "../Components/Market"
 import Cards from "../Components/Cards"
 import Withdrawal from "../Components/Withdrawal"
-import privateRoute from "../routes/privateRoute";
+import PrivateRoute from "../routes/privateRoute"
 
 const Dashboard = () => {
     return (
@@ -39,4 +39,4 @@ const Dashboard = () => {
     )
 }
 
-export default privateRoute(Dashboard)
+export default PrivateRoute(Dashboard)

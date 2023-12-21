@@ -40,7 +40,7 @@ export default function LineChart() {
               datasets: [
                 {
                   label: 'SBIN',
-                  data: data?.map(row => row[2])
+                  data: data?.map(row => row[4])
                 }
               ]
             },

@@ -12,7 +12,7 @@ export const historicalData = async () =>{
 
     var data = JSON.stringify({"exchange":"NSE","symboltoken":"3045",
     "interval":"FIFTEEN_MINUTE","fromdate":`${year}-${day-1 == 0 ? month-1 : month}-${hours > 0 && hours < 9 ? day-1 : day} 09:15`,
-    "todate":`${year}-${month}-${day} ${hours > 15 && minutes > 30 ? "15:15" : `${hours}:${minutes}`}`});
+    "todate":`${year}-${month}-${day} ${hours > 15 && minutes > 30 ? "15:30" : `${hours}:${minutes}`}`});
 
     var config = {
         method: 'post',
@@ -31,8 +31,7 @@ export const historicalData = async () =>{
         data: data
     };
     try {
-        const { data } = await axios(config)  
-        console.log("historical data",data.data)  
+        const { data } = await axios(config)          
         if(data.message==='SUCCESS') {
             return data.data
         }        

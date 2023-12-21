@@ -4,7 +4,7 @@ import CompanyCards from "../Components/CompanyCards"
 import LineChart from "../Components/LineChart";
 import { useSelector } from "react-redux";
 import { io } from "socket.io-client";
-import privateRoute from "../routes/privateRoute";
+import PrivateRoute from "../routes/PrivateRoute"
 
 const { Parser } = require('binary-parser');
 const currentDate = new Date()
@@ -193,4 +193,4 @@ function parseSnapQuote(buffer) {
     return snapQuoteParser.parse(buffer);
 }
 
-export default privateRoute(Staking)
+export default PrivateRoute(Staking)

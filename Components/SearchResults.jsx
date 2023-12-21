@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux"
 import {BsSearch} from "react-icons/bs"
 import { marketData } from "../actions/marketData"
+import { toast } from "react-toastify"
 
 export function addStock(stock,ltp) {         
     return{
@@ -18,7 +19,10 @@ export default function SearchResults({searchedStock,children}) {
         return async (dispatch,getState)=>{
             try {
                 console.log("In thunk function",stock)
-                const res = await marketData(stock)                
+                const res = await marketData(stock)  
+                if(res === "Error while fetching")
+                toast.error("Error while fetching")
+                else              
                 dispatch(addStock(stock,res))                
             }catch(e) {
                 console.log("Error while fetching",e)
