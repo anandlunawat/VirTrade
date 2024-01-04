@@ -35,7 +35,7 @@ export const historicalData = async () =>{
         if(data.message==='SUCCESS') {
             return data.data
         }        
-        toast.error("Error fetching historical data")
+        toast.error("Error fetching Chart")
     }
     catch (e) {
         console.log("Error", e)
