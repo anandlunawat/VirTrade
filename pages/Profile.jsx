@@ -3,7 +3,7 @@ import Market from "../Components/Market"
 import { BsBarChart } from "react-icons/bs"
 import Filter from "../Components/Filter"
 import { CgProfile } from "react-icons/cg";
-import PrivateRoute from "../routes/privateRoute";
+import PrivateRoute from "../routes/PrivateRoute";
 
 const Profile = () => {
 

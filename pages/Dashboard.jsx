@@ -1,7 +1,7 @@
 import Market from "../Components/Market"
 import Cards from "../Components/Cards"
 import Withdrawal from "../Components/Withdrawal"
-import PrivateRoute from "../routes/privateRoute"
+import PrivateRoute from "../routes/PrivateRoute"
 
 const Dashboard = () => {
     return (

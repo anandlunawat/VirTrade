@@ -1,5 +1,5 @@
 import Market from "../Components/Market";
-import PrivateRoute from "../routes/privateRoute";
+import PrivateRoute from "../routes/PrivateRoute";
 
 const Transactions = () => {
     return (
