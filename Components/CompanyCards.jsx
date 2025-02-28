@@ -9,7 +9,7 @@ export default function CompanyCards(props) {
     const [hydrated, isHydrated] = useState(false)
     const [stockPrices, setStockPrices] = useState([{ token: Number, price: Number }])
     const [hover, setHover] = useState(null)
-    const [modal, setModal] = useState(false)
+    const [modal, setModal] = useState({modalStatus : false, stock:{}})
     const [orderType, setOrderType] = useState("")
     const dispatch = useDispatch()
 
@@ -80,11 +80,11 @@ export default function CompanyCards(props) {
                                 <span>{watchList.ltp}</span>
                                 <span className="text-green-500">{watchList.exch_seg} {watchList.symbol}</span>
                                 <div className="flex flex-row gap-8 font-bold text-white">
-                                    <button onClick={() => { setModal(true); document.querySelector("body").style.overflowY = "hidden"; setOrderType("BUY") }} className="px-3 py-1 border-2 border-green-500 rounded-lg shadow-sm hover:bg-green-500 hover:text-black 2xl:py-3 shadow-green-500 2xl:px-7">BUY</button>
-                                    <button onClick={() => { setModal(true); setOrderType("SELL"); document.querySelector("body").style.overflowY = "hidden" }} className="px-3 py-1 ml-auto border-2 border-red-500 rounded-lg shadow-sm hover:bg-red-500 hover:text-black 2xl:py-3 shadow-red-500 2xl:px-7">SELL</button>
+                                    <button onClick={() => { setModal({modalStatus:true,stock: watchList}); document.querySelector("body").style.overflowY = "hidden"; setOrderType("BUY") }} className="px-3 py-1 border-2 border-green-500 rounded-lg shadow-sm hover:bg-green-500 hover:text-black 2xl:py-3 shadow-green-500 2xl:px-7">BUY</button>
+                                    <button onClick={() => { setModal({modalStatus:true,stock: watchList}); setOrderType("SELL"); document.querySelector("body").style.overflowY = "hidden" }} className="px-3 py-1 ml-auto border-2 border-red-500 rounded-lg shadow-sm hover:bg-red-500 hover:text-black 2xl:py-3 shadow-red-500 2xl:px-7">SELL</button>
                                 </div>
                             </div>
-                            {modal && <OrderModal type={orderType} removeModal={removeModal} />}
+                            {modal.modalStatus && <OrderModal stock={modal.stock} type={orderType} removeModal={removeModal} />}
                         </div>
                     ))
                 }

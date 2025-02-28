@@ -5,7 +5,7 @@ export const marketData = async (stock) => {
     if (existingTokens) {
         updatedTokens = [...existingTokens, stock]
     } else {
-        updatedTokens = [stock.token]
+        updatedTokens = [stock]
     }
 
     var updatedNseTokens = updatedTokens.reduce((acc, item) => {

@@ -10,8 +10,8 @@ export default function OrderModal(props) {
             <div className={`flex px-3 flex-row gap-4 bg-[#262424] rounded-t-lg border-b-[1px] ${props.type === "BUY" ? "border-b-[#4d564d]" : "border-b-[#644646]"} py-2`}>
                 <button onClick={() => { props.removeModal() }} className="self-center justify-self-center"><AiOutlineArrowLeft /></button>
                 <div className="flex flex-col">
-                    <span>Stock Name</span>
-                    <span className={`${props.type === "BUY" ? "text-green-500" : "text-red-500"}`}>NSE: Price</span>
+                    <span>{props?.stock.name}</span>
+                    <span className={`${props.type === "BUY" ? "text-green-500" : "text-red-500"}`}>{props?.stock.exch_seg }:{props?.stock.ltp}</span>
                 </div>
                 <button className="ml-auto"><BsThreeDotsVertical /></button>
             </div>

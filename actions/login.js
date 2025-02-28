@@ -1,7 +1,7 @@
 // import {useRouter} from 'next/router'
 import axios from "axios";
 
-export const Login = async (client,pass,totp,apiKey) => {
+export const Login = async (client,pass,totp) => {
     // const router = useRouter()
     var data = JSON.stringify({
         "clientcode": client,
