@@ -29,4 +29,4 @@ const privateRoute = (Component) => {
   return Auth;
 };
 
-export default PrivateRoute;
+export default privateRoute;
