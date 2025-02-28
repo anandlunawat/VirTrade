@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 
-const PrivateRoute = (Component) => {
+const privateRoute = (Component) => {
   const Auth = (props) => {
     const router = useRouter();
     const [hydrated, isHydrated] = useState(false)

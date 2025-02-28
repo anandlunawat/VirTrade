@@ -3,7 +3,7 @@ import Market from "../Components/Market"
 import { BsBarChart } from "react-icons/bs"
 import Filter from "../Components/Filter"
 import { CgProfile } from "react-icons/cg";
-import PrivateRoute from "../routes/PrivateRoute";
+import privateRoute from '../routes/privateRoute';
 
 const Profile = () => {
 
@@ -37,4 +37,4 @@ const Profile = () => {
     )
 }
 
-export default PrivateRoute(Profile)
+export default privateRoute(Profile)

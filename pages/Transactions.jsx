@@ -1,5 +1,5 @@
 import Market from "../Components/Market";
-import PrivateRoute from "../routes/PrivateRoute";
+import privateRoute from '../routes/privateRoute';
 
 const Transactions = () => {
     return (
@@ -60,4 +60,4 @@ const Transactions = () => {
     )
 }
 
-export default PrivateRoute(Transactions)
+export default privateRoute(Transactions)
