@@ -3,6 +3,7 @@
 import Auth from "./Auth"
 
 export default function Home() {
+  console.log("In index.js")
   return (
         <div>
           <Auth />

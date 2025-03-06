@@ -1,3 +1,5 @@
+import { logout } from './logout';
+
 export const marketData = async (stock) => {
     var axios = require('axios');
     var existingTokens = localStorage.getItem("watchList") ? (JSON.parse(localStorage.getItem("watchList")).map((stak) => stak)) : undefined
@@ -78,7 +80,14 @@ export const marketData = async (stock) => {
     try {
         const { data } = await axios(config)
         console.log("market data", data)
-        return data.data.fetched
+        if(!data.status) {
+            if (data.errorCode === "AG8001") {
+                await logout()
+            }
+            return data
+        } else {
+            return data.data.fetched
+        }
     }
     catch (e) {
         console.log("Error", e)

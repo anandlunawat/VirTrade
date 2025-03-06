@@ -2,6 +2,7 @@ import Market from "../Components/Market";
 import privateRoute from '../routes/privateRoute';
 
 const Portfolio = () => {
+    console.log("In Portfolio.jsx")
     return (
         <Market>
             <div className="mt-[20px] max-lg:mb-[25%] overflow-hidden h-fit xl:ml-[22%] flex flex-col m-4 gap-4">

@@ -3,16 +3,43 @@ import { toast } from 'react-toastify';
 export const historicalData = async () =>{
     var axios = require ('axios')
     var authorization = (localStorage.getItem("jwtToken"))
-    const currentDate = new Date();      
-    const year = currentDate.getFullYear();
-    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
-    const day = String(currentDate.getDate()).padStart(2, '0');
-    const hours = String(currentDate.getHours()).padStart(2, '0');
-    const minutes = String(currentDate.getMinutes()).padStart(2, '0');
-
-    var data = JSON.stringify({"exchange":"NSE","symboltoken":"3045",
-    "interval":"FIFTEEN_MINUTE","fromdate":`${year}-${day-1 == 0 ? month-1 : month}-${hours > 0 && hours < 9 ? day-1 : day} 09:15`,
-    "todate":`${year}-${month}-${day} ${hours > 15 && minutes > 30 ? "15:30" : `${hours}:${minutes}`}`});
+    const now = new Date();
+    let year = now.getFullYear();
+    let month = now.getMonth() + 1; // JS months are 0-based
+    let day = now.getDate();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+    
+    // Helper function to add leading zero for single-digit numbers
+    const pad = (num) => (num < 10 ? `0${num}` : num);
+    
+    // Adjust for yesterday if before market open
+    let fromYear = year, fromMonth = month, fromDay = day;
+    let toYear = year, toMonth = month, toDay = day;
+    
+    if (hours < 9 || (hours === 9 && minutes < 15)) {
+      // Before market hours, show yesterday's data
+      let yesterday = new Date(now);
+      yesterday.setDate(now.getDate() - 1);
+      fromYear = toYear = yesterday.getFullYear();
+      fromMonth = toMonth = yesterday.getMonth() + 1;
+      fromDay = toDay = yesterday.getDate();
+    }
+    
+    // Format final timestamps with zero-padding
+    const fromdate = `${fromYear}-${pad(fromMonth)}-${pad(fromDay)} 09:15`;
+    const todate = `${toYear}-${pad(toMonth)}-${pad(toDay)} 15:30`;
+    
+    const data = JSON.stringify({
+      exchange: "NSE",
+      symboltoken: "3045",
+      interval: "FIFTEEN_MINUTE",
+      fromdate: fromdate,
+      todate: todate
+    });
+    
+    console.log(data);
+    
 
     var config = {
         method: 'post',

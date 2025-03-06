@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 
 const privateRoute = (Component) => {
+  console.log("In privateRoute.js")
   const Auth = (props) => {
     const router = useRouter();
     const [hydrated, isHydrated] = useState(false)

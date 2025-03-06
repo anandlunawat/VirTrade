@@ -1,36 +1,40 @@
 import axios from "axios";
+// import { toast } from 'react-toastify';
 
 // export const logout = async () => {
-export const logout = () => {
-    // var data = JSON.stringify({
-    //     "clientcode" : "P334460",
-    // })
-
-    // var config = {
-    //     method: 'post',
-    //     url: 'https://apiconnect.angelbroking.com/rest/secure/angelbroking/user/v1/logout',
-    //     headers : {
-    //       'Authorization': localStorage.getItem("jwtToken"),
-    //       'Content-Type': 'application/json',
-    //       'Accept': 'application/json',
-    //       'X-UserType': 'USER',
-    //       'X-SourceID': 'WEB',
-    //       'X-ClientLocalIP': "192.168.1.10",
-    //       'X-ClientPublicIP': "192.168.43.134",
-    //       'X-MACAddress': "14-18-C3-33-66-CA",
-    //       'X-PrivateKey': "AGRYNg5p"
-    //     },
-    //     data : data
-    // };
-
-    // try {
-    //     const {data} = await axios(config)
-    //     console.log("Logout Data",data)        
-    //     localStorage.clear()            
-    //     return data
-    // }
-    // catch(e) {
-    //     console.log(e)
-    // }
-    localStorage.clear()            
+export const logout = async () => {
+    const clientCode = localStorage.getItem('clientCode')
+    const jwtToken = localStorage.getItem('jwtToken')
+    var axios = require('axios');
+    var data = JSON.stringify({
+        "clientcode":clientCode
+    });
+    
+    var config = {
+      method: 'post',
+      url: 'https://apiconnect.angelone.in/rest/secure/angelbroking/user/v1/logout',
+      headers : {
+        'Authorization': `Bearer ${jwtToken}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'X-UserType': 'USER',
+        'X-SourceID': 'WEB',
+        'X-ClientLocalIP': 'CLIENT_LOCAL_IP',
+        'X-ClientPublicIP': 'CLIENT_PUBLIC_IP',
+        'X-MACAddress': 'MAC_ADDRESS',
+        'X-PrivateKey': process.env.NEXT_PUBLIC_API_KEY
+      },
+      data : data
+    };
+    try {
+        const {data} = await axios(config)
+        if (data.status) {
+            toast.error("PLease Login to access.")
+            router.push('/');
+            localStorage.clear()            
+    
+        }
+    } catch (e) {
+        console.log("Error while logging out")
+    }
 }

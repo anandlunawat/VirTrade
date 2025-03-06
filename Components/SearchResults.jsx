@@ -16,12 +16,14 @@ export function addStock(stock, ltp) {
 function useElementSize() {
   const ref = useRef(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
+//   console.log("In useElementSize",ref,size)
 
   useEffect(() => {
     if (!ref.current) return;
 
     const observer = new ResizeObserver((entries) => {
       entries.forEach((entry) => {
+        console.log("entry",entry)
         setSize({
           width: entry.contentRect.width,
           height: entry.contentRect.height,
@@ -57,7 +59,7 @@ export default function SearchResults({ searchedStock, children }) {
       try {
         console.log("In thunk function", stock);
         const res = await marketData(stock);
-        if (res === "Error while fetching") toast.error("Error while fetching");
+        if (res === "Error while fetching" || res.success == false) toast.error("Error while fetching");
         else dispatch(addStock(stock, res));
       } catch (e) {
         console.log("Error while fetching", e);

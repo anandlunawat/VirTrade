@@ -4,6 +4,7 @@ import Withdrawal from "../Components/Withdrawal"
 import privateRoute from '../routes/privateRoute';
 
 const Dashboard = () => {
+    console.log("In Dashboard.jsx")
     return (
         <Market>
             <div className="text-white mt-[20px] max-lg:mb-[25%] h-fit xl:ml-[22%] flex flex-col m-4">            

@@ -1,13 +1,14 @@
 export const stocks = async () => {
     try {
-        const res = await fetch('https://margincalculator.angelbroking.com/OpenAPI_File/files/OpenAPIScripMaster.json')
-        if(!res.ok) {            
-            console.log("Response Error")
+        const res = await fetch(`http://localhost:5000/stocks`);
+        if (!res.ok) {            
+            console.log("Response Error");
+            return null;
         }
-        const data = res.json()
-        return data
+        const data = await res.json();
+        return data;
+    } catch (e) {
+        console.log("Error", e);
+        return null;
     }
-    catch(e) {
-        console.log("Error",e)
-    }
-}
+};

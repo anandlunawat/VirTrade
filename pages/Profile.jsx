@@ -6,6 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import privateRoute from '../routes/privateRoute';
 
 const Profile = () => {
+    console.log("In Profile.jsx")
 
     const list = [
         { "name":"Segment","value": ["Equity", "Future & Options"] },
