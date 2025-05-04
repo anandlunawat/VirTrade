@@ -58,7 +58,7 @@ export default function SearchResults({ searchedStock, children }) {
     return async (dispatch, getState) => {
       try {
         console.log("In thunk function", stock);
-        const res = await marketData(stock);
+        const res = await marketData([stock]);
         if (res === "Error while fetching" || res.success == false) toast.error("Error while fetching");
         else dispatch(addStock(stock, res));
       } catch (e) {

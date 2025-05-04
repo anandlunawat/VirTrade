@@ -4,6 +4,7 @@ import SideDrawer from "./SideDrawer";
 import Loader from "./Loader";
 import { stocks } from "../actions/stocks";
 import { useWhyDidYouRender } from '../actions/useWhyDidYouRender'
+import Navbar from '../Components/Navbar'
 
 const CACHE_NAME = "instruments";
 const CACHE_KEY = "https://virtrade.netlify.app/";
@@ -20,7 +21,7 @@ const isCacheExpired = async () => {
 
   const cachedTime = new Date(cachedDate).getTime();
   const currentTime = new Date().getTime();
-  
+
   // Check if the cached data is from a past day
   return new Date(cachedTime).toDateString() !== new Date(currentTime).toDateString();
 };
@@ -81,7 +82,7 @@ const Market = ({ children }) => {
     if ("caches" in window) {
       (async () => {
         const expired = await isCacheExpired();
-        
+
         if (expired) {
           console.log("Cache expired. Fetching fresh data...");
           await fetchAndUpdateCache(setLoader, setInstruments);
@@ -96,12 +97,17 @@ const Market = ({ children }) => {
   return loader ? (
     <Loader />
   ) : (
-    <div className="overflow-hidden text-white max-md:h-fit top-16">
-      <div className="flex flex-row">
+    <div className="flex flex-col h-screen overflow-hidden text-white">
+      <Navbar />
+      <div className="xl:flex">
         <SideDrawer />
-        <SearchBar instruments={instruments} />
+        <div className="flex flex-col w-full bg-black">
+          <SearchBar instruments={instruments} />
+          <div className="flex flex-col p-4 h-[70vh] overflow-y-scroll">
+            {children}
+          </div>
+        </div>
       </div>
-      <div className="bg-black">{children}</div>
     </div>
   );
 };

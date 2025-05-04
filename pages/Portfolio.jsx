@@ -5,7 +5,7 @@ const Portfolio = () => {
     console.log("In Portfolio.jsx")
     return (
         <Market>
-            <div className="mt-[20px] max-lg:mb-[25%] overflow-hidden h-fit xl:ml-[22%] flex flex-col m-4 gap-4">
+            <div className="flex flex-col gap-4">
                 <div className="border-b-2 border-b-[#262424] pb-2">My Portfolio</div>
                 <div className="flex flex-col w-full gap-2 md:flex-row">
                     <img src="/chart.png" className="h-48 p-2 rounded-lg md:basis-3/4" />

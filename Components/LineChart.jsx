@@ -1,64 +1,52 @@
-import { useEffect, useState } from "react"
-import Chart from "chart.js/auto"
-import { historicalData } from "../actions/historicalData"
+import { useEffect, useState } from "react";
+import Chart from "chart.js/auto";
+import { useSelector } from "react-redux";
 
 export default function LineChart() {
+  const { data, loading, error } = useSelector((state) => state.chart);
+  const [chartInstance, setChartInstance] = useState(null);
 
-    const [data,setData] = useState()
+  useEffect(() => {
+    if (!data || data.length === 0) return;
 
+    if(!document.getElementById("chart_js")) {
+      return
+    }
+    const ctx = document.getElementById("chart_js").getContext("2d");
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await historicalData();
-          setData(response);
-        } catch (e) {
-          console.log("Error fetching historical Data", e);
-        }
-      };
-        
-      const calculateNextInterval = () => {
-        const now = new Date();
-        const nextInterval = new Date(now);
-        nextInterval.setMinutes((Math.floor(now.getMinutes() / 15) + 1) * 15, 0, 0);
-        return nextInterval - now;
-      };
-  
-      fetchData();
-      const intervalId = setInterval(fetchData, calculateNextInterval());
-  
-      return () => clearInterval(intervalId);
-    }, []);
+    // Destroy previous chart instance before creating a new one
+    if (chartInstance) {
+      chartInstance.destroy();
+    }
 
-    useEffect(() => {
-        const line_Chart = new Chart(
-          document.getElementById('chart_js'),
+    const newChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: data.map((row) => row[0].match(/\d{2}:\d{2}/)),
+        datasets: [
           {
-            type: 'line',
-            data: {
-              labels: data?.map(row => row[0].match(/\d{2}:\d{2}/)),
-              datasets: [
-                {
-                  label: 'SBIN',
-                  data: data?.map(row => row[4])
-                }
-              ]
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              pointRadius: 2
-            }
-          }
-        );
-      
-        console.log("line_Chart", line_Chart.data);
-      
-        return () => line_Chart.destroy();
-      }, [data]);
-      
-    
-    return (        
-        <canvas height={"200px"} id="chart_js"></canvas>
-    )
+            label: "NIFTY",
+            data: data.map((row) => row[4]),
+            borderColor: "green",
+            borderWidth: 2,
+            fill: false,
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        pointRadius: 2,
+      },
+    });
+
+    setChartInstance(newChart);
+
+    return () => newChart.destroy(); // Cleanup on unmount
+  }, [data]);
+
+  if (loading) return <p>Loading chart data...</p>;
+  if (error) return <p>Error loading data: {error}</p>;
+
+  return <canvas height={"200px"} id="chart_js"></canvas>;
 }

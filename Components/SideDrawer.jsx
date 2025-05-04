@@ -18,7 +18,7 @@ export default function SideDrawer() {
     },[])
 
     return (
-        <div className="fixed rounded-lg left-0 top-[61px] h-[82vh] overflow-y-auto w-[20%]">
+        <div className="rounded-lg xl:h-[88vh] xl:overflow-y-scroll">
             <div className="flex flex-col bg-[#262424] rounded-lg bg-opacity-40 gap-2">
                 <div className="flex max-xl:hidden p-3 mr-4 ml-4 flex-col gap-2 pb-4 border-b-2 border-[#262424]">
                     <span>MAIN ACCOUNT BALANCE</span>
@@ -43,7 +43,8 @@ export default function SideDrawer() {
                     <button className="px-3 py-1 border-2 border-green-500 rounded-lg shadow-sm 2xl:py-3 shadow-green-500 2xl:px-7">DEPOSIT</button>
                     <button className="px-3 py-1 ml-auto border-2 border-red-500 rounded-lg shadow-sm 2xl:py-3 shadow-red-500 2xl:px-7">WITHDRAW</button>
                 </div>
-                <div className="flex flex-col h-full max-xl:gap-2 max-xl:items-center max-xl:justify-center max-xl:p-1 gap-2 p-4 text-white bg-black max-xl:fixed max-xl:w-[100vw] max-xl:h-[8%] max-xl:bottom-0 max-xl:flex-row bg-opacity-80">
+            </div>
+            <div className="flex flex-col max-xl:gap-2 max-xl:items-center max-xl:justify-center max-xl:p-1 gap-2 p-4 text-white bg-black z-50 max-xl:fixed max-xl:w-[100vw] max-xl:h-[8%] max-xl:bottom-0 max-xl:flex-row bg-opacity-80">
                     <span className="text-white max-xl:hidden border-b-[1px] pb-2 border-b-green-500">Menu</span>
                     <button className={`flex max-xl:p-1 ${path==="/staking" ? "bg-green-500 text-black" : ""} items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{window.location = "/Staking"}}><FiTrendingUp /><span className="max-md:text-xs md:max-xl:text-2xl">Staking</span></button>
                     <button className={`flex max-xl:p-1 ${path==="/dashboard" ? "bg-green-500 text-black" : ""} items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{window.location = "/Dashboard"}}><LuLayoutDashboard /><span className="max-md:text-xs md:max-xl:text-2xl">Dashboard</span></button>
@@ -52,7 +53,6 @@ export default function SideDrawer() {
                     {/* <button className={`flex max-xl:p-1 ${path==="/" ? "bg-green-500 text-black" : ""} items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{window.location = "/Transactions"}}><BiNotepad /><span className='max-md:text-xs md:max-xl:text-2xl'>Our Plans</span></button> */}
                     <button className={`flex max-xl:p-1 ${path==="/profile" ? "bg-green-500 text-black" : ""}  items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{window.location = "/Profile"}}><CgProfile /><span className='max-md:text-xs md:max-xl:text-2xl'>My Profile</span></button>
                 </div>
-            </div>
         </div>
     )
 }

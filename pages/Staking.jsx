@@ -1,101 +1,121 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useState, useMemo, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
-
+import LineChart from "../Components/LineChart";
 import Market from "../Components/Market";
 import CompanyCards from "../Components/CompanyCards";
 import { parseLTP, parseQuote, parseSnapQuote } from "../utils/parsers";
 import privateRoute from "../routes/privateRoute";
+import { fetchChartData } from "../redux/reducers/chartReducer";
+import { marketData } from "../actions/marketData";
 
 const parsers = { 1: parseLTP, 2: parseQuote, 3: parseSnapQuote };
 
 const Staking = () => {
-    const [ltp, setLtp] = useState({});
-    const [niftyBank, setNiftyBank] = useState(0);
-    const [nifty, setNifty] = useState(0);
-    // const [authTokens, setAuthTokens] = useState({ jwtToken: "", feedToken: "" });
+  const [ltp, setLtp] = useState({});
+  const [niftyBank, setNiftyBank] = useState(0);
+  const [nifty, setNifty] = useState(0);
+  const [sensex, setSensex] = useState(0);
 
-    const watchList = useSelector(state => state.watchList);
+  const watchList = useSelector((state) => state.watchList);
+  const dispatch = useDispatch();
 
-    // Fetch authentication tokens from localStorage
-    // useEffect(() => {
-    //     console.log("Fetching authentication tokens...");
-    //     setAuthTokens({
-    //         jwtToken: localStorage.getItem("jwtToken") || "",
-    //         feedToken: localStorage.getItem("feedToken") || "",
-    //     });
-    // }, []);
+  /** Optimized Fetching of Market Data (Runs only on Mount) */
+  useEffect(() => {
+    async function fetchMarketData() {
+      try {
+        const res = await marketData([
+          { token: "99919000", symbol: "SENSEX", exch_seg: "BSE" },
+          { token: "99926000", symbol: "Nifty 50", exch_seg: "NSE" },
+          { token: "99926009", symbol: "Nifty Bank", exch_seg: "NSE" },
+        ]);
+        console.log("Res for NSB", res);
 
-    // WebSocket connection setup
-    // useEffect(() => {
-    //     if (!watchList.length) return;
+        if (res) {
+          setNifty(res.find((item) => item.tradingSymbol === "NIFTY" || item.tradingSymbol === "Nifty 50")?.ltp || 0);
+          setNiftyBank(res.find((item) => item.tradingSymbol === "Nifty Bank")?.ltp || 0);
+          setSensex(res.find((item) => item.tradingSymbol === "SENSEX")?.ltp || 0);
+        }
+      } catch (e) {
+        console.log("Error while fetching data", e);
+      }
+    }
 
-    //     try {
-    //         const headers = {
-    //             Authorization: authTokens.jwtToken,
-    //             APIKey: "4CoV8TFB",
-    //             FeedToken: authTokens.feedToken,
-    //             ClientCode: "P334460",
-    //         };
+    fetchMarketData();
+  }, []); // Runs only once on mount
 
-    //         const socket = io("ws://localhost:5000", { extraHeaders: headers });
+  /** Optimized WebSocket Connection (Re-runs only when watchList changes) */
+  // useEffect(() => {
+  //   if (!watchList.length) return;
 
-    //         socket.on("connect", () => {
-    //             console.log("Connected to the server");
+  //   const socket = io("ws://localhost:5000");
 
-    //             const tokens = watchList.map(item => item.token);
-    //             socket.emit("sendData", JSON.stringify(tokens));
-    //             console.log("Subscribed tokens:", tokens);
-    //         });
+  //   socket.on("connect", () => {
+  //     console.log("Connected to WebSocket");
+  //     const tokens = watchList.map((item) => item.token);
+  //     socket.emit("sendData", JSON.stringify(tokens));
+  //   });
 
-    //         socket.on("userId", userId => {
-    //             document.cookie = `userId=${userId}; expires=Fri, 31 Dec 9999 23:59:59 GMT`;
-    //         });
+  //   socket.on("liveFeed", (data) => {
+  //     console.log("Received live feed data");
+  //     const buffer = Buffer.from(data);
+  //     const parser = parsers[buffer[0]];
+  //     if (parser) {
+  //       setLtp(parser(buffer));
+  //     }
+  //   });
 
-    //         socket.on("liveFeed", data => {
-    //             console.log("Received live feed data");
-    //             const buffer = Buffer.from(data);
-    //             const parser = parsers[buffer[0]];
-    //             if (parser) {
-    //                 setLtp(parser(buffer));
-    //             }
-    //         });
+  //   socket.on("error", (error) => console.error("WebSocket error:", error));
+  //   socket.on("disconnect", (reason) => console.warn("Disconnected:", reason));
 
-    //         socket.on("error", error => console.error("WebSocket error:", error));
-    //         socket.on("disconnect", reason => console.warn("Disconnected:", reason));
+  //   return () => socket.disconnect();
+  // }, [watchList]); // Runs only when watchList changes
 
-    //         return () => socket.disconnect();
-    //     } catch (error) {
-    //         console.error("Error establishing WebSocket connection:", error);
-    //     }
-    // }, [watchList, authTokens]);
+  /** Memoized function to prevent unnecessary re-renders */
+  const displayChart = useCallback((symbolData) => {
+    dispatch(fetchChartData(symbolData));
+  }, [dispatch]);
 
-    console.log("Rendering Staking component...");
+  console.log("Rendering Staking component...");
 
-    return (
-        <Market>
-            <div className="mt-[20px] max-lg:mb-[25%] h-fit xl:ml-[22%] flex flex-col m-4 gap-2">
-                <span className="border-b-2 border-b-[#262424] pb-2">STAKING</span>
-                <div className="flex max-md:flex-col md:h-[206px] flex-row gap-2">
-                    <div className="flex flex-col gap-2">
-                        <button className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-60">
-                            <span>NIFTY</span>
-                            <span className="text-green-500">{nifty}</span>
-                        </button>
-                        <button className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-60">
-                            <span>SENSEX</span>
-                            <span className="text-green-500">65,900</span>
-                        </button>
-                        <button className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-60">
-                            <span>Crude Oil</span>
-                            <span className="text-red-500">{niftyBank}</span>
-                        </button>
-                    </div>
-                </div>
-                <CompanyCards ltp={ltp} watchLists={watchList} />
-            </div>
-        </Market>
-    );
+  return (
+    <Market>
+      <div className="flex flex-col gap-2">
+        <span className="border-b-2 border-b-[#262424] pb-2">STAKING</span>
+        <div className="flex max-md:flex-col md:h-[206px] flex-row gap-2">
+          <div className="flex flex-col gap-2">
+            <button
+              onClick={() => displayChart({ symboltoken: "99926000", exchange: "NSE" })}
+              className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-60"
+            >
+              <span>NIFTY</span>
+              <span className="text-green-500">{nifty}</span>
+            </button>
+
+            <button
+              onClick={() => displayChart({ symboltoken: "99919000", exchange: "BSE" })}
+              className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-60"
+            >
+              <span>SENSEX</span>
+              <span className="text-green-500">{sensex}</span>
+            </button>
+
+            <button
+              onClick={() => displayChart({ symboltoken: "99926009", exchange: "NSE" })}
+              className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-60"
+            >
+              <span>Nifty Bank</span>
+              <span className="text-red-500">{niftyBank}</span>
+            </button>
+          </div>
+          <div className="md:basis-3/4 rounded-lg bg-opacity-40 bg-[#262424]">
+            <LineChart />
+          </div>
+        </div>
+        <CompanyCards ltp={ltp} watchLists={watchList} />
+      </div>
+    </Market>
+  );
 };
 
 export default privateRoute(Staking);

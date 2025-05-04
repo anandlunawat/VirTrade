@@ -5,7 +5,7 @@ const Transactions = () => {
     console.log("In Transactions.jsx")
     return (
         <Market>
-            <div className="mt-[20px] max-lg:mb-[25%] h-fit xl:ml-[22%] flex flex-col m-4 gap-4">
+            <div className="flex flex-col gap-4">
                 <span>Pending Orders</span>
                 <div className="flex p-4 flex-row basis-1/2 bg-opacity-40 rounded-lg bg-[#262424]">
                     <div className="flex flex-col gap-4 basis-1/2">

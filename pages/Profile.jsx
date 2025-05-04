@@ -20,7 +20,7 @@ const Profile = () => {
 
     return (
         <Market>
-            <div className="mt-[20px] max-lg:mb-[25%] overflow-hidd en h-fit xl:ml-[22%] flex flex-col m-4 gap-4">
+            <div className="flex flex-col gap-4">
                 <div className="border-b-2 border-b-[#262424] pb-2">Profile</div>
                 <div className="flex items-center gap-4">
                     <div className="w-20 h-20 bg-[#262424] flex items-center justify-center text-4xl rounded-full"><CgProfile /></div>
