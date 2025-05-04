@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import React,{ useState } from 'react'
 import { CiSearch } from 'react-icons/ci'
 import SearchResults from './SearchResults'
 import { useEffect } from 'react'
 
 
-export default function SearchBar(props) {
+const SearchBar = (props) => {
 
     const [searchedStock, setSearchedStock] = useState([{}])    
     const [filter, setFilter] = useState("ALL")
@@ -54,3 +54,5 @@ export default function SearchBar(props) {
         </div>
     )
 }
+
+export default React.memo(SearchBar)

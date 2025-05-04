@@ -1,3 +1,4 @@
+import React from 'react'
 import {LuLayoutDashboard} from 'react-icons/lu'
 import {FiTrendingUp} from 'react-icons/fi'
 import {AiOutlineTransaction} from 'react-icons/ai'
@@ -7,7 +8,7 @@ import {CgProfile} from 'react-icons/cg'
 import { useEffect, useState } from 'react'
 import { usePathname, useRouter } from 'next/navigation';
 
-export default function SideDrawer() {
+const SideDrawer = () => {
 
     const router = useRouter();
     const pathname  = usePathname();
@@ -51,3 +52,5 @@ export default function SideDrawer() {
         </div>
     )
 }
+
+export default React.memo(SideDrawer)
