@@ -80,7 +80,7 @@ const Staking = () => {
   console.log("Rendering Staking component...");
 
   return (
-    <Market>
+    // <Market>
       <div className="flex flex-col gap-2">
         <span className="border-b-2 border-b-[#262424] pb-2">STAKING</span>
         <div className="flex max-md:flex-col md:h-[206px] flex-row gap-2">
@@ -115,7 +115,7 @@ const Staking = () => {
         </div>
         <CompanyCards ltp={ltp} watchLists={watchList} />
       </div>
-    </Market>
+    // </Market>
   );
 };
 

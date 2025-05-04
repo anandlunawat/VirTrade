@@ -7,6 +7,7 @@ export default function Navbar() {
   const[hydrated,isHydrated] = useState(false)
   useEffect(()=>{
     isHydrated(true)
+    console.log("In Navbar")
   },[])
 
   function logOut() {

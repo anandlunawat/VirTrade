@@ -1,10 +1,18 @@
-export function Layout({children}) {
+import Market from "./Market"
+import { usePathname } from 'next/navigation';
+
+export function Layout({ children }) {
     console.log("In Layout.jsx")
+    const pathname = usePathname();
+    console.log("pathname", pathname)
     return (
-        // <div className="bg-[url(/BG_IMAGE.png)] bg-contain h-fit">
         <div className="bg-black bg-contain h-fit">
-            <main>{children}</main>
-            {/* <Footer />         */}
+            {
+                pathname === "/" ? <main>{children}</main>
+                    : <Market>
+                        <main>{children}</main>
+                    </Market>
+            }
         </div>
     )
 }

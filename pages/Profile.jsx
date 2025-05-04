@@ -19,7 +19,6 @@ const Profile = () => {
     ]
 
     return (
-        <Market>
             <div className="flex flex-col gap-4">
                 <div className="border-b-2 border-b-[#262424] pb-2">Profile</div>
                 <div className="flex items-center gap-4">
@@ -34,7 +33,6 @@ const Profile = () => {
                     {/* <Filter type={"input"} menu={inputTypes}/> */}
                 {/* </div>                 */}
             </div>
-        </Market>
     )
 }
 

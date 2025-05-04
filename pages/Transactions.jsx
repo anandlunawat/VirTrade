@@ -4,7 +4,6 @@ import privateRoute from '../routes/privateRoute';
 const Transactions = () => {
     console.log("In Transactions.jsx")
     return (
-        <Market>
             <div className="flex flex-col gap-4">
                 <span>Pending Orders</span>
                 <div className="flex p-4 flex-row basis-1/2 bg-opacity-40 rounded-lg bg-[#262424]">
@@ -57,7 +56,6 @@ const Transactions = () => {
                     </div>
                 </div>
             </div>
-        </Market>
     )
 }
 

@@ -4,7 +4,7 @@ import privateRoute from '../routes/privateRoute';
 const Portfolio = () => {
     console.log("In Portfolio.jsx")
     return (
-        <Market>
+        // <Market>
             <div className="flex flex-col gap-4">
                 <div className="border-b-2 border-b-[#262424] pb-2">My Portfolio</div>
                 <div className="flex flex-col w-full gap-2 md:flex-row">
@@ -52,7 +52,7 @@ const Portfolio = () => {
                     </tbody>
                 </table>
             </div>
-        </Market>
+        // </Market>
     )
 }
 

@@ -3,7 +3,6 @@ import SearchBar from "./SearchBar";
 import SideDrawer from "./SideDrawer";
 import Loader from "./Loader";
 import { stocks } from "../actions/stocks";
-import { useWhyDidYouRender } from '../actions/useWhyDidYouRender'
 import Navbar from '../Components/Navbar'
 
 const CACHE_NAME = "instruments";
@@ -14,19 +13,17 @@ const isCacheExpired = async () => {
   const cache = await caches.open(CACHE_NAME);
   const cachedResponse = await cache.match(CACHE_KEY);
 
-  if (!cachedResponse) return true; // No cache exists, so it's considered expired
+  if (!cachedResponse) return true; 
 
   const cachedDate = cachedResponse.headers.get("x-cache-date");
-  if (!cachedDate) return true; // If no timestamp exists, consider expired
+  if (!cachedDate) return true;
 
   const cachedTime = new Date(cachedDate).getTime();
   const currentTime = new Date().getTime();
 
-  // Check if the cached data is from a past day
   return new Date(cachedTime).toDateString() !== new Date(currentTime).toDateString();
 };
 
-// Function to fetch and update cache
 const fetchAndUpdateCache = async (setLoader, setInstruments) => {
   try {
     setLoader(true);
@@ -75,7 +72,6 @@ const Market = ({ children }) => {
   console.log("In Market.jsx")
   const [loader, setLoader] = useState(true);
   const [instruments, setInstruments] = useState([]);
-  useWhyDidYouRender("Market", { children });
 
   useEffect(() => {
     console.log("In cache useEFfect")

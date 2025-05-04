@@ -6,7 +6,7 @@ import privateRoute from '../routes/privateRoute';
 const Dashboard = () => {
     console.log("In Dashboard.jsx")
     return (
-        <Market>
+        // <Market>
             <div className="text-white">            
                 <span className="text-base">WELCOME!</span>
                 <div className="flex pt-4 flex-row w-[100%] gap-4">
@@ -36,7 +36,7 @@ const Dashboard = () => {
                     <Withdrawal />
                 </div>
             </div>
-        </Market>
+        // </Market>
     )
 }
 

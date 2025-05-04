@@ -5,17 +5,12 @@ import {TfiBag} from 'react-icons/tfi'
 import {BiNotepad} from 'react-icons/bi'
 import {CgProfile} from 'react-icons/cg'
 import { useEffect, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation';
 
 export default function SideDrawer() {
 
-    const [path,setPath] = useState("")
-
-    useEffect(()=>{
-        if(window) {
-            setPath(window.location.pathname)            
-            console.log(window.location.pathname)
-        }
-    },[])
+    const router = useRouter();
+    const pathname  = usePathname();
 
     return (
         <div className="rounded-lg xl:h-[88vh] xl:overflow-y-scroll">
@@ -46,12 +41,12 @@ export default function SideDrawer() {
             </div>
             <div className="flex flex-col max-xl:gap-2 max-xl:items-center max-xl:justify-center max-xl:p-1 gap-2 p-4 text-white bg-black z-50 max-xl:fixed max-xl:w-[100vw] max-xl:h-[8%] max-xl:bottom-0 max-xl:flex-row bg-opacity-80">
                     <span className="text-white max-xl:hidden border-b-[1px] pb-2 border-b-green-500">Menu</span>
-                    <button className={`flex max-xl:p-1 ${path==="/staking" ? "bg-green-500 text-black" : ""} items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{window.location = "/Staking"}}><FiTrendingUp /><span className="max-md:text-xs md:max-xl:text-2xl">Staking</span></button>
-                    <button className={`flex max-xl:p-1 ${path==="/dashboard" ? "bg-green-500 text-black" : ""} items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{window.location = "/Dashboard"}}><LuLayoutDashboard /><span className="max-md:text-xs md:max-xl:text-2xl">Dashboard</span></button>
-                    <button className={`flex max-xl:p-1 ${path==="/transactions" ? "bg-green-500 text-black" : ""} items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{window.location = "/Transactions"}}><AiOutlineTransaction /><span className='max-md:text-xs md:max-xl:text-2xl'>Transactions</span></button>
-                    <button className={`flex max-xl:p-1 ${path==="/portfolio" ? "bg-green-500 text-black" : ""} items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{window.location = "/Portfolio"}}><TfiBag /><span className='max-md:text-xs md:max-xl:text-2xl'>Portfolio</span></button>
-                    {/* <button className={`flex max-xl:p-1 ${path==="/" ? "bg-green-500 text-black" : ""} items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{window.location = "/Transactions"}}><BiNotepad /><span className='max-md:text-xs md:max-xl:text-2xl'>Our Plans</span></button> */}
-                    <button className={`flex max-xl:p-1 ${path==="/profile" ? "bg-green-500 text-black" : ""}  items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{window.location = "/Profile"}}><CgProfile /><span className='max-md:text-xs md:max-xl:text-2xl'>My Profile</span></button>
+                    <button className={`flex max-xl:p-1 ${pathname==="/Staking" ? "bg-green-500 text-black" : ""} items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{router.push("/Staking")}}><FiTrendingUp /><span className="max-md:text-xs md:max-xl:text-2xl">Staking</span></button>
+                    <button className={`flex max-xl:p-1 ${pathname==="/Dashboard" ? "bg-green-500 text-black" : ""} items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{router.push("/Dashboard")}}><LuLayoutDashboard /><span className="max-md:text-xs md:max-xl:text-2xl">Dashboard</span></button>
+                    <button className={`flex max-xl:p-1 ${pathname==="/Transactions" ? "bg-green-500 text-black" : ""} items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{router.push("/Transactions")}}><AiOutlineTransaction /><span className='max-md:text-xs md:max-xl:text-2xl'>Transactions</span></button>
+                    <button className={`flex max-xl:p-1 ${pathname==="/Portfolio" ? "bg-green-500 text-black" : ""} items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{router.push("/Portfolio")}}><TfiBag /><span className='max-md:text-xs md:max-xl:text-2xl'>Portfolio</span></button>
+                    {/* <button className={`flex max-xl:p-1 ${pathname==="/" ? "bg-green-500 text-black" : ""} items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{window.location = "/Transactions"}}><BiNotepad /><span className='max-md:text-xs md:max-xl:text-2xl'>Our Plans</span></button> */}
+                    <button className={`flex max-xl:p-1 ${pathname==="/Profile" ? "bg-green-500 text-black" : ""}  items-center xl:px-[25%] w-full gap-2 rounded-lg xl:p-1 max-xl:flex-col hover:bg-green-500 hover:text-black`} onClick={()=>{router.push("/Profile")}}><CgProfile /><span className='max-md:text-xs md:max-xl:text-2xl'>My Profile</span></button>
                 </div>
         </div>
     )
