@@ -42,6 +42,7 @@ const Staking = () => {
     }
 
     fetchMarketData();
+    dispatch(fetchChartData({ symboltoken: "99926009", exchange: "NSE" }));
   }, []); // Runs only once on mount
 
   /** Optimized WebSocket Connection (Re-runs only when watchList changes) */

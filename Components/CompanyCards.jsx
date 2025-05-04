@@ -3,6 +3,7 @@ import { RiDeleteBin6Line } from "react-icons/ri"
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import OrderModal from "./OrderModal";
+import CompCardModal from "./CompCardModal";
 
 export default function CompanyCards(props) {
 
@@ -10,6 +11,7 @@ export default function CompanyCards(props) {
     const [stockPrices, setStockPrices] = useState([{ token: Number, price: Number }])
     const [hover, setHover] = useState(null)
     const [modal, setModal] = useState({modalStatus : false, stock:{}})
+    const [compCardModal, setCompCardModal] = useState({modalStatus : false, stock:{}})
     const [orderType, setOrderType] = useState("")
     const dispatch = useDispatch()
 
@@ -36,13 +38,6 @@ export default function CompanyCards(props) {
         // }
     }, [props])
 
-    function deleteStock(watchList) {
-        dispatch({
-            type: "DELETE_STOCK",
-            payload: watchList.token
-        })
-    }
-
     function removeModal() {
         setModal(false)
         document.querySelector("body").style.overflowY = "auto"
@@ -68,14 +63,22 @@ export default function CompanyCards(props) {
         console.log("handleDrop", e, key)
     }
 
+    function openCompCardModal(watchList) {
+        setCompCardModal({modalStatus: true,stock: watchList})
+    }
+
+    function closeCompCardModal() {
+        setCompCardModal({modalStatus: false,stock:{}})
+    }
+
     return (
         !hydrated ? null :
-            <div className="flex flex-row gap-10 pt-4 md:flex-wrap max-md:flex-col">
+            <div className="relative flex flex-row gap-10 pt-4 md:flex-wrap max-md:flex-col">
                 {
                     props.watchLists.map((watchList, key) => (
                         <div key={key} draggable={!modal} onDragStart={(e) => handleDragStart(e, key)} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, key)}>
                             <div onMouseOver={() => setHover(key)} onMouseOut={() => setHover(null)} className="flex relative flex-col bg-opacity-40 gap-2 bg-[#262424] items-center md:w-72 h-fit rounded-lg justify-center px-4 py-2 text-center">
-                                {hover === key && <button onClick={() => deleteStock(watchList)} className="absolute text-red-500 right-2 top-2"><BsThreeDotsVertical /></button>}
+                                {hover === key && <button onClick={() => openCompCardModal(watchList)} className="absolute text-red-500 right-2 top-2"><BsThreeDotsVertical /></button>}
                                 <span>{(stockPrices.find((item) => item.token === watchList.token)?.price)}</span>                                
                                 <span>{watchList.ltp}</span>
                                 <span className="text-green-500">{watchList.exch_seg} {watchList.symbol}</span>
@@ -83,6 +86,7 @@ export default function CompanyCards(props) {
                                     <button onClick={() => { setModal({modalStatus:true,stock: watchList}); document.querySelector("body").style.overflowY = "hidden"; setOrderType("BUY") }} className="px-3 py-1 border-2 border-green-500 rounded-lg shadow-sm hover:bg-green-500 hover:text-black 2xl:py-3 shadow-green-500 2xl:px-7">BUY</button>
                                     <button onClick={() => { setModal({modalStatus:true,stock: watchList}); setOrderType("SELL"); document.querySelector("body").style.overflowY = "hidden" }} className="px-3 py-1 ml-auto border-2 border-red-500 rounded-lg shadow-sm hover:bg-red-500 hover:text-black 2xl:py-3 shadow-red-500 2xl:px-7">SELL</button>
                                 </div>
+                                {compCardModal.modalStatus && compCardModal.stock.token == watchList.token && <CompCardModal stock={compCardModal.stock} removeModal={closeCompCardModal}/>}
                             </div>
                             {modal.modalStatus && <OrderModal stock={modal.stock} type={orderType} removeModal={removeModal} />}
                         </div>
