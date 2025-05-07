@@ -1,3 +1,5 @@
+import { stocks } from '../actions/stocks'
+
 const CACHE_NAME = "instruments";
 const CACHE_KEY = "https://virtrade.netlify.app/";
 

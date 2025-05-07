@@ -1,13 +1,12 @@
 import { useEffect, useState, useMemo, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { io } from "socket.io-client";
 import LineChart from "../Components/LineChart";
-import Market from "../Components/Market";
 import CompanyCards from "../Components/CompanyCards";
 import { parseLTP, parseQuote, parseSnapQuote } from "../utils/parsers";
 import privateRoute from "../routes/privateRoute";
 import { fetchChartData } from "../redux/reducers/chartReducer";
 import { marketData } from "../actions/marketData";
+import { useSmartSocket } from "../hooks/useSmartSocket";
 
 const parsers = { 1: parseLTP, 2: parseQuote, 3: parseSnapQuote };
 
@@ -16,11 +15,10 @@ const Staking = () => {
   const [niftyBank, setNiftyBank] = useState(0);
   const [nifty, setNifty] = useState(0);
   const [sensex, setSensex] = useState(0);
-
   const watchList = useSelector((state) => state.watchList);
   const dispatch = useDispatch();
+  const { connectionStatus, latestFeed, emitData } = useSmartSocket(fetchTokens(), parsers);
 
-  /** Optimized Fetching of Market Data (Runs only on Mount) */
   useEffect(() => {
     async function fetchMarketData() {
       try {
@@ -43,34 +41,24 @@ const Staking = () => {
 
     fetchMarketData();
     dispatch(fetchChartData({ symboltoken: "99926009", exchange: "NSE" }));
-  }, []); // Runs only once on mount
+  }, []); 
 
-  /** Optimized WebSocket Connection (Re-runs only when watchList changes) */
-  // useEffect(() => {
-  //   if (!watchList.length) return;
+  function fetchTokens() {
+    const feedToken = localStorage.getItem("feedToken")
+    const clientCode = localStorage.getItem("clientCode")
+    return {
+      feedToken: feedToken,
+      clientCode: clientCode,
+      apiKey: process.env.NEXT_PUBLIC_API_KEY
+    }
+  }
 
-  //   const socket = io("ws://localhost:5000");
-
-  //   socket.on("connect", () => {
-  //     console.log("Connected to WebSocket");
-  //     const tokens = watchList.map((item) => item.token);
-  //     socket.emit("sendData", JSON.stringify(tokens));
-  //   });
-
-  //   socket.on("liveFeed", (data) => {
-  //     console.log("Received live feed data");
-  //     const buffer = Buffer.from(data);
-  //     const parser = parsers[buffer[0]];
-  //     if (parser) {
-  //       setLtp(parser(buffer));
-  //     }
-  //   });
-
-  //   socket.on("error", (error) => console.error("WebSocket error:", error));
-  //   socket.on("disconnect", (reason) => console.warn("Disconnected:", reason));
-
-  //   return () => socket.disconnect();
-  // }, [watchList]); // Runs only when watchList changes
+  useEffect(()=>{
+    if(connectionStatus) {
+      console.log("Socket on CLient side connected Successfully.")
+      emitData(watchList)
+    }
+  },[watchList,connectionStatus])
 
   /** Memoized function to prevent unnecessary re-renders */
   const displayChart = useCallback((symbolData) => {
