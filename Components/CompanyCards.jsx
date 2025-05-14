@@ -4,6 +4,7 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import OrderModal from "./OrderModal";
 import CompCardModal from "./CompCardModal";
+import { printLogs } from "../actions/logs";
 
 export default function CompanyCards(props) {
 
@@ -22,7 +23,7 @@ export default function CompanyCards(props) {
     }, [])
 
     // useEffect(() => {
-    //     console.log("props in companyCards",props)
+    //     printLogs("props in companyCards",props)
     //     if (props.ltp && props.ltp.token) {
     //         const existingToken = stockPrices.findIndex((item) => item.token === props.ltp.token)
     //         if (existingToken === -1) {
@@ -50,12 +51,12 @@ export default function CompanyCards(props) {
 
     function handleDragStart(e, key) {
         e.dataTransfer.setData("text/plain", key);
-        console.log("handleDragStart", e, key)
+        printLogs("handleDragStart", e, key)
     }
 
     function handleDragOver(e) {
         e.preventDefault()
-        console.log("handleDragOver", e)
+        printLogs("handleDragOver", e)
     }
 
     function handleDrop(e, key) {
@@ -65,7 +66,7 @@ export default function CompanyCards(props) {
             sourceIndex: e.dataTransfer.getData("text/plain"),
             targetIndex: key
         })
-        console.log("handleDrop", e, key)
+        printLogs("handleDrop", e, key)
     }
 
     function openCompCardModal(watchList) {

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { io } from 'socket.io-client';
+import { printLogs } from '../actions/logs';
 
 export function useSmartSocket(tokens, parsers) {
     const [connectionStatus, setConnectionStatus] = useState(false);
@@ -13,7 +14,7 @@ export function useSmartSocket(tokens, parsers) {
             Array.isArray(watchList) &&
             watchList.length > 0
         ) {
-            console.log("Emitting data with watchlist as",watchList)
+            printLogs("Emitting data with watchlist as",watchList)
             const tokenList = watchList.map((item) => item.token);
             socketRef.current.emit('sendData', JSON.stringify(tokenList));
         }
@@ -30,17 +31,17 @@ export function useSmartSocket(tokens, parsers) {
 
         socketRef.current = socket;
         socket.on('connect', () => {
-            console.log('Connected to WebSocket');
+            printLogs('Connected to WebSocket');
             setConnectionStatus(true);
         });
 
         socket.on('liveFeed', (data) => {
-            console.log("Received liveFeed",data)
+            printLogs("Received liveFeed",data)
             const buffer = Buffer.from(data);
             const parser = parsers[buffer[0]];
             if (parser) {
                 const parsed = parser(buffer);
-                console.log("Latest LTP",parsed)
+                printLogs("Latest LTP",parsed)
                 setLatestFeed(parsed);
             }
         });

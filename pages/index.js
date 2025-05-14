@@ -1,9 +1,10 @@
 // import Details from "./api/Components/Details"
 // import  Main  from "./api/Components/Main"
 import Auth from "./Auth"
+import { printLogs } from "../actions/logs";
 
 export default function Home() {
-  console.log("In index.js")
+  printLogs("In index.js")
   return (
         <div>
           <Auth />

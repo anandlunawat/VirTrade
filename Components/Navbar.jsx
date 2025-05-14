@@ -2,12 +2,13 @@
 import Link from "next/link";
 import { logout } from "../actions/logout";
 import { useState , useEffect } from "react";
+import { printLogs } from "../actions/logs";
 
 export default function Navbar() {
   const[hydrated,isHydrated] = useState(false)
   useEffect(()=>{
     isHydrated(true)
-    console.log("In Navbar")
+    printLogs("In Navbar")
   },[])
 
   function logOut() {

@@ -4,6 +4,7 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import { RxCross2 } from "react-icons/rx";
 import { useCallback } from "react";
 import { fetchChartData } from "../redux/reducers/chartReducer";
+import { printLogs } from "../actions/logs";
 
 
 export default function CompCardModal(props) {
@@ -15,7 +16,7 @@ export default function CompCardModal(props) {
       }, [dispatch]);
 
     function deleteStock() {
-        console.log(props.stock)
+        printLogs(props.stock)
         dispatch({
             type: "DELETE_STOCK",
             payload: props.stock.token

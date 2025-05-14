@@ -1,3 +1,5 @@
+import { printLogs } from './logs';
+
 export const refreshToken = async () => {
 
     var axios = require('axios');
@@ -27,15 +29,15 @@ export const refreshToken = async () => {
 
       try {
         const { data } = await axios(config)
-        console.log("Refreshed Token", data)
+        printLogs("Refreshed Token", data)
         if (data.status) {
             localStorage.setItem("feedToken",data.data.feedToken)
             localStorage.setItem("jwtToken",data.data.jwtToken)
             localStorage.setItem("refreshToken",data.data.refreshToken)
         } else {
-            console.log("Invalid Refresh Token Data")
+            printLogs("Invalid Refresh Token Data")
         }
       } catch(e) {
-        console.log("Error refreshing Token",e)
+        printLogs("Error refreshing Token",e)
       }
 }

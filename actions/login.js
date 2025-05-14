@@ -1,5 +1,6 @@
 // import {useRouter} from 'next/router'
 import axios from "axios";
+import { printLogs } from './logs';
 
 export const Login = async (client,pass,totp) => {
     // const router = useRouter()
@@ -26,7 +27,7 @@ export const Login = async (client,pass,totp) => {
     };
     try {
         const {data} = await axios(config)        
-        console.log("Line 31",data)
+        printLogs("Line 31",data)
         if(data.status) {
             localStorage.setItem("feedToken",data.data.feedToken)
             localStorage.setItem("jwtToken",data.data.jwtToken)
@@ -36,6 +37,6 @@ export const Login = async (client,pass,totp) => {
         }
     }
     catch (e) {
-        console.log(e)
+        printLogs(e)
     }
 }

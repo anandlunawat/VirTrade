@@ -1,8 +1,9 @@
 import Market from "../Components/Market";
 import privateRoute from '../routes/privateRoute';
+import { printLogs } from "../actions/logs";
 
 const Portfolio = () => {
-    console.log("In Portfolio.jsx")
+    printLogs("In Portfolio.jsx")
     return (
         // <Market>
             <div className="flex flex-col gap-4">

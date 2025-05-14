@@ -3,12 +3,13 @@ import { AiOutlineArrowLeft } from "react-icons/ai"
 import { IoMdRefresh } from "react-icons/io"
 import { TbHandClick } from "react-icons/tb"
 import { useSelector } from "react-redux"
+import { printLogs } from "../actions/logs";
 
 export default function OrderModal(props) {
 
     const livePrices = useSelector((state) => state.livePrice)
 
-    console.log("props.stock",props.stock)
+    printLogs("props.stock",props.stock)
     return (
         <div className="w-[100vw] h-[100vh] backdrop-blur-sm z-50 fixed inset-0">
             <div className={`flex flex-col sm:ml-[30%] sm:mt-[2%] shadow-[0px_2px_2px_2px] shadow-[#1e1d1d] gap-1 max-sm:w-[100vw] w-[40vw] border-[1px] ${props.type === "BUY" ? "border-[#4d564d]" : "border-[#644646]"} bg-[#262424] bg-opacity-40 rounded-lg z-50 h-[90vh]`}>

@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import { printLogs } from './logs';
 
 export const historicalData = async (symbol) => {
     var axios = require('axios');
@@ -49,7 +50,7 @@ export const historicalData = async (symbol) => {
         todate: todate
     });
 
-    console.log("Fetching data for:", data);
+    printLogs("Fetching data for:", data);
 
     var config = {
         method: 'post',
@@ -75,6 +76,6 @@ export const historicalData = async (symbol) => {
         }
         toast.error("Error fetching Chart");
     } catch (e) {
-        console.log("Error", e);
+        printLogs("Error", e);
     }
 };

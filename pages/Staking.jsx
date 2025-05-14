@@ -7,6 +7,7 @@ import privateRoute from "../routes/privateRoute";
 import { fetchChartData } from "../redux/reducers/chartReducer";
 import { marketData } from "../actions/marketData";
 import { useSmartSocket } from "../hooks/useSmartSocket";
+import { printLogs } from "../actions/logs";
 
 const parsers = { 1: parseLTP, 2: parseQuote, 3: parseSnapQuote };
 
@@ -27,7 +28,7 @@ const Staking = () => {
           { token: "99926000", symbol: "Nifty 50", exch_seg: "NSE" },
           { token: "99926009", symbol: "Nifty Bank", exch_seg: "NSE" },
         ]);
-        console.log("Res for NSB", res);
+        printLogs("Res for NSB", res);
 
         if (res) {
           setNifty(res.find((item) => item.tradingSymbol === "NIFTY" || item.tradingSymbol === "Nifty 50")?.ltp || 0);
@@ -35,7 +36,7 @@ const Staking = () => {
           setSensex(res.find((item) => item.tradingSymbol === "SENSEX")?.ltp || 0);
         }
       } catch (e) {
-        console.log("Error while fetching data", e);
+        printLogs("Error while fetching data", e);
       }
     }
 
@@ -55,7 +56,7 @@ const Staking = () => {
 
   useEffect(()=>{
     if(connectionStatus) {
-      console.log("Socket on CLient side connected Successfully.")
+      printLogs("Socket on CLient side connected Successfully.")
       emitData(watchList)
     }
   },[watchList,connectionStatus])
@@ -76,7 +77,7 @@ const Staking = () => {
     dispatch(fetchChartData(symbolData));
   }, [dispatch]);
 
-  console.log("Rendering Staking component...");
+  printLogs("Rendering Staking component...");
 
   return (
     // <Market>

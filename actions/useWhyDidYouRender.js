@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { printLogs } from './logs';
 
 export const useWhyDidYouRender = (componentName, props) => {
   const previousProps = useRef(props);
@@ -12,7 +13,7 @@ export const useWhyDidYouRender = (componentName, props) => {
     }, {});
 
     if (Object.keys(changedProps).length > 0) {
-      console.log(`[${componentName}] Re-rendered due to:`, changedProps);
+      printLogs(`[${componentName}] Re-rendered due to:`, changedProps);
     }
 
     previousProps.current = props;

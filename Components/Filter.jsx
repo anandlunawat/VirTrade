@@ -1,7 +1,8 @@
 import { AiOutlineArrowRight } from "react-icons/ai"
+import { printLogs } from "../actions/logs";
 
 export default function Filter({ tags, menu, types }) {
-    console.log("tags", tags)
+    printLogs("tags", tags)
     return (
         <div>
             <div className="flex flex-row max-md:flex-col max-md:items-center max-md:justify-center gap-4 text-black w-[100%]">

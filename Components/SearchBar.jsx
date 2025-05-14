@@ -2,6 +2,7 @@ import React,{ useState } from 'react'
 import { CiSearch } from 'react-icons/ci'
 import SearchResults from './SearchResults'
 import { useEffect } from 'react'
+import { printLogs } from "../actions/logs";
 
 
 const SearchBar = (props) => {
@@ -11,7 +12,7 @@ const SearchBar = (props) => {
     const [keyword,setKeyword] = useState("")
 
     const filters = (e) => {
-        console.log(e.target.value)
+        printLogs(e.target.value)
         if (e.target.value != '') {
             setKeyword(e.target.value)
         } else {

@@ -1,10 +1,11 @@
 import Market from "./Market"
 import { usePathname } from 'next/navigation';
+import { printLogs } from "../actions/logs";
 
 export function Layout({ children }) {
-    console.log("In Layout.jsx")
+    printLogs("In Layout.jsx")
     const pathname = usePathname();
-    console.log("pathname", pathname)
+    printLogs("pathname", pathname)
     return (
         <div className="bg-black bg-contain h-fit">
             {

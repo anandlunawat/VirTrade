@@ -1,8 +1,9 @@
 import Market from "../Components/Market";
 import privateRoute from '../routes/privateRoute';
+import { printLogs } from "../actions/logs";
 
 const Transactions = () => {
-    console.log("In Transactions.jsx")
+    printLogs("In Transactions.jsx")
     return (
             <div className="flex flex-col gap-4">
                 <span>Pending Orders</span>

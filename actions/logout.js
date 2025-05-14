@@ -1,4 +1,5 @@
 import axios from "axios";
+import { printLogs } from './logs';
 // import { toast } from 'react-toastify';
 
 // export const logout = async () => {
@@ -35,6 +36,6 @@ export const logout = async () => {
     
         }
     } catch (e) {
-        console.log("Error while logging out")
+        printLogs("Error while logging out")
     }
 }

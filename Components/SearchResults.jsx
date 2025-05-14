@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { BsSearch } from "react-icons/bs";
 import { marketData } from "../actions/marketData";
 import { toast } from "react-toastify";
+import { printLogs } from "../actions/logs";
 
 // Action creator for adding a stock
 export function addStock(stock, ltp) {
@@ -16,14 +17,14 @@ export function addStock(stock, ltp) {
 function useElementSize() {
   const ref = useRef(null);
   const [size, setSize] = useState({ width: 0, height: 0 });
-//   console.log("In useElementSize",ref,size)
+//   printLogs("In useElementSize",ref,size)
 
   useEffect(() => {
     if (!ref.current) return;
 
     const observer = new ResizeObserver((entries) => {
       entries.forEach((entry) => {
-        console.log("entry",entry)
+        printLogs("entry",entry)
         setSize({
           width: entry.contentRect.width,
           height: entry.contentRect.height,
@@ -41,11 +42,11 @@ function useElementSize() {
 function throttle(fn, wait) {
   let lastTime = 0;
   return function (...args) {
-    console.log("In throttle's return function",...args)
+    printLogs("In throttle's return function",...args)
     const now = Date.now();
     if (now - lastTime >= wait) {
       lastTime = now;
-      console.log("In throttle's return function's if",lastTime)
+      printLogs("In throttle's return function's if",lastTime)
       fn(...args);
     }
   };
@@ -57,12 +58,12 @@ export default function SearchResults({ searchedStock, children }) {
   const thunkFunc = (stock) => {
     return async (dispatch, getState) => {
       try {
-        console.log("In thunk function", stock);
+        printLogs("In thunk function", stock);
         const res = await marketData([stock]);
         if (res === "Error while fetching" || res.success == false) toast.error("Error while fetching");
         else dispatch(addStock(stock, res));
       } catch (e) {
-        console.log("Error while fetching", e);
+        printLogs("Error while fetching", e);
       }
     };
   };
@@ -77,7 +78,7 @@ export default function SearchResults({ searchedStock, children }) {
 
   const handleScroll = useCallback(
     throttle((e) => {
-        console.log("In throttle callback fn",e)
+        printLogs("In throttle callback fn",e)
       setScrollTop(e.target.scrollTop);
     }, 50),
     []

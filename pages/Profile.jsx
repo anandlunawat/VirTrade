@@ -4,9 +4,10 @@ import { BsBarChart } from "react-icons/bs"
 import Filter from "../Components/Filter"
 import { CgProfile } from "react-icons/cg";
 import privateRoute from '../routes/privateRoute';
+import { printLogs } from "../actions/logs";
 
 const Profile = () => {
-    console.log("In Profile.jsx")
+    printLogs("In Profile.jsx")
 
     const list = [
         { "name":"Segment","value": ["Equity", "Future & Options"] },

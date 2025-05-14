@@ -1,4 +1,5 @@
 import { logout } from './logout';
+import { printLogs } from './logs';
 
 export const marketData = async (stocks) => {
     var axios = require('axios');
@@ -42,7 +43,7 @@ export const marketData = async (stocks) => {
     
     try {
         const { data } = await axios(config);
-        console.log("market data", data);
+        printLogs("market data", data);
         
         if (!data.status) {
             if (data.errorCode === "AG8001") {
@@ -53,6 +54,6 @@ export const marketData = async (stocks) => {
             return data.data.fetched;
         }
     } catch (e) {
-        console.log("Error", e);
+        printLogs("Error", e);
     }
 };

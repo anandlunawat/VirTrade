@@ -1,4 +1,5 @@
 import { stocks } from '../actions/stocks'
+import { printLogs } from './logs';
 
 const CACHE_NAME = "instruments";
 const CACHE_KEY = "https://virtrade.netlify.app/";
@@ -26,7 +27,7 @@ export const fetchAndUpdateCache = async (setLoader, setInstruments) => {
 
     if (responses) {
       const filteredInstruments = responses.filter((response) => !response.symbol.endsWith("-BL"));
-      console.log("Setting instruments in Market.jsx by an api.")
+      printLogs("Setting instruments in Market.jsx by an api.")
       setLoader(false);
       setInstruments(filteredInstruments);
 
@@ -54,7 +55,7 @@ export const getCachedStocks = async (setLoader, setInstruments) => {
   if (cachedResponse) {
     try {
       const responseStocks = await cachedResponse.json();
-      console.log("Setting instruments in Market.jsx through a cache.")
+      printLogs("Setting instruments in Market.jsx through a cache.")
       setLoader(false);
       setInstruments(responseStocks.filter((responseStock) => !responseStock.symbol.endsWith("-BL")));
     } catch (error) {

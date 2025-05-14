@@ -4,23 +4,24 @@ import SideDrawer from "./SideDrawer";
 import Loader from "./Loader";
 import Navbar from '../Components/Navbar'
 import { isCacheExpired, fetchAndUpdateCache, getCachedStocks } from "../actions/instrumentCache"
+import { printLogs } from "../actions/logs";
 
 const Market = ({ children }) => {
-  console.log("In Market.jsx")
+  printLogs("In Market.jsx")
   const [loader, setLoader] = useState(true);
   const [instruments, setInstruments] = useState([]);
 
   useEffect(() => {
-    console.log("In cache useEFfect")
+    printLogs("In cache useEFfect")
     if ("caches" in window) {
       (async () => {
         const expired = await isCacheExpired();
 
         if (expired) {
-          console.log("Cache expired. Fetching fresh data...");
+          printLogs("Cache expired. Fetching fresh data...");
           await fetchAndUpdateCache(setLoader, setInstruments);
         } else {
-          console.log("Using cached data...");
+          printLogs("Using cached data...");
           await getCachedStocks(setLoader, setInstruments);
         }
       })();

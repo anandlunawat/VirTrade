@@ -2,9 +2,10 @@ import Market from "../Components/Market"
 import Cards from "../Components/Cards"
 import Withdrawal from "../Components/Withdrawal"
 import privateRoute from '../routes/privateRoute';
+import { printLogs } from "../actions/logs";
 
 const Dashboard = () => {
-    console.log("In Dashboard.jsx")
+    printLogs("In Dashboard.jsx")
     return (
         // <Market>
             <div className="text-white">            
