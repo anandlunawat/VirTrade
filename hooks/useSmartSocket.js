@@ -21,7 +21,7 @@ export function useSmartSocket(tokens, parsers) {
     };
 
     useEffect(() => {
-        const socket = io('http://localhost:5000', {
+        const socket = io('https://vir-backend.onrender.com', {
             auth: {
                 feedToken: tokens.feedToken,
                 apiKey: tokens.apiKey,
