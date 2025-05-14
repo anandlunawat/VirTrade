@@ -2,9 +2,12 @@ import { BsThreeDotsVertical } from "react-icons/bs"
 import { AiOutlineArrowLeft } from "react-icons/ai"
 import { IoMdRefresh } from "react-icons/io"
 import { TbHandClick } from "react-icons/tb"
-import { useDispatch } from "react-redux"
+import { useSelector } from "react-redux"
 
 export default function OrderModal(props) {
+
+    const livePrices = useSelector((state) => state.livePrice)
+
     console.log("props.stock",props.stock)
     return (
         <div className="w-[100vw] h-[100vh] backdrop-blur-sm z-50 fixed inset-0">
@@ -13,7 +16,7 @@ export default function OrderModal(props) {
                 <button onClick={() => { props.removeModal() }} className="self-center justify-self-center"><AiOutlineArrowLeft /></button>
                 <div className="flex flex-col">
                     <span>{props?.stock.name}</span>
-                    <span className={`${props.type === "BUY" ? "text-green-500" : "text-red-500"}`}>{props?.stock.exch_seg }:{props?.stock.ltp}</span>
+                    <span className={`${props.type === "BUY" ? "text-green-500" : "text-red-500"}`}>{props?.stock.exch_seg }:{(livePrices.stocks.find((item) => item.token === props.stock.token)?.lastTradedPrice)/100}</span>
                 </div>
                 <button className="ml-auto"><BsThreeDotsVertical /></button>
             </div>

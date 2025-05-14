@@ -29,13 +29,13 @@ export function useSmartSocket(tokens, parsers) {
         });
 
         socketRef.current = socket;
-
         socket.on('connect', () => {
             console.log('Connected to WebSocket');
             setConnectionStatus(true);
         });
 
         socket.on('liveFeed', (data) => {
+            console.log("Received liveFeed",data)
             const buffer = Buffer.from(data);
             const parser = parsers[buffer[0]];
             if (parser) {
@@ -50,6 +50,8 @@ export function useSmartSocket(tokens, parsers) {
             setConnectionStatus(false);
         });
 
+// {exchangeTimestamp: 1746724282000n,exchangeType: 5,lastTradedPrice: 515800,sequenceNumber: 31632924n,subscriptionMode: 1,token: "443449"
+
         socket.on('disconnect', (reason) => {
             console.warn('Disconnected:', reason);
             setConnectionStatus(false);
@@ -59,7 +61,8 @@ export function useSmartSocket(tokens, parsers) {
             socket.disconnect();
             socketRef.current = null;
         };
-    }, [tokens.feedToken, tokens.apiKey, tokens.clientCode]);
+
+    }, []);
 
     return {
         connectionStatus,

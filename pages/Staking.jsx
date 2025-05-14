@@ -60,6 +60,17 @@ const Staking = () => {
     }
   },[watchList,connectionStatus])
 
+  useEffect(()=>{
+    // const sanitizedPayload = {
+    //   ...latestFeed,
+    //   sequenceNumber: Number(latestFeed.sequenceNumber), // or String(...)
+    // };
+    dispatch({
+      type:"SET_VALUE",
+      payload: latestFeed
+    })
+  },[latestFeed])
+
   /** Memoized function to prevent unnecessary re-renders */
   const displayChart = useCallback((symbolData) => {
     dispatch(fetchChartData(symbolData));
@@ -101,7 +112,7 @@ const Staking = () => {
             <LineChart />
           </div>
         </div>
-        <CompanyCards ltp={ltp} watchLists={watchList} />
+        <CompanyCards ltp={latestFeed} />
       </div>
     // </Market>
   );
