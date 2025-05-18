@@ -22,8 +22,6 @@ export function useSmartSocket(tokens, parsers) {
 
     useEffect(() => {
         const socket = io('https://virbackend-production.up.railway.app', {
-            transports: ["websocket"],
-            withCredentials: true,
             auth: {
                 feedToken: tokens.feedToken,
                 apiKey: tokens.apiKey,
