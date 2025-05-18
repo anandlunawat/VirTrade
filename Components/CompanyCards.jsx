@@ -78,7 +78,7 @@ export default function CompanyCards(props) {
     }
 
     return (
-        !hydrated ? null :
+        !hydrated && livePrices.stocks.length > 0  ? null :
             <div className="relative flex flex-row gap-10 pt-4 md:flex-wrap max-md:flex-col">
                 {
                     watchList.map((watchList, key) => (
