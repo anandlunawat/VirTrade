@@ -2,7 +2,7 @@ import { printLogs } from './logs';
 
 export const stocks = async () => {
     try {
-        const res = await fetch(`http://localhost:5000/stocks`);
+        const res = await fetch(`https://vir-backend.onrender.com/stocks`);
         if (!res.ok) {            
             printLogs("Response Error");
             return null;
