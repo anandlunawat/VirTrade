@@ -14,7 +14,7 @@ const SideDrawer = () => {
     const pathname  = usePathname();
 
     return (
-        <div className="rounded-lg xl:h-[88vh] xl:overflow-y-scroll">
+        <div className="rounded-lg xl:h-[88vh]">
             <div className="flex flex-col bg-[#262424] rounded-lg bg-opacity-40 gap-2">
                 <div className="flex max-xl:hidden p-3 mr-4 ml-4 flex-col gap-2 pb-4 border-b-2 border-[#262424]">
                     <span>MAIN ACCOUNT BALANCE</span>
@@ -35,7 +35,7 @@ const SideDrawer = () => {
                         <div className="ml-auto whitespace-pre">₹ <span className="text-green-500">2362763</span></div>
                     </div>
                 </div>
-                <div className="flex flex-row px-2 pt-4 ml-4 max-xl:hidden">
+                <div className="flex flex-row gap-2 max-xl:hidden">
                     <button className="px-3 py-1 border-2 border-green-500 rounded-lg shadow-sm 2xl:py-3 shadow-green-500 2xl:px-7">DEPOSIT</button>
                     <button className="px-3 py-1 ml-auto border-2 border-red-500 rounded-lg shadow-sm 2xl:py-3 shadow-red-500 2xl:px-7">WITHDRAW</button>
                 </div>

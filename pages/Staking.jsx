@@ -87,7 +87,7 @@ const Staking = () => {
           <div className="flex flex-col gap-2">
             <button
               onClick={() => displayChart({ symboltoken: "99926000", exchange: "NSE" })}
-              className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-60"
+              className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-48"
             >
               <span>NIFTY</span>
               <span className="text-green-500">{nifty}</span>
@@ -95,7 +95,7 @@ const Staking = () => {
 
             <button
               onClick={() => displayChart({ symboltoken: "99919000", exchange: "BSE" })}
-              className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-60"
+              className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-48"
             >
               <span>SENSEX</span>
               <span className="text-green-500">{sensex}</span>
@@ -103,7 +103,7 @@ const Staking = () => {
 
             <button
               onClick={() => displayChart({ symboltoken: "99926009", exchange: "NSE" })}
-              className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-60"
+              className="flex flex-col p-2 bg-opacity-40 rounded-lg bg-[#262424] md:w-48"
             >
               <span>Nifty Bank</span>
               <span className="text-red-500">{niftyBank}</span>

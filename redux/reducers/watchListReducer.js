@@ -4,7 +4,7 @@ const getLocalWatchList = () => {
   if (typeof window !== "undefined") {
     let watchList = JSON.parse(localStorage.getItem("watchList"));
 
-    if (watchList === null || watchList === undefined || watchList === []) {
+    if (watchList === null || watchList === undefined) {
       return [];
     } else {
       return watchList;
