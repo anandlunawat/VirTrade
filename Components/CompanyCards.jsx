@@ -77,15 +77,32 @@ export default function CompanyCards(props) {
         setCompCardModal({ modalStatus: false, stock: {} })
     }
 
+    function isAfterMarketCloseIST() {
+        const now = new Date();
+        const istOffset = 330; // IST offset in minutes
+        const localOffset = now.getTimezoneOffset();
+        const istTime = new Date(now.getTime() + (istOffset + localOffset) * 60000);
+    
+        const day = istTime.getDay(); // Sunday = 0, Saturday = 6
+        const isWeekend = day === 0 || day === 6;
+    
+        const isAfterMarketClose = istTime.getHours() > 15 || 
+            (istTime.getHours() === 15 && istTime.getMinutes() >= 30);
+    
+        // return isWeekend || isAfterMarketClose;
+        return true;
+    }
+    
+
     return (
-        !hydrated && livePrices.stocks.length > 0  ? null :
+        !hydrated && livePrices && livePrices.stocks && livePrices.stocks.length > 0  ? null :
             <div className="relative flex flex-row gap-10 pt-4 md:flex-wrap max-md:flex-col">
                 {
                     watchList.map((watchList, key) => (
                         <div key={key} draggable={!modal} onDragStart={(e) => handleDragStart(e, key)} onDragOver={(e) => handleDragOver(e)} onDrop={(e) => handleDrop(e, key)}>
                             <div onMouseOver={() => setHover(key)} onMouseOut={() => setHover(null)} className="flex relative flex-col bg-opacity-40 gap-2 bg-[#262424] items-center md:w-72 h-fit rounded-lg justify-center px-4 py-2 text-center">
                                 {hover === key && <button onClick={() => openCompCardModal(watchList)} className="absolute text-red-500 right-2 top-2"><BsThreeDotsVertical /></button>}
-                                <span>{(livePrices.stocks.find((item) => item.token === watchList.token)?.lastTradedPrice)/100}</span>
+                                {isAfterMarketCloseIST() ? <span>{watchList.ltp}</span> :<span>{(livePrices.stocks.find((item) => item.token === watchList.token)?.lastTradedPrice)/100}</span> }
                                 <span className="text-green-500">{watchList.exch_seg} {watchList.symbol}</span>
                                 <div className="flex flex-row gap-8 font-bold text-white">
                                     <button onClick={() => { setModal({ modalStatus: true, stock: watchList }); document.querySelector("body").style.overflowY = "hidden"; setOrderType("BUY") }} className="px-3 py-1 border-2 border-green-500 rounded-lg shadow-sm hover:bg-green-500 hover:text-black 2xl:py-3 shadow-green-500 2xl:px-7">BUY</button>
